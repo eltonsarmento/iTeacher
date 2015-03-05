@@ -1,0 +1,56 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+#REWRITE RULES
+#---------------------
+
+#RULE RULE 2Z 
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_URI} !-d
+RewriteRule ^market/([^/]+)/([^/]+)/([^/]+)/?$ /market/index.php?categoria=$1&module=$2&do=$3&{QUERY_STRING}
+
+#RULE RULE 21Z 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !-d
+RewriteRule ^market/([^/]+)/([^/]+)/?$ /market/index.php?categoria=$1&module=$2&do=home&{QUERY_STRING} [L]
+
+#RULE RULE 3Z 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !-d
+RewriteRule ^market/([^/]+)/([^/]+)/([^/]+)/([0-9]+)/?$ /market/index.php?categoria=$1&module=$2&do=$3&id=$4&{QUERY_STRING} [L]
+
+#RULE RULE 4Z 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !-d
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/?$ /index.php?categoria=site&module=$1&do=$2&id=$3&{QUERY_STRING} [L]
+
+#RULE RULE 5Z 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !-d
+RewriteRule ^([^/]+)/([^/]+)/?$ /index.php?categoria=site&module=$1&do=$2&{QUERY_STRING} [L]
+
+#RULE RULE 6Z 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !-d
+RewriteRule ^([^/]+)/?$ /index.php?categoria=site&module=$1&do=index&{QUERY_STRING} [L]
+
+#RULE RULE 7Z 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !-d
+RewriteRule ^/?$ /index.php?categoria=site&module=home&do=index&{QUERY_STRING} [L]
+
+#RULE RULE 8Z 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !-d
+RewriteRule ^lms/recuperar-senha?$ /index.php?categoria=site&module=lms&do=recuperarSenha&{QUERY_STRING} [L]
+
+</IfModule>
+

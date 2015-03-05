@@ -1,0 +1,3 @@
+$paypal->setUser('carloswgama-vendedor_api1.gmail.com');
+$paypal->setPwd('1397158118');
+$paypal->setSignature('An5ns1Kso7MWUdW4ErQKJJJ4qi4-AiHOHL-9dhRvnwRWackKSMatFWBp');
