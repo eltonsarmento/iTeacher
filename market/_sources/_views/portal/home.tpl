@@ -1,5 +1,4 @@
 	<section class="container">
-
 		<section class="row">
 
 			<section class="col-lg-12 col-sm-12 hidden-xs">
@@ -107,3 +106,5 @@
 		</section><!-- /.row -->
 
 	</section><!-- /.container -->
+
+	

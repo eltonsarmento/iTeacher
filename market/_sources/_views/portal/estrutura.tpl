@@ -24,6 +24,10 @@
 	<link rel="stylesheet" type="text/css" href="{$url_site}market/common/portal/assets/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="{$url_site}market/common/portal/assets/css/style.css">
 
+
+	<!-- ========== CSS novo ========== -->
+	
+
 	<!-- ========== jQuery ========== -->
 	<script src="{$url_site}market/common/portal/assets/js/jquery-1.11.1.min.js"></script>
 
@@ -47,8 +51,12 @@
 			<section class="row">
 
 				<section class="col-lg-6 col-sm-6 col-xs-12">
-
-					<a href="{$url_portal}portal/conta/cadastro" class="btn registre"><b>Cadastre-se</b> agora!</a>
+					{if $usuario_nome}
+						Olá aluno <strong>{$usuario_nome}</strong>, seja bem-vindo.
+					{else}
+						<a href="{$url_portal}portal/conta/cadastro" class="btn registre"><b>Cadastre-se</b> agora!</a>
+					{/if}
+					
 
 				</section><!-- /.col-lg-6 -->
 

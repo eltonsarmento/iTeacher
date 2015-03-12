@@ -467,6 +467,12 @@ class CursosDAO {
 		$query = $this->system->sql->select('*', 'cursos', "excluido = '0' AND exibir_site='1' AND sistema_id='".$this->system->getSistemaID()."'", $limit, $order);
 		return $this->system->sql->fetchrowset($query);	
 	}
+	// ===============================================================
+	public function getCategoriaCarreiraByCurso ($id) {
+		$query = $this->system->sql->select('count(1) carreira', 'cursos_categorias', "curso_id='" . $id . "' and categoria_id = 19");
+		$categoriaCarreira =  end($this->system->sql->fetchrowset($query));
+		return $categoriaCarreira;
+	}
 
 }
 // ===================================================================

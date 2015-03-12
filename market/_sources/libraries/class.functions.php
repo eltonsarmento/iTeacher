@@ -378,14 +378,14 @@ class Functions {
 			$deEmail = $this->system->getEmail();
 		}
 
-		// error_reporting(0);
-		// require_once(dirname(__FILE__)."/phpmailer/class.phpmailer.php");
-		// // Inicia a classe PHPMailer
-		// $mail = new PHPMailer();
+		error_reporting(0);
+		require_once(dirname(__FILE__)."/phpmailer/class.phpmailer.php");
+		// Inicia a classe PHPMailer
+		$mail = new PHPMailer();
 
-		// $mail->IsSMTP();
+		$mail->IsSMTP();
 
-  //       try {
+        try {
 		// 	//$mail->Host       = "mail.yourdomain.com"; 
 		// 	//$mail->SMTPDebug  = 2;                     
 
@@ -397,20 +397,20 @@ class Functions {
 		// 	// $mail->Password   = "PrivateEvent21";            
 
 	
-		// 	$mail->AddAddress($to);
-		// 	$mail->SetFrom($deEmail, $deNome);
+			$mail->AddAddress($to);
+			$mail->SetFrom($deEmail, $deNome);
 			
-		// 	$mail->Subject = $titulo;
-		// 	$mail->MsgHTML($mensagem);
-		// 	foreach ($anexos as $anexo)
-		// 		$mail->AddAttachment($anexo);      // attachment
+			$mail->Subject = $titulo;
+			$mail->MsgHTML($mensagem);
+			foreach ($anexos as $anexo)
+				$mail->AddAttachment($anexo);      // attachment
 			
-		// 	$mail->Send();
-		// } catch (phpmailerException $e) {
-  // 			//echo $e->errorMessage(); //Pretty error messages from PHPMailer
-		// } catch (Exception $e) {
-  // 			//echo $e->getMessage(); //Boring error messages from anything else!
-		// }
+			$mail->Send();
+		} catch (phpmailerException $e) {
+  			//echo $e->errorMessage(); //Pretty error messages from PHPMailer
+		} catch (Exception $e) {
+  			//echo $e->getMessage(); //Boring error messages from anything else!
+		}
 
 
 		//Enviar o email (MODO ANTIGO)

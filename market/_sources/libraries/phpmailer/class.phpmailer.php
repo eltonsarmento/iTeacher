@@ -35,18 +35,11 @@ class PHPMailer {
   public $SMTPAuth      = true;
   public $Helo          = '';
   
-  public $Host          = 'smtp.gmail.com';
+  public $Host          = 'smtp.googlemail.com';
   public $Port          = 465;
   public $SMTPSecure    = 'ssl';
-  public $Username      = 'kmfsuporte@gmail.com';
-  public $Password      = 'kmf2013kmf';
-
-
-  // public $Host          = 'mail.cursosiag.com.br';
-  // public $Port          = 587;
-  // public $SMTPSecure    = ''; //ou tls
-  // public $Username      = 'naoresponda@cursosiag.com.br';
-  // public $Password      = 'PrivateEvent21';
+  public $Username      = 'naoresponda@cursosiag.com.br';
+  public $Password      = 'PrivateEvent21';
 
   public $Timeout       = 10;
   public $SMTPDebug     = false;

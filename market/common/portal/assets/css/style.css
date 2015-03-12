@@ -2,6 +2,27 @@
 /* COLOR PRIMARY */
 /* COLOR SECUNDARY */
 /* FONT COLOR */
+
+/*property*/
+
+.property {
+    padding: 100px 0;
+}
+
+.gray-bg {
+    background: #f4f4f4;
+}
+
+.property h1 {
+    color: #333;
+    font-size: 24px;
+    text-transform: uppercase;
+    font-family: 'Fjalla One',sans-serif;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+
+
 .btn {
   border: 0 !important;
 }

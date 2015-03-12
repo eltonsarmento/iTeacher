@@ -45,6 +45,7 @@ class Site {
 		));
         echo $this->system->view->fetch($this->categoria.'/estrutura.tpl');
 	}
+	
 	// ===============================================================
 	public function rodape() {
 

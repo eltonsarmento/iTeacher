@@ -26,6 +26,8 @@ class VendasDAO {
 			'valor_total'		=> trim(number_format(($input['valor_total'] ? $input['valor_total'] : 0), 2, '.', '')),
 			'data_expiracao'	=> trim($input['data_expiracao']),
 			'data_cadastro'		=> date('Y-m-d H:i:s'),
+			'codePagSeguro'		=> trim(($input['codePagSeguro'] ? $input['codePagSeguro'] : '')),
+			'codePagarme'		=> trim(($input['codePagarme'] ? $input['codePagarme'] : '')),
 			'excluido'			=> 0,
 			'comprovante'		=> "",
 			'codigo_rastreamento' => "",
@@ -55,6 +57,10 @@ class VendasDAO {
 	// ===============================================================
 	public function atualizar($id, $campos) {
 		$this->system->sql->update('vendas', $campos, "id = '" . $id . "'");
+	}
+	// ===============================================================
+	public function deletar($id) {
+		$this->system->sql->update('vendas', array('excluido' => 1), "id='" . $id . "'");
 	}
 	// ===============================================================
 	public function getVenda($id) {

@@ -74,6 +74,7 @@ class System {
 		require(LIBS_DIR . '/class.arrays.php');
 		
 		$this->loadSmarty();
+		
 		$this->loadDataBase();
 		
 		$this->session = new Session();

@@ -235,12 +235,11 @@
     </section><!-- /container -->
 
   
-    <script src="{$url_site}{$admin_dir}/common/market/js/jquery.price_format.1.8.min.js"></script>
-    <script src="{$url_site}{$admin_dir}/common/market/js/jquery.price_format.1.8.js"></script>
+    
     <script src="{$url_site}{$admin_dir}common/market/assets/bootstrap-select/selectize.js" ></script>
     {literal}
+
     <script>
-        jQuery('.preco').priceFormat();
         $('#selectize').selectize();
             
         $(document).ready(function(){
@@ -310,6 +309,11 @@
             $('#simboloTipoDesconto').html(str);
             //alert(options_tipo);
         });
+        </script>
+        <script src="{$url_site}{$admin_dir}/common/market/js/jquery.price_format.1.8.min.js"></script>
+        <script src="{$url_site}{$admin_dir}/common/market/js/jquery.price_format.1.8.js"></script>
+        <script>
+            $('.preco').priceFormat();
         </script>
 
 {/literal}

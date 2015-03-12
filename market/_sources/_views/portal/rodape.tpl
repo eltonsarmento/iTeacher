@@ -137,6 +137,8 @@
 	<script src="{$url_site}market/common/portal/assets/js/functions.js" type="text/javascript"></script>
 
 	<!-- ========== AREA FOR GOOGLE ANALYTICS ========== -->
+	<script type="text/javascript" src="{$url_site}market/common/market/assets/analytics.js"></script>
+	
 	<script type="text/javascript">		
 		/*$("#combo").change(function () {                                
      		alert('oi');

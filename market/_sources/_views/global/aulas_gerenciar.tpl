@@ -39,10 +39,10 @@
 				<input type="hidden" value="{$curso_id}" name="curso_id"/>
                 <section class="row" id="draggable_portlets">
                     
-                    <section class="col-md-12 column Sortable">
+                    <section class="col-md-12 column Sortable" id="sessoes" >
                       
 						{foreach item=capitulo key=k from=$capitulos}
-							<section id="group{$capitulo.capitulo_id}" class="sessoes panel panel-default">                                                            
+							<section id="group{$capitulo.capitulo_id}"  class="panel panel-default">                                                            
 							
 								<input type="hidden" value="{$capitulo.capitulo_id}" class="ordem_capitulo_id" name="ordem_capitulo_id[]" />
 								<section class="panel-heading">
@@ -68,7 +68,7 @@
 										
 										<ol class="dd-list">
 											{foreach item=aulas key=v from=$capitulo.aulas}
-											<li class="item" data-id="{$v+1}" id="item_{$v+1}">
+											<li class="item dd-item dd3-item" data-id="{$v+1}" id="item_{$v+1}">
 												<input type="hidden" value="{$aulas.aula_id}" class="aulas" name="aulas[]" />
 												<section class="dd-handle dd3-handle"></section>
 												<section class="dd3-content"><a href="{$admin_url}/aulas/editar/{$aulas.aula_id}/">Aula {$v+1} - {$aulas.nome}</a> <a data-toggle="modal" href="#deletarAula" onclick="javascript:setaDeletar({$aulas.aula_id}, {$aulas.curso_id});" class="pull-right"><i class="fa fa-trash-o"></i></a></section>
@@ -82,6 +82,7 @@
                         
 							</section><!-- /panel -->
                         {/foreach}
+                        <div id="list-3"><p style="margin: 0px; position: relative;">This is a reorderable paragraph. <a href="#" onclick="return false">move</a></p><p style="margin: 0px; position: relative;">This is another reorderable paragraph. <a href="#" onclick="return false">move</a></p><p style="margin: 0px; position: relative;">This is yet another reorderable paragraph. <a href="#" onclick="return false">move</a></p><p style="margin: 0px; position: relative;">And can you believe it? Another reorderable paragraph. <a href="#" onclick="return false">move</a></p></div>
                         {$paginacao.page_string}
                     </section><!-- /column sortable -->
 
@@ -188,10 +189,12 @@ function mudarPosicao() {
 
 //Drag Drop
   // <![CDATA[  
-for(var i = 0; i < sections.length; i++) {
-      Sortable.create(sections[i],{tag:'section',dropOnEmpty: true, containment: sections,only:'item'});
-}
-Sortable.create('page',{tag:'section',only:'sessoes',handle:'handle'});
+/*for(var i = 0; i < sections.length; i++) {
+      Sortable.create(sections[i],{tag:'li',dropOnEmpty: true, containment: sections,only:'item dd-item dd3-item'});
+}*/
+//Sortable.create('page',{tag:'section',only:'sessoes',handle:'handle'});
+//Sortable.create('page',{tag:'section',only:'sessoes',handle:'handle'});
+Sortable.create("list-3", {elements:$$('#list-3 p'), handles:$$('#list-3 a')});
 
 //Mensagem
 {/literal}
