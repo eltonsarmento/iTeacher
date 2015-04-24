@@ -90,7 +90,8 @@
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="razao_social" disabled type="text" value="{$instituicao.razao_social}" required>
+                                            <input class="form-control" disabled type="text" value="{$instituicao.razao_social}" required>
+                                            <input class="form-control" name="razao_social" type="hidden" value="{$instituicao.razao_social}" required>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
@@ -102,7 +103,8 @@
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="cnpj" type="text" disabled value="{$instituicao.cnpj}" required>
+                                            <input class="form-control" type="text" disabled value="{$instituicao.cnpj}" required>
+                                            <input class="form-control" name="cnpj" type="hidden"  value="{$instituicao.cnpj}" required>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
@@ -150,7 +152,8 @@
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="inscricao_municipal" disabled type="text" value="{$instituicao.inscricao_municipal}" required>
+                                            <input class="form-control" disabled type="text" value="{$instituicao.inscricao_municipal}" required>
+                                            <input class="form-control" name="inscricao_municipal"  type="hidden" value="{$instituicao.inscricao_municipal}" required>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
@@ -162,7 +165,8 @@
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="inscricao_estadual" disabled type="text" value="{$instituicao.inscricao_estadual}" required>
+                                            <input class="form-control"  disabled type="text" value="{$instituicao.inscricao_estadual}" required>
+                                            <input class="form-control" name="inscricao_estadual" type="hidden" value="{$instituicao.inscricao_estadual}" required>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         

@@ -103,7 +103,7 @@
                                                 <a href="{$admin_url}/professor/visualizar/{$professor.id}" class="btn btn-success btn-xs tooltips" data-original-title="Visualizar" data-placement="bottom"><i class="fa fa-search"></i></a>
                                                 {if $visao_adm eq false} 
                                                     <a href="{$admin_url}/professor/editar/{$professor.id}" class="btn btn-primary btn-xs tooltips" data-original-title="Editar" data-placement="bottom"><i class="fa fa-pencil"></i></a>
-                                                    <a data-toggle="modal" href="#deletarProfessor" onclick="javascript:setaDeletar({$professor.id});" class="btn btn-danger btn-xs tooltips" data-original-title="Excluir" data-placement="bottom"><i class="fa fa-trash-o"></i></a> 
+                                                    <a data-toggle="modal" href="#deletarProfessor" onclick="javascript:setaDeletar({$professor.id},'{$professor.nome}');" class="btn btn-danger btn-xs tooltips" data-original-title="Excluir" data-placement="bottom"><i class="fa fa-trash-o"></i></a> 
                                                 {/if}
                                             </td>
                                         </tr>
@@ -161,18 +161,19 @@
                 <section class="modal-content">
                     
                     <section class="modal-header">
-                        
+                        <input type="hidden" value="" id="id_apagar" name="id_apagar" />
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">Deletar Professor</h4>
                         
                     </section><!-- /modal-header -->
                     
-                    <section class="modal-body">Você deseja fazer isso?</section><!-- /modal-body -->
+                    <section class="modal-body">Você deseja apagar o professor - <strong id="nome_professor"></strong> ?</section><!-- /modal-body -->
                     
                     <section class="modal-footer">
 
                         <button data-dismiss="modal" class="btn btn-default" type="button">Não</button>
-                        <button class="btn btn-danger" type="submit">Sim</button>
+                        <!-- <button class="btn btn-danger" type="submit">Sim</button> -->
+                        <button class="btn btn-danger" onclick="javascript:confirmaDeletar();" type="submit">Sim</button>
                         
                     </section><!-- /modal-footer -->
                     
@@ -180,4 +181,18 @@
                 
             </section><!-- /modal-dialog -->
             
-        </section><!-- /modal -->            
+        </section><!-- /modal -->   
+
+{literal}
+<script>
+// DELEÇÃO DE AULAS//
+function setaDeletar(id, professor_descricao) {    
+    $('#id_apagar').val(id);    
+    $("#nome_professor").html(professor_descricao);   
+}
+function confirmaDeletar() {    
+    window.location.href='{/literal}{$admin_url}{literal}/professor/apagar/' + $('#id_apagar').val();
+}
+
+{/literal}
+</script>

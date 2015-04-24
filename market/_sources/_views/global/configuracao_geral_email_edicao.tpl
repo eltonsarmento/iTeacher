@@ -32,6 +32,8 @@
                                 <form class="form-horizontal tasi-form" role="form" method="post">
                                     <input type="hidden" value="1" name="editar_host" id="editar_host"/>
                                     <input type="hidden" value="{$configuracoes_email.sistema_id}" name="sistema_id"/>
+                                    <input type="hidden" value="0" name="testarEmail" id="testarEmail" />
+                                    
                                     <section class="form-group">
                                         
                                         <label class="control-label col-lg-2">Host</label>
@@ -55,6 +57,20 @@
                                         </section><!-- /col-lg-10 --> 
                                         
                                     </section><!-- /form-group -->
+
+                                    <section class="form-group">
+                                        
+                                        <label class="control-label col-lg-2">SMTP Secure</label>
+                                        
+                                        <section class="col-lg-10">
+                                            <select {if $visao_adm eq true}disabled{/if}  class="form-control" name="SMTPSecure" required>
+                                                <option value="ssl" {if $configuracoes_email.SMTPSecure eq 'ssl' } selected="selected" {/if}>SSL</option>
+                                                <option value="tls" {if $configuracoes_email.SMTPSecure eq 'tls' } selected="selected" {/if}>TLS</option>
+                                            </select>  
+                                              
+                                        </section><!-- /col-lg-10 --> 
+                                        
+                                    </section><!-- /form-group -->
                                     
                                     <section class="form-group">
                                         
@@ -71,7 +87,7 @@
                                         <section class="form-group">
                                             <section class="col-lg-offset-2 col-lg-10">                                              
                                                 <button class="btn btn-success" type="submit"><i class="fa fa-check-circle"></i> Salvar</button>
-                                                <button class="btn btn-info" type="submit"><i class="fa fa-check-circle"></i> Salvar e enviar um e-mail teste</button>
+                                                <button class="btn btn-info" onclick="$('#testarEmail').val(1)" type="submit"><i class="fa fa-check-circle"></i> Salvar e enviar um e-mail teste</button>
                                             </section><!-- /col-lg-10 -->
                                         </section><!-- /form-group -->
                                     {/if}

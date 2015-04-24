@@ -19,13 +19,13 @@ class Notificacoesadmin extends NotificacoesadminGlobal{
 			} else {
 				//Salvar
 				if ($id) {
-					$this->system->notificacoes->atualizar($this->system->input, 2);
+					$this->system->notificacoes->atualizar($this->system->input, $this->system->input['destinatario_nivel']);
 					$this->system->view->assign('msg_alert', 'Notificação atualizada com sucesso!');
 					$this->doListar();
 					exit();
 				}
 				else {
-					$id = $this->system->notificacoes->cadastrar($this->system->input, 2);
+					$id = $this->system->notificacoes->cadastrar($this->system->input, $this->system->input['destinatario_nivel']);
 					$this->system->view->assign('msg_alert', 'Notificação cadastrada com sucesso!');
 					//$this->system->email_model->envioNotificacoes($this->system->input['titulo'], $this->system->input['conteudo'], $this->system->input['destinatario_nivel'], $this->system->input['cursos']);
 					$this->doListar();

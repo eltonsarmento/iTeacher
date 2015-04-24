@@ -54,6 +54,44 @@
 
             <a href="{$admin_url}/dashboard/home" class="logo"><img src="{$url_site}{$admin_dir}common/market/img/logo-iteacher.png" style="width: 100px;"></a>
             
+            <section class="nav notify-row" id="top_menu">
+                
+                <ul class="nav top-menu">
+                    
+                    <li id="header_notification_bar" class="dropdown">
+                        
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="fa fa-bell-o"></i><span class="badge bg-warning">{$notificacoes_topo.total}</span></a>
+                        
+                        <ul class="dropdown-menu extended notification">
+                            
+                            <section class="notify-arrow notify-arrow-yellow"></section>
+                            
+                            <li><p class="yellow">Você tem <strong>{$notificacoes_topo.total}</strong> novas notificações</p></li>                            
+                            {foreach item=notificacao from=$notificacoes_topo.resultado}      
+                                <li>
+                                    
+                                    <a href="{$admin_url}/notificacoes/listar/{$notificacao.id}">
+                                        
+                                        <span class="photo">
+                                            <img alt="avatar" src="{$url_site}market/uploads/avatar/{$notificacao.avatar}" width="35">
+                                        </span>
+                                        
+                                        <span class="subject">
+                                            <span class="from">{$notificacao.remetente}</span>
+                                        </span>
+                                        
+                                    </a>
+                                    
+                                </li>                                
+                            {/foreach}
+                            <li><a href="{$admin_url}/notificacoes/listar">Todas as Notificações</a></li>
+                        </ul>
+                        
+                    </li>
+                    
+                </ul>
+                
+            </section><!-- /notify-row -->
             <section class="top-nav">
                 
                 <ul class="nav pull-right top-menu">
@@ -258,6 +296,7 @@
                                 <li {if $submenu eq 'configuracoesemails-novo'}class="active"{/if}><a href="{$admin_url}/configuracoesemail/novo">Config. de E-mail</a></li>
                                 <li {if $submenu eq 'configuracoesgerais-pagamentos'}class="active"{/if}><a href="{$admin_url}/configuracoesgerais/pagamentos">Config. de Pagamento</a></li>
                                 <li {if $submenu eq 'configuracoesgerais-servidores'}class="active"{/if}><a href="{$admin_url}/configuracoesgerais/servidores">Config. de Servidor</a></li>
+                                <li {if $submenu eq 'configuracoesgerais-periodoAcesso'}class="active"{/if}><a href="{$admin_url}/configuracoesgerais/periodoAcesso">Config. Período de Acesso</a></li>
                                 <li {if $submenu eq 'configuracoesgerais-certificados'}class="active"{/if}><a href="{$admin_url}/certificados/editar">Config. de Certificado</a></li>
                                 
                             </ul>

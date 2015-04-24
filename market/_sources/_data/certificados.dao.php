@@ -42,7 +42,7 @@ class CertificadosDAO {
                 $certificados[$key]['curso'] = $curso[0];
         }
         return $certificados;
-	}
+	}    
 	// ===============================================================
 	public function getCertificado($id) {
 		$query = $this->system->sql->select('*', 'certificados', "excluido='0' and id = '" . $id . "'");
@@ -62,7 +62,7 @@ class CertificadosDAO {
                 $certificado['curso'] = $curso[0];
         }
         return $certificado;
-	}
+	}    
     // ==============================================================
     public function getCertificadosCondicao($campos = '', $limit = '') {
         $query = $this->system->sql->select('*', 'certificados', 'excluido = 0 ' . $campos, $limit);

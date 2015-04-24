@@ -93,13 +93,15 @@ class AreasGlobal extends AdminModules {
 		$palavra = $this->system->session->getItem('palavra_busca');
 		if ($palavra) $this->system->session->deleteItem('palavra_busca');
 		$this->system->view->assign('areas', $this->system->areas->getAreas($palavra, $this->limit));
-		$this->system->view->assign('areas_pais', $this->system->areas->getAreasPais());
+		//$this->system->view->assign('areas_pais', $this->system->areas->getAreasPais());
+		
 		$areas = array();
 		foreach($this->system->areas->getAreasPais('ordem') as $key => $pais) {
 			$areas[$key] = $pais;
 			$editar = '../areas/editar/';
 			$areas[$key]['filhas'] = $this->system->areas->getAreasFilhasPorPaiID($pais['id'], $editar);
 		}
+		
 		$this->system->view->assign('areas_listagem', $areas);
 		$this->system->view->assign('url_site', $this->system->getUrlSite());
 	}

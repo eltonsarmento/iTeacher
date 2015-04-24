@@ -68,8 +68,9 @@ class RelatoriosGlobal extends AdminModules {
     		//Professores
 			case 'professores':							$this->doRelatorioProfessor(); break;
 			case 'buscarValoresProfessor':				$this->doBuscarValoresProfessor(); break;
-			case 'professoresRelatorioGerenciarPdf': 	$this->doProfessoresGerenciarPdf(); break;    
+			case 'professoresRelatorioGerenciarPdf': 	$this->doProfessoresGerenciarPdf(); break;   			
     		case 'professoresRelatorioGerenciarXls': 	$this->doProfessoresGerenciarXls(); break;   
+    		case 'professoresAutomonosGerenciarPdf': 	$this->doProfessoresAutomonosGerenciarPdf(); break;   			
     		//Certificados
     		case 'certificadoGerenciarPdf': 			$this->doCertificadoGerenciarPdf(); break;    
     		case 'certificadoGerenciarXls': 			$this->doCertificadoGerenciarXls(); break;   
@@ -265,6 +266,32 @@ class RelatoriosGlobal extends AdminModules {
 	}
 	// =================================================================================
 	protected function doProfessoresGerenciarPdf() {
+		$palavra = $this->system->input['palavra_busca'];								
+		$professores = $this->system->professores->getProfessores($palavra,'padrao',$this->inicial . ',' . $this->mostrar, false);		
+		foreach ($professores as $key => $professor) {		
+			$professores[$key]['cep'] = $this->system->alunos->getValorExtra($professor['id'], 'cep');
+			$professores[$key]['telefone'] = $this->system->alunos->getValorExtra($professor['id'], 'telefone');
+			$professores[$key]['cpf'] = $this->system->alunos->getValorExtra($professor['id'], 'cpf');
+			$professores[$key]['mes_atual'] = "Mês Atual";		
+			$total_professor = $this->system->financeiro->getTotalByProfessor($professor['id'], $professor['nivel']);	
+			$total_venda_mes = $this->system->financeiro->getTotalMesAtualProfessor($professor['sistema_id']);
+			//recuperando o valor da venda total
+			if ($total_professor)
+				$professores[$key]['total'] = $total_professor;	
+			else
+				$professores[$key]['total'] = '0.00';	
+			//recuperando o valor da venda total por mês
+			if ($total_venda_mes)
+				$professores[$key]['total_venda_mes'] = $total_venda_mes;
+			else
+				$professores[$key]['total_venda_mes'] = '0.00';
+		}				
+		$this->system->view->assign('professores', $professores);		
+		$html = $this->system->view->fetch('relatorios/professores_gerenciados_pdf.tpl');
+		$this->system->func->htmlToPdf($html);
+	}
+	// =================================================================================
+	protected function doProfessoresAutomonosGerenciarPdf() {
 		$palavra = $this->system->input['palavra_busca'];								
 		$professores = $this->system->professores->getProfessoresAutonomos($palavra,'padrao',$this->inicial . ',' . $this->mostrar, false);		
 		foreach ($professores as $key => $professor) {		

@@ -14,18 +14,20 @@ class Portal {
 		//eval(base64_decode('aWYgKCdkZTYwMjhhYmJlYmNmNDllYjMyMWUxZmViNTllZmIzZDE1MjAxOGQ4JyAhPSBzaGExKGRpcm5hbWUoX19GSUxFX18pKSkge2RpZTt9'));
 	}
 	// ===============================================================
-    public final function Load($module) {
+    public final function Load($module) {    	
     	$this->BuscaSistemaByCliente();
 
-        $this->module = $this->_name_cleaner($module == '' ? 'home': $module);
-
+        $this->module = $this->_name_cleaner($module == '' ? 'home': $module);        
  		if(file_exists($this->system->getRootPath() . '/_sources/'.$this->categoria.'/' . strtolower($this->module) . '.php'))
             $arquivo = $this->system->getRootPath() . '/_sources/'.$this->categoria.'/' . strtolower($this->module) . '.php';
         else {
-        	$this->module = 'erro';
-        	$arquivo = $this->system->getRootPath() . '/_sources/'.$this->categoria.'/erro.php';
-        }
-		
+        		
+        	/*session_write_close();
+			header('Location: ' . $this->system->getUrlSite() . 'market/' .  $this->system->admin->categoria . '/erro/pagina404');
+            die;*/
+        	//$this->module = 'erro';
+        	//$arquivo = $this->system->getRootPath() . '/_sources/'.$this->categoria.'/erro.php';
+        }		
 		require($arquivo);
 	}
 	// ===============================================================
@@ -38,7 +40,9 @@ class Portal {
 	    	$dados = $this->system->sistemas->getSistemaByDominio($cliente);	    	    	
 			if ($dados){				
 				$this->system->session->addItem('session_cod_empresa', 	$dados['id']);			
-			} 														
+			}else{
+				$this->system->input['do'] = "";
+			}
 		}
 		$this->sistema_id = $this->system->session->getItem('session_cod_empresa');				
 	}
@@ -56,9 +60,11 @@ class Portal {
 	public function topo($tituloPagina = '') {
 		$this->system->load->dao('areas');
 		$this->system->load->dao('usuarios');
+		
 		$areas =  $this->system->areas->getAreas($palavra, 12);	
 		$vCursos  = $this->system->session->getItem('carrinho_cursos');
 		$cliente  = $this->system->usuarios->getUsuarioBySistemaID();
+
 		$this->system->view->assign(array(
 			'usuario_id'		=> $this->system->session->getItem('session_cod_usuario'),
 			'usuario_nome'		=> $this->system->session->getItem('session_nome'),

@@ -20,7 +20,7 @@ class Session {
 	}
 	// ===============================================================
 	public function endSession() {
-	    setcookie("cookie_cod_usuario", "", 0, "/", ".cursosiag.com.br"); //1 mês
+	    setcookie("cookie_cod_usuario", "", 0, "/", ".localmarket.com"); //1 mês
 		return session_destroy();
 	}
 	// ===============================================================

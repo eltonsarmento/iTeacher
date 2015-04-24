@@ -71,9 +71,7 @@ class UsuariosDAO {
 		}
 		
 		$usuario = end($this->system->sql->fetchrowset($query));
-		
-		if ($usuario['id'] && $dadosCompletos) {
-			
+		if ($usuario['id'] && $dadosCompletos) {			
 			$query = $this->system->sql->select('*', 'usuarios_dados', "usuario_id= '" . $id . "'");
 			$dadosExtras = end($this->system->sql->fetchrowset($query));
 			$dadosExtras['data_nascimento'] = date('d/m/Y', strtotime($dadosExtras['data_nascimento']));
@@ -157,7 +155,7 @@ class UsuariosDAO {
 	}
 
 	// ===============================================================
-	public function getUsuarioBySistemaID($sistema_id){
+	public function getUsuarioBySistemaID() {
 		$query = $this->system->sql->select('u.*, ud.*', 'usuarios u INNER JOIN usuarios_dados ud ON (u.id = ud.usuario_id)', " sistema_id =  '" . $this->system->getSistemaID() . "' AND nivel in('5','3') AND ativo = '1' AND excluido = '0'");
 		$usuario = end($this->system->sql->fetchrowset($query));
 		return $usuario;

@@ -36,25 +36,20 @@ class AdministrativosDAO extends UsuariosDAO {
         $this->system->sql->update('usuarios', array(
             'nome'  => trim($input['nome']),
             'email' => trim($input['email'])
-        ),
-        "id='" . $input['id'] . "'");
+        ),  "id='" . $input['id'] . "'");
         if ($input['senha']) 
             $this->system->sql->update('usuarios', array('senha' => trim($input['senha'])), "id='" . $input['id'] . "'");
-
     }
     // ===============================================================
     public function getAdministrativos($palavra = '', $limit = '', $order = 'nome') {
         $query = $this->system->sql->select('*', 'usuarios', "excluido='0' and nivel = '4' AND sistema_id = '".$this->system->getSistemaID()."' " . ($palavra ? " and nome like '%" . $palavra . "%'" : ''), $limit, $order);
-        $usuarios =  $this->system->sql->fetchrowset($query);
-        return $usuarios;
+        return $this->system->sql->fetchrowset($query);
     }
     // ===============================================================
     public function getAdministrativo($id, $dadosCompletos = false) {
         $administrativo = parent::getUsuario($id, $dadosCompletos);
         if ($administrativo['nivel'] != 4)
             return array();
-
-        
         return $administrativo;
     }
 }

@@ -30,6 +30,7 @@
 
 					</section><!-- /.col-lg-12 -->
 
+					<!--
 					<section class="col-lg-12">
 
 						<p class="text-center">Variações do Curso</p>
@@ -38,25 +39,25 @@
 
 							<label>
       						
-      							<input type="checkbox"> Suporte <b>(R$ 20,00)</b>
+      							<input type="checkbox" name="suporte"> Suporte <b>(R$ 20,00)</b>
     						
     						</label>
 
-						</section><!-- /.checkbox -->
+						</section>
 
 						<section class="checkbox">
 
 							<label>
       						
-      							<input type="checkbox" > Certificado <b>(R$ 20,00)</b>
+      							<input type="checkbox" name="certificado" > Certificado <b>(R$ 20,00)</b>
     						
     						</label>
 
-						</section><!-- /.checkbox -->
+						</section>
 
 						<hr>
 
-					</section><!-- /.col-lg-12 -->
+					</section>--><!-- /.col-lg-12 -->
 
 					<section class="col-lg-5">
 
@@ -190,7 +191,6 @@
 <div id="retorno_preco"></div>
 {literal}
 <script type="text/javascript">
-
 function abrirVideo(video) {
     jwplayer("videoModal").setup({
         logo: {
@@ -202,11 +202,10 @@ function abrirVideo(video) {
         file: buscarVideo(video),
         width: 770,
         height: 400
-        
     });
 }
-
 {/literal}
+
 {if $aulaGratuita}
 jwplayer("aulaGratuita").setup({ldelim}
     logo: {ldelim}
@@ -220,6 +219,5 @@ jwplayer("aulaGratuita").setup({ldelim}
 {rdelim});
 {/if}
 {literal}
-
 </script>
 {/literal}

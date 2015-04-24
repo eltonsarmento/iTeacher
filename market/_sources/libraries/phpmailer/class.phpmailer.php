@@ -37,7 +37,7 @@ class PHPMailer {
   
   public $Host          = 'smtp.googlemail.com';
   public $Port          = 465;
-  public $SMTPSecure    = 'ssl';
+  public $SMTPSecure    = 'ssl';//ssl
   public $Username      = 'naoresponda@cursosiag.com.br';
   public $Password      = 'PrivateEvent21';
 

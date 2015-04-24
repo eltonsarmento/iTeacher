@@ -80,7 +80,6 @@ class AreasDAO {
 
 		foreach ($areas as $key => $area) 
 			$areas[$key]['filhas'] = $this->getAreasFilhas($area['id']);
-			
 		return $areas;
 	}
 	// ================================================================
@@ -90,7 +89,6 @@ class AreasDAO {
 			$areas[$key]['filhas'] = $this->getAreasFilhas($area['id']);
 		return $areas;
 	}
-
 	// ===========================================================
 	public function getAreasFilhasPorPaiID($id_pai, $link_editar) {
 		$query = $this->system->sql->select('*', 'areas', "excluido='0' and area_pai_id = '". $id_pai ."' and sistema_id='" . $this->system->getSistemaID() . "'", '', 'ordem');

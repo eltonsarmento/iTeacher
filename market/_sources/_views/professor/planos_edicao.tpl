@@ -77,7 +77,7 @@
                                             <section class="input-group m-bot15">
                                                 
                                                 <span class="input-group-addon">R$</span>
-                                                <input class="form-control preco" name="valor"  type="text" value="{$plano.valor}" {if $plano.id} disabled="" {else} required {/if}>
+                                                <input class="form-control preco" name="valor"  maxlength="8" type="text" value="{$plano.valor}" {if $plano.id} disabled="" {else} required {/if}>
 												{if $plano.id}
                                                     <input type="hidden" name="valor" value="{$plano.valor}" >
                                                 {/if}

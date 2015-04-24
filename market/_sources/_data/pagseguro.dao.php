@@ -30,8 +30,7 @@ class PagseguroDAO {
 		$this->system->sql->update('pagseguro_nasp', array(
 			'status'				=> intval($input['status']),
 			'ultima_atualizacao'	=> trim($input['ultima_atualizacao']),
-		), "venda_id = '" . $input['venda_id'] . "'");
+		), 	"venda_id = '" . $input['venda_id'] . "'");
 	}
-	
 }
 // ===================================================================

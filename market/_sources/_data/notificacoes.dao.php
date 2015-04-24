@@ -57,15 +57,13 @@ class NotificacoesDAO {
 		$notificacoes = array();
 
 		//Montar vetor com os ids dos cursos que pertence a usuário
-		
-
 		//Montar Sql Extra e obter nivel usuario
 		$query = $this->system->sql->select('id, nivel ', 'usuarios', "excluido='0' and id = '" . $id_usuario . "' ");
 		$usuario = end($this->system->sql->fetchrowset($query));
 
 		//Se aluno
 		$sql_extra = '';
-		if ($usuario['nivel'] == 4) {
+		if ($usuario['nivel'] == 2) {
 
 			$queryCursos = $this->system->sql->select('curso_id', 'cursos_alunos', "usuario_id = '" . $usuario['id'] . "' and excluido = 0 and expira >= '" . date('Y-m-d H:i:s') . "'");
 			$resultadoCursos =  $this->system->sql->fetchrowset($queryCursos);
@@ -73,11 +71,11 @@ class NotificacoesDAO {
 			foreach ($resultadoCursos as $resultadoCurso)
 				$cursosID[] = $resultadoCurso['curso_id'];
 
-			$sql_extra .= " AND ((id IN (SELECT notificacao_id FROM notificacoes_cursos WHERE curso_id IN (" . implode(',', $cursosID) . ")) AND destinatario_nivel = '4') OR destinatario_id = '" . $usuario['id'] . "')"; 
+			$sql_extra .= " AND (destinatario_nivel = '2'  AND (destinatario_id = '" . $usuario['id'] . "' OR destinatario_id = '0'))"; 
 			
 			//$sql_extra .= " AND ((id IN (SELECT notificacao_id FROM notificacoes_cursos WHERE curso_id = 0) AND destinatario_nivel = '4') OR destinatario_id = '" . $usuario['id'] . "')";
 		} else {
-			$sql_extra .= " AND (destinatario_nivel = '" . $usuario['nivel'] . "' OR destinatario_id = '" . $id_usuario . "')";
+			$sql_extra .= "  AND (destinatario_nivel = '" . $usuario['nivel'] . "' AND  ( destinatario_id = '" . $id_usuario . "'  OR destinatario_id = 0))";			
 		}
 		if ($usuario['nivel'] == 2) {
 
@@ -86,13 +84,38 @@ class NotificacoesDAO {
 			foreach ($codigosCursos1 as $resultadoCurso1)
 					$cursosID1[] = $resultadoCurso1['curso_id'];
 			$cursosID1[] = 0;
-			$sql_extra .= " AND (notificacoes.destinatario_id = '". $usuario['id'] ."'
+			$sql_extra .= " AND (SELECT COUNT(notificacao_id) FROM notificacoes_cursos WHERE curso_id IN (" . implode(',', $cursosID1) . ") 
+			AND   notificacao_id NOT IN (SELECT notificacao_id FROM notificacoes_lidas WHERE usuario_id = '" . $usuario['id'] . "')) > 0  
+			AND notificacoes.id NOT IN (SELECT notificacao_id FROM notificacoes_lidas WHERE usuario_id = '". $usuario['id'] ."')";
+		}else{
+			$sql_extra .= " AND notificacoes.id NOT IN (SELECT notificacao_id from notificacoes_lidas WHERE usuario_id = '" . $usuario['id'] . "') ";										
+		}
+
+		/*if ($usuario['nivel'] == 2) {
+			$queryCursos = $this->system->sql->select('curso_id', 'cursos_alunos', "usuario_id = '" . $usuario['id'] . "' and excluido = 0 and expira >= '" . date('Y-m-d H:i:s') . "'");
+			$resultadoCursos =  $this->system->sql->fetchrowset($queryCursos);
+			$cursosID = array(0);
+			foreach ($resultadoCursos as $resultadoCurso)
+				$cursosID[] = $resultadoCurso['curso_id'];
+			$sql_extra .= " AND ((id IN (SELECT notificacao_id FROM notificacoes_cursos WHERE curso_id IN (" . implode(',', $cursosID) . ")) AND destinatario_nivel = '2') OR destinatario_id = '" . $usuario['id'] . "')"; 
+			
+			//$sql_extra .= " AND ((id IN (SELECT notificacao_id FROM notificacoes_cursos WHERE curso_id = 0) AND destinatario_nivel = '4') OR destinatario_id = '" . $usuario['id'] . "')";
+		} else {
+			$sql_extra .= " AND (destinatario_nivel = '" . $usuario['nivel'] . "' OR destinatario_id = '" . $id_usuario . "')";
+		}
+		if ($usuario['nivel'] == 2) {
+			$queryCursos1  = $this->system->sql->select('curso_id', 'cursos_alunos', "usuario_id = '" . $usuario['id']  . "' and excluido = '0' GROUP BY curso_id ");	
+			$codigosCursos1 = $this->system->sql->fetchrowset($queryCursos1);
+			foreach ($codigosCursos1 as $resultadoCurso1)
+					$cursosID1[] = $resultadoCurso1['curso_id'];
+			$cursosID1[] = 0;
+			$sql_extra .= " 2 AND (notificacoes.destinatario_id = '". $usuario['id'] ."'
 							AND id NOT IN (SELECT notificacao_id from notificacoes_lidas WHERE usuario_id = '" . $usuario['id'] . "')) 
-			OR notificacoes.destinatario_id = 0 AND (SELECT COUNT(notificacao_id) FROM notificacoes_cursos WHERE curso_id IN (" . implode(',', $cursosID1) . ") 
-			AND  notificacao_id NOT IN (SELECT notificacao_id FROM notificacoes_lidas WHERE usuario_id = '" . $usuario['id'] . "')) > 0";
+			OR (notificacoes.destinatario_id = 0 and notificacoes.destinatario_nivel = ". $usuario['nivel'] .") AND (SELECT COUNT(notificacao_id) FROM notificacoes_cursos WHERE curso_id IN (" . implode(',', $cursosID1) . ") 
+			AND   notificacao_id NOT IN (SELECT notificacao_id FROM notificacoes_lidas WHERE usuario_id = '" . $usuario['id'] . "')) > 0";
 		}else{
 			$sql_extra .= "AND notificacoes.destinatario_id = '". $usuario['id'] ."' AND id NOT IN (SELECT notificacao_id from notificacoes_lidas WHERE usuario_id = '" . $usuario['id'] . "') ";			
-		}
+		}*/
 		
 		
 		//Não lida
@@ -100,25 +123,36 @@ class NotificacoesDAO {
 		//echo $sql_extra;die;
 
 		//Verificar se é não lida
-		$query = $this->system->sql->select('*', 'notificacoes', "excluido='0' " . $sql_extra, '10', 'data_hora desc');
+		$query = $this->system->sql->select('*', 'notificacoes', "excluido='0' AND sistema_id = '". $this->system->getSistemaID() ."'  " . $sql_extra, '10', 'data_hora desc');
 		$resultado =  $this->system->sql->fetchrowset($query);
 		
 		foreach ($resultado as $key => $notificacao) {
-								
-				$query = $this->system->sql->select('nome, avatar', 'usuarios', " id = '" . $notificacao['remetente_id'] . "'");
+				
+				/*if($notificacao['remetente_id'] != 0){
+					$query = $this->system->sql->select('nome, avatar', 'usuarios', " id = '" . $notificacao['remetente_id'] . "'");
+					$remetente =  end($this->system->sql->fetchrowset($query));					
+					
+					if  ($remetente['nome']) {
+						$resultado[$key]['remetente'] = $remetente['nome'];					
+						$resultado[$key]['avatar'] = $remetente['avatar'];
+						$resultado[$key]['data'] = date('d/m/Y H:i', strtotime($resultado[$key]['data_hora']));
+						$notificacoes['resultado'][] = $resultado[$key];
+					}				
+				} */
+				$query = $this->system->sql->select('nome', 'sistemas', " id = '" . $notificacao['sistema_id'] . "'");
 				$remetente =  end($this->system->sql->fetchrowset($query));
-				
-				
+
 				if  ($remetente['nome']) {
 					$resultado[$key]['remetente'] = $remetente['nome'];					
-					$resultado[$key]['avatar'] = $remetente['avatar'];
+					$resultado[$key]['avatar'] = "avatar_padrao.jpg";
 					$resultado[$key]['data'] = date('d/m/Y H:i', strtotime($resultado[$key]['data_hora']));
 					$notificacoes['resultado'][] = $resultado[$key];
 				}				
+				
 			
 		}
 		
-		$query = $this->system->sql->select('count(1) as total', 'notificacoes', "excluido='0' " . $sql_extra);
+		$query = $this->system->sql->select('count(1) as total', 'notificacoes', "excluido='0' AND sistema_id = '". $this->system->getSistemaID() ."' " . $sql_extra);
 		$total =  $this->system->sql->fetchrowset($query);
 		$notificacoes['total'] = $total[0]['total'];
 
@@ -149,7 +183,7 @@ class NotificacoesDAO {
 
 		//echo $sql_extra;die;
 
-		$query = $this->system->sql->select('*', 'notificacoes', "excluido ='0' " . $sql_extra, '', 'data_hora desc');
+		$query = $this->system->sql->select('*', 'notificacoes', "excluido ='0' AND sistema_id = '". $this->system->getSistemaID() ."' " . $sql_extra, '', 'data_hora desc');
 		$resultado =  $this->system->sql->fetchrowset($query);
 		
 
@@ -176,7 +210,6 @@ class NotificacoesDAO {
 				}
 			
 		}
-
 		return $notificacoes;
 	}
 	// ===============================================================
@@ -191,24 +224,24 @@ class NotificacoesDAO {
 			//Destinarario
 			switch ($notificacao['destinatario_nivel']) {
 				case 2:
-					$notificacoes[$key]['destinatario'] = 'Coordenadores';
-					break;
-				case 3:
-					$notificacoes[$key]['destinatario'] = 'Professores';
-					break;
-				case 4:
 					$notificacoes[$key]['destinatario'] = 'Alunos';
+					break;				
+				case 4:
+					$notificacoes[$key]['destinatario'] = 'Administrativo';
 					break;
-				case 5:
+				case 7:
 					$notificacoes[$key]['destinatario'] = 'Parceiros';
 					break;
 				case 6:
-					$notificacoes[$key]['destinatario'] = 'Administrativo';
+					$notificacoes[$key]['destinatario'] = 'Coordenadores';
+					break;
+				case 8:
+					$notificacoes[$key]['destinatario'] = 'Professores';
 					break;
 			}
 
 			//Cursos
-			if ($notificacao['destinatario_nivel'] != 0) {
+			if ($notificacao['destinatario_nivel'] == 2) {
 				//todos os cursos
 				$query = $this->system->sql->select("curso_id", "notificacoes_cursos", "notificacao_id = '" . $notificacao['id'] . "'");
 				$cursos = $this->system->sql->fetchrowset($query);
@@ -357,7 +390,7 @@ class NotificacoesDAO {
 	}
 	// ===============================================================
 	public function notificacaoEmail($usuarioID, $titulo, $conteudo, $remetenteID) {
-		
+		 
 		if(!empty($usuarioID)){
 			$query      = $this->system->sql->select('*','usuarios',"id= '" . $usuarioID."'");
 			$retorno    = end($this->system->sql->fetchrowset($query));
@@ -366,7 +399,7 @@ class NotificacoesDAO {
 		}		
 
 		$this->system->sql->insert('notificacoes', array(
-        	'remetente_id'			=> $remetenteID, //Conta do Adriano Gianini
+        	'remetente_id'			=> trim($remetenteID ? $remetenteID : $this->system->getSistemaID()), //Conta do Adriano Gianini
         	'destinatario_id'		=> $usuarioID,
         	'sistema_id'		    => trim($sistema_id),
         	'destinatario_nivel'	=> trim($destinatario_nivel),

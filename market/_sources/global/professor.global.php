@@ -61,7 +61,7 @@ class ProfessorGlobal extends AdminModules {
 			$erro_msg = $this->validarDados();	
 			if ($erro_msg) {
 				$this->system->view->assign('msg_alert_error', $erro_msg['msg']);
-				$this->system->view->assign('Professor', $this->system->input);
+				$this->system->view->assign('professor', $this->system->input);
 			} 
 			else {
 				if ($id) {
@@ -77,7 +77,7 @@ class ProfessorGlobal extends AdminModules {
 					$this->system->view->assign('msg_alert_sucesso', 'Professor atualizado com sucesso!');
 				} 
 				else {	
-					$id = $this->system->professores->cadastrar($this->system->input);
+					//$id = $this->system->professores->cadastrar($this->system->input);
 					if (is_uploaded_file($_FILES['avatar']['tmp_name'])) {
 						$extensao = end(explode('.', $_FILES['avatar']['name']));
 						$nomearquivo = 'avatar_' . $id . '.' . $extensao;
@@ -115,40 +115,45 @@ class ProfessorGlobal extends AdminModules {
 		$retorno = array();
         //Nome
         if($this->system->input['nome'] == '') 
-            $retorno['msg'][] = "O campo nome está vázio.";
+            $retorno['msg'][] = "O campo nome está vazio.";
         //Email
         if ($this->system->input['email'] == '')
-        	$retorno['msg'][] = "O campo E-mail está vázio";
+        	$retorno['msg'][] = "O campo E-mail está vazio";
         elseif(!$this->system->func->checkEmail($this->system->input['email']))
         	$retorno['msg'][] = "O campo E-mail é inválido";
         elseif($this->system->professores->checkEmailCadastrado($this->system->input['id'], $this->system->input['email'], $this->system->getSistemaID()))
         	$retorno['msg'][] = "Já existe um usuário cadastrado com esse e-mail";
-       //CPF
-        if ($this->system->input['cpf'] != '' && !$this->system->func->validaCPF($this->system->input['cpf']))
-        	$retorno['msg'][] = "O campo CPF é inválido.";
+
+        //CPF
+        if ($this->system->input['cpf'] == ''){
+        	$retorno['msg'][] = "O campo CPF está vazio.";        	
+        }elseif(!$this->system->func->validaCPF($this->system->input['cpf'])){
+        	$retorno['msg'][] = "O campo CPF é inválido.";        
+        }
+        
         //CEP
         if ($this->system->input['cep'] == '')
-        	$retorno['msg'][] = "O campo CEP está vázio";
+        	$retorno['msg'][] = "O campo CEP está vazio";
         //Endereço
         if ($this->system->input['endereco'] == '')
-        	$retorno['msg'][] = "O campo Endereço está vázio";
+        	$retorno['msg'][] = "O campo Endereço está vazio";
         //Bairro
         if ($this->system->input['bairro'] == '')
-        	$retorno['msg'][] = "O campo Bairro está vázio";
+        	$retorno['msg'][] = "O campo Bairro está vazio";
         //Cidade
         if ($this->system->input['cidade'] == '')
-        	$retorno['msg'][] = "O campo Cidade está vázio";
+        	$retorno['msg'][] = "O campo Cidade está vazio";
         //Estado
         if ($this->system->input['estado'] == '')
-        	$retorno['msg'][] = "O campo Estado está vázio";
+        	$retorno['msg'][] = "O campo Estado está vazio";
         //Senha
         if ($this->system->input['id'] == '') {
 	        if ($this->system->input['senha'] == '')
-	        	$retorno['msg'][] = "O campo Senha está vázio";
+	        	$retorno['msg'][] = "O campo Senha está vazio";
 	        elseif (strlen($this->system->input['senha']) < 5)
 	        	$retorno['msg'][] = "O campo Senha deve ter pelo menos 5 digitos.";
 			if ($this->system->input['senha2'] == '')
-	        	$retorno['msg'][] = "O campo Confirme a Senha está vázio";
+	        	$retorno['msg'][] = "O campo Confirme a Senha está vazio";
 	        elseif (strlen($this->system->input['senha2']) < 5)
 	        	$retorno['msg'][] = "O campo Confirme a Senha deve ter pelo menos 5 digitos.";
 	        if($this->system->input['senha'] != $this->system->input['senha2'])

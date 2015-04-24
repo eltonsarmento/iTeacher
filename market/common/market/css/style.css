@@ -3574,6 +3574,9 @@ table.sliders tr td {
 #label_sub {
     margin-left: 25px;
 }
+#label_neto {
+    margin-left: 50px;
+}
 
 .label_check input,
 .label_radio input {

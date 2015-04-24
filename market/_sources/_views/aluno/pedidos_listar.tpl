@@ -58,7 +58,15 @@
                                             <input type="hidden" value="{$venda.status}" class="status_{$venda.id}" id="status_{$venda.id}"/>
                                             <td><a href="{$admin_url}/vendas/detalhes/{$venda.id}">{$venda.numero}</a></td>
                                             <td><a data-toggle="modal" onclick="getCursosByVenda({$venda.id});" href="#visualizarCursos">Visualizar Cursos</a></td>
-                                            <td>{if $venda.forma_pagamento_id eq 1} PagSeguro {else} Paypal {/if}</td>
+                                            <td>
+                                                {if $venda.forma_pagamento_id eq 1}
+                                                    PagSeguro
+                                                {elseif $venda.forma_pagamento_id eq 2}
+                                                    Pagar.me
+                                                {elseif $venda.forma_pagamento_id eq 3}
+                                                    Paypal
+                                                {/if}
+                                            </td>
                                             <td class="td_status_{$venda.id}"><span class="label 
                                                 label-{if $venda.status == 1}success
                                                       {elseif $venda.status == 0}info

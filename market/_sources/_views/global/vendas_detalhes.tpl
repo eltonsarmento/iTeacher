@@ -60,7 +60,7 @@
                                     
                                     <section class="bio-row">
                                         
-                                        <p><span>Rastreamento </span> <strong><a href="#" target="_blank">SG113377460BR</a></strong></p>
+                                        <p><span>Rastreamento </span> <strong><a href="#" target="_blank"></a></strong></p>
                                         
                                     </section><!-- /bio-row -->
                                     

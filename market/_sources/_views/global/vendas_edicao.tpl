@@ -81,7 +81,7 @@
                                         <section class="col-lg-2">
                                             <section class="input-group m-bot15">
                                                 <span class="input-group-addon">R$</span>
-                                                <input class="form-control" name="valor_real_desconto" onblur="javascript:mudarPreco();" value="{$vendas.valor_real_desconto}" type="text">
+                                                <input class="form-control preco" name="valor_real_desconto" maxlength="8" onblur="javascript:mudarPreco();" value="{$vendas.valor_real_desconto}" type="text">
                                             </section>
                                         </section>
                                     </section>
@@ -155,9 +155,12 @@
             </section><!-- /wrapper -->
             
         </section><!-- /main-content -->
+<script src="{$url_site}{$admin_dir}common/market/js/jquery.price_format.1.8.min.js"></script>
+<script src="{$url_site}{$admin_dir}common/market/js/jquery.price_format.1.8.js"></script>
 <script src="{$url_site}{$admin_dir}common/market/assets/bootstrap-select/selectize.js" ></script>
 {literal}
-<script>
+<script type="text/javascript">
+jQuery('.preco').priceFormat();
 
 function mudarPreco() {
     {/literal}

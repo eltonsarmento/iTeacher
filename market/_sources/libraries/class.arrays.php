@@ -7,11 +7,11 @@ class Arrays {
 			1 => 'administrador',
 			2 => 'aluno',
 			3 => 'professor',
-			4 => 'professor-administrativo',
+			4 => 'administrativo',
 			5 => 'instituicao',
 			6 => 'instituicao-coordenador',
 			7 => 'instituicao-parceiro',
-			8 => 'instituicao-professor',
+			8 => 'instituicao-professor',			
 			9 => 'administrador/acesso_instituicao'
 		);
 	}

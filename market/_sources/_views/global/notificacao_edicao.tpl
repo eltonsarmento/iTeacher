@@ -56,15 +56,15 @@
                                         <section class="col-lg-10">
                                             <select id="selectize" name="destinatario_nivel" id="destinatario" class="destinatario" onchange="mudarNivel();">
                                                 <option value="0">Selecione o Destinatário</option>
-                                                <option value="2" {if $notificacao.destinatario_nivel == 4} selected {/if}>Alunos</option>
-                                                <option value="8" {if $notificacao.destinatario_nivel == 3} selected {/if}>Professores</option>
-                                                <option value="7" {if $notificacao.destinatario_nivel == 5} selected {/if}>Parceiros</option>
-                                                <option value="6" {if $notificacao.destinatario_nivel == 2} selected {/if}>Coordenadores</option>
-                                                <option value="9" {if $notificacao.destinatario_nivel == 6} selected {/if}>Administrativo</option>
+                                                <option value="2" {if $notificacao.destinatario_nivel == 2} selected {/if}>Alunos</option>
+                                                <option value="8" {if $notificacao.destinatario_nivel == 8} selected {/if}>Professores</option>
+                                                <option value="7" {if $notificacao.destinatario_nivel == 7} selected {/if}>Parceiros</option>
+                                                <option value="6" {if $notificacao.destinatario_nivel == 6} selected {/if}>Coordenadores</option>
+                                                <option value="4" {if $notificacao.destinatario_nivel == 4} selected {/if}>Administrativo</option>
                                             </select>
                                         </section>
                                         
-                                        <section id="campo_cursos" {if $notificacao.destinatario_nivel != 4} style="display:none;" {/if} >
+                                        <section id="campo_cursos" {if $notificacao.destinatario_nivel != 2} style="display:none;" {/if} >
                                             <label class="control-label col-lg-2">Curso: </label>
                                             <select id="selectize2" name="cursos[]" multiple placeholder="Selecione o Curso" class="col-lg-10 ">
                      
@@ -128,7 +128,7 @@
                 $('#selectize').selectize();
                 $('#selectize2').selectize();
                 function mudarNivel() {
-                    if (jQuery(".destinatario").val() == 4) {
+                    if (jQuery(".destinatario").val() == 2) {
                         jQuery("#campo_cursos").show('slow');
                     } else {
                         jQuery("#campo_cursos").hide('slow');

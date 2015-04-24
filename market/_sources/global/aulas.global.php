@@ -143,12 +143,14 @@ class AulasGlobal extends AdminModules {
 			$this->system->view->assign(array('msg_alert' => 'Posições Alteradas!'));
 			$this->system->session->deleteItem('alteradoPosicao');
 		}
+
 		$this->system->view->assign(array(
 			'url_site'	=> $this->system->getUrlSite(),
 			'cursoNome' => $curso['curso'],
 			'curso_id' 	=> $curso_id,
 			'capitulos'	=> $this->system->aulas->getCapitulosByCurso($curso_id),
 		));
+		//print_r($this->system->aulas->getCapitulosByCurso($curso_id));
 		$this->system->admin->topo('cursos');
 		$this->system->view->display('global/aulas_gerenciar.tpl');
 		$this->system->admin->rodape();
@@ -173,8 +175,13 @@ class AulasGlobal extends AdminModules {
 			$capitulo = $this->system->aulas->getCursoIdByCapitulo($id);
 			if ($this->system->session->getItem('session_nivel') == 7 && $aula['curso_id']) 
 				$this->acessoParceiro($capitulo['curso_id']);
-			$this->system->aulas->deletarCapitulo($id);
+			$this->system->aulas->deletarCapitulo($id);			
+
+			$totalCapitulos = $this->system->aulas->getCountCapitulosByCurso($capitulo['curso_id']);
+			$campos['qt_capitulos'] = $totalCapitulos;					
+			$this->system->cursos->atualizarCurso($capitulo['curso_id'],$campos);
 		}
+
 		$this->system->session->addItem('msg', 'Capitulo excluído com sucesso!');
 		$this->system->func->redirecionar('/aulas/listar/' . $capitulo['curso_id']);
 		die;
@@ -203,11 +210,11 @@ class AulasGlobal extends AdminModules {
 		foreach ($capitulos as $key => $capitulo)
 			$aulasAUX[$capitulo] = $aulas[$key];
 		$aulas = $aulasAUX;
-		
-		$this->system->aulas->salvarPosicaoCapitulos($curso_id, $capitulos);
+
+		//$this->system->aulas->salvarPosicaoCapitulos($curso_id, $capitulos);
 		$this->system->aulas->salvarPosicaoAulas($curso_id, $aulas);
 		$this->system->session->addItem('alteradoPosicao', true);
-		echo "<script>window.location.reload();</script>";
+		//echo "<script>window.location.reload();</script>";
 	}
 	// ==============================================================
 	protected function acessoParceiro($cursoID) {

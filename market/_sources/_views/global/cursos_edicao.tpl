@@ -121,7 +121,7 @@
                                                 <section class="input-group m-bot15">
                                                     
                                                     <span class="input-group-addon">R$</span>
-                                                    <input class="form-control" name="valor" value="{$curso.valor}" type="text" required>
+                                                    <input class="form-control preco" name="valor" maxlength="8" value="{$curso.valor}" type="text" required>
                                                     
                                                 </section><!-- /input-group -->
                                                   
@@ -154,21 +154,25 @@
                                                 
                                         </section><!-- /form-group -->
                                         
-                                        <section class="form-group">
-                                                
-                                            <label class="col-lg-2 control-label">Exibir na home</label>
-                                                
-                                            <section class="col-lg-10">
+                                        {if $usuario_nivel eq 7}
+                                            <input type="hidden" name="exibir_site" value="0"/>
+                                        {else} 
+                                            <section class="form-group">
                                                     
-                                                <section class="switch switch-square" data-on-label="Sim" data-off-label="Não">
+                                                <label class="col-lg-2 control-label">Exibir na home</label>
                                                     
-                                                    <input type="checkbox" name="exibir_site" value="1" {if $curso.exibir_site eq 1}checked="checked"{/if} />
-                                                
-                                                </section><!-- /switch -->
+                                                <section class="col-lg-10">
+                                                        
+                                                    <section class="switch switch-square" data-on-label="Sim" data-off-label="Não">
+                                                        
+                                                        <input type="checkbox" name="exibir_site" value="1" {if $curso.exibir_site eq 1}checked="checked"{/if} />
                                                     
-                                            </section><!-- /col-lg-10 -->
-                                                
-                                        </section><!-- /form-group -->
+                                                    </section><!-- /switch -->
+                                                        
+                                                </section><!-- /col-lg-10 -->
+                                                    
+                                            </section><!-- /form-group -->
+                                        {/if}
                                         
                                         <section class="form-group">
                                                 
@@ -340,10 +344,13 @@
             
         </section><!-- /main-content -->
 
-{literal}
-<script src="{/literal}{$url_site}{$admin_dir}{literal}common/market/assets/bootstrap-select/selectize.js" ></script> 
 
-<script>
+<script src="{$url_site}{$admin_dir}common/market/js/jquery.price_format.1.8.min.js"></script>
+<script src="{$url_site}{$admin_dir}common/market/js/jquery.price_format.1.8.js"></script>
+<script src="{$url_site}{$admin_dir}common/market/assets/bootstrap-select/selectize.js" ></script> 
+{literal}
+<script type="text/javascript">
+jQuery('.preco').priceFormat();
 //selectize
 $('#selectize').selectize();
 

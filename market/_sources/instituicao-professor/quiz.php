@@ -24,7 +24,7 @@ class Quiz extends QuizGlobal {
 	protected function doListarCursos() {
 		$palavra = $this->system->session->getItem('palavra_busca');
 		if ($palavra) $this->system->session->deleteItem('palavra_busca');
-		$cursos = $this->system->cursos->getCursosCondicao(" and professor_id = '" . $this->system->session->getItem('session_cod_usuario') . "'" . ($palavra ? " and curso like '%" . $palavra . "%'" : ''));
+		$cursos = $this->system->cursos->getCursosCondicao($this->system->getSistemaID()," and professor_id = '" . $this->system->session->getItem('session_cod_usuario') . "'" . ($palavra ? " and curso like '%" . $palavra . "%'" : ''));
 		foreach($cursos as $key => $curso) {
 			$cursos[$key]['total_quiz'] = $this->system->quiz->getTotalQuiz($curso['id']);
 			//Categorias

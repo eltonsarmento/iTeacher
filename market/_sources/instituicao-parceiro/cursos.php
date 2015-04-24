@@ -9,7 +9,8 @@ class Cursos extends CursosGlobal {
    	// ===============================================================
    	protected function doListar() {
 		$sql = "and usuario_id = '".$this->system->session->getItem('session_cod_usuario')."'";
-		$cursos = $this->system->cursos->getCursosCondicao($sql);
+
+		$cursos = $this->system->cursos->getCursosCondicao($sistema_id,$sql);
 		foreach ($cursos as $key => $curso) {
 			//Professor
 			$professor = $this->system->professores->getProfessor($curso['professor_id']);

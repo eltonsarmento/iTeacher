@@ -18,8 +18,7 @@ class Home {
 		}	
 	}
 	// ===============================================================
-	protected function doIndex() {
-
+	protected function doIndex() {		
 		$cursos = $this->system->cursos->getCursosPortal();
 		
 		foreach ($cursos as $key => $curso) {
@@ -37,7 +36,7 @@ class Home {
 		$url = end(explode($this->system->getUrlSite(), $_SERVER['REQUEST_URI']));
 		$this->system->view->assign('url', $url);
 		$this->system->site->topo(0);
-		$this->system->view->display('site/pagina404.tpl');
+		$this->system->view->display('portal/pagina404.tpl');
 		$this->system->site->rodape();
 	}
 }

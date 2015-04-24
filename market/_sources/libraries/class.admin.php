@@ -15,7 +15,6 @@ class Admin {
 	}
 	// ===============================================================
     public final function Load($module) {
-
     	$this->BuscaSistemaByCliente();
     	if (!$this->categoria)
     		$this->categoria = $this->system->session->getItem('session_nivel_categoria');

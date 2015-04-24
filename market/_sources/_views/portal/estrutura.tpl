@@ -52,7 +52,8 @@
 
 				<section class="col-lg-6 col-sm-6 col-xs-12">
 					{if $usuario_nome}
-						Olá aluno <strong>{$usuario_nome}</strong>, seja bem-vindo.
+						Olá <strong>{$usuario_nome}</strong>, seja bem-vindo. 											
+						<a href="http://localmarket.com/market/aluno/login/logoutPortal" data-toggle="modal" class="btn btn-success"><i class="fa fa-user"></i> Sair</a>
 					{else}
 						<a href="{$url_portal}portal/conta/cadastro" class="btn registre"><b>Cadastre-se</b> agora!</a>
 					{/if}
@@ -63,10 +64,12 @@
 				<section class="col-lg-6 col-sm-6 col-xs-12">
 
 					<span class="pull-right">
-						{if $cliente.nivel eq 5}
-							<a href="{$url_portal}portal/certificado" data-toggle="modal" class="btn btn-dark">Consultar Certificado</a>
+						{if $usuario_categoria eq 'aluno'}
+							{if $cliente.nivel eq 5}
+								<a href="{$url_portal}portal/certificado" data-toggle="modal" class="btn btn-dark">Consultar Certificado</a>
+							{/if}						
+							<a href="{$url_site}market" data-toggle="modal" class="btn btn-success"><i class="fa fa-user"></i> Área do Aluno</a>
 						{/if}
-						<a href="{$url_site}market" data-toggle="modal" class="btn btn-success"><i class="fa fa-user"></i> Área do Aluno</a>
 
 					</span>
 
@@ -171,11 +174,11 @@
 
 				<section class="col-lg-4 col-sm-6 col-xs-12">
 
-					<form action="" method="">
+					<form action="{$url_portal}portal/busca/" method="get">
 
 						<section class="input-group">
 
-	      					<input type="text" class="form-control" placeholder="O que você procura?" autocomplete="off" required>
+	      					<input type="text" class="form-control" name="palavra" placeholder="O que você procura?" autocomplete="off" required>
 
 					      	<span class="input-group-btn">
 

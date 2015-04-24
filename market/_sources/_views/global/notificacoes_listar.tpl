@@ -25,12 +25,11 @@
                         
                         <section class="panel">
                             
-                            <header class="panel-heading"><strong>Notificações</strong></header>
-  
+                            <header class="panel-heading"><strong>Notificações</strong></header>   
 
                             {foreach item=notificacao from=$notificacoes}
 
-                                <article id="notificacao_{$notificacao.id}" class="media-notification {if $notificacao.lida == true} old {else} new {/if}">                                    
+                                <article id="notificacao_{$notificacao.id}" class="media-notification {if $notificacao.lida eq true} old {else} new {/if}">                                    
                                     <a class="pull-left thumb p-thumb"><img src="{$url_site}/market/uploads/avatar/{$notificacao.avatar}"></a>
                                     <section class="media-body">                                        
                                         <strong>{$notificacao.remetente}</strong>

@@ -21,6 +21,7 @@ class ConfiguracoesEmailDAO {
 			'host' => trim($input['host']),
 			'porta' => trim($input['porta']),
 			'senha' => trim($input['senha']), 
+			'SMTPSecure' => trim($input['SMTPSecure']), 
 			'nome' => '',
 			'email' => '',
 			'imagem_cabecalho' => '',
@@ -33,7 +34,8 @@ class ConfiguracoesEmailDAO {
 		$this->system->sql->update('configuracoes_gerais_email', array(
 			'host' => trim($input['host']),
 			'porta' => trim($input['porta']),
-			'senha' => trim($input['senha'])
+			'senha' => trim($input['senha']),
+			'SMTPSecure' => trim($input['SMTPSecure'])
 			), "sistema_id = '".$input['sistema_id']."'");
 	}
 	// ===============================================================

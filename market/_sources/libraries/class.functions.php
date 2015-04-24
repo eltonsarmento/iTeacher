@@ -373,29 +373,28 @@ class Functions {
 		return ($result[$campo] ? false : true);
 	}
 	//=================================================================
-	public function sendMail($to, $titulo, $mensagem, $deNome = 'Cursos IAG', $deEmail = '', $anexos = array()) {		
-		if (!$deEmail) {
+	public function sendMail($to, $titulo, $mensagem, $deNome = "Cursos iTeacher", $deEmail = '', $configuracoesEmail, $anexos = array()) {		
+				
+		if ($deEmail == '') {			
 			$deEmail = $this->system->getEmail();
 		}
-
+		
 		error_reporting(0);
 		require_once(dirname(__FILE__)."/phpmailer/class.phpmailer.php");
 		// Inicia a classe PHPMailer
 		$mail = new PHPMailer();
-
+		
 		$mail->IsSMTP();
-
-        try {
-		// 	//$mail->Host       = "mail.yourdomain.com"; 
-		// 	//$mail->SMTPDebug  = 2;                     
-
-		// 	//Ar
-		// 	// $mail->SMTPSecure = "tls";                 
-		// 	// $mail->Host       = "mail.cursosiag.com.br";      
-		// 	// $mail->Port       = 587;                   
-		// 	// $mail->Username   = "naoresponda@cursosiag.com.br";  
-		// 	// $mail->Password   = "PrivateEvent21";            
-
+		
+		if(!empty($configuracoesEmail)){
+			$mail->Host = $configuracoesEmail['host'];				
+			$mail->Port = $configuracoesEmail['porta'];
+			$mail->Username = $configuracoesEmail['email'];
+			$mail->Password = $configuracoesEmail['senha'];			
+			$mail->SMTPSecure = $configuracoesEmail['SMTPSecure'];
+		}		
+		
+        try {    
 	
 			$mail->AddAddress($to);
 			$mail->SetFrom($deEmail, $deNome);

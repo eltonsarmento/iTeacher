@@ -25,6 +25,7 @@ class VendasDAO {
 			'valor_liquido'		=> trim(number_format(($input['valor_liquido'] ? $input['valor_liquido'] : 0), 2, '.', '')),
 			'valor_total'		=> trim(number_format(($input['valor_total'] ? $input['valor_total'] : 0), 2, '.', '')),
 			'data_expiracao'	=> trim($input['data_expiracao']),
+			'data_venda'		=> date('Y-m-d H:i:s'),
 			'data_cadastro'		=> date('Y-m-d H:i:s'),
 			'codePagSeguro'		=> trim(($input['codePagSeguro'] ? $input['codePagSeguro'] : '')),
 			'codePagarme'		=> trim(($input['codePagarme'] ? $input['codePagarme'] : '')),
@@ -115,7 +116,8 @@ class VendasDAO {
 		foreach ($vendas as $key => $venda) {	
 
 			//convertendo a data de 0000-00-00 para 00/00/0000
-			$data = strtotime(substr($vendas[$key]['data_venda'], 2,8));
+			$data = strtotime(substr($vendas[$key]['data_cadastro'], 2,8));
+
 			$vendas[$key]['data_convertida'] = date('d/m/Y',$data);
 			//nome aluno
 			$aluno = end($this->system->sql->fetchrowset($this->system->sql->select('nome', 'usuarios', "excluido = 0 and id = ".$venda['aluno_id']." and sistema_id = '" . $this->system->getSistemaID()."'")));
@@ -180,7 +182,6 @@ class VendasDAO {
 		$aluno = end($this->system->sql->fetchrowset($this->system->sql->select("u.nome,u.email", "vendas v, usuarios u", "u.id = v.aluno_id and nivel='2' and v.id='".$id_venda."' and v.sistema_id = '" . $this->system->getSistemaID()."'")));
 		return $aluno;	
 	}
-
 	//=================================================================
 	public function getNumeroVendaById($id_venda){
 		//numero da venda
@@ -194,11 +195,9 @@ class VendasDAO {
 			//convertendo a data de 0000-00-00 para 00/00/0000
 			$data = strtotime(substr($vendas[$key]['data_venda'], 2,8));
 			$vendas[$key]['data_convertida'] = date('d/m/Y',$data);
-			
 		}
 		return $vendas;
 	}
-
 	//=================================================================
 	public function alterarPagamento($id, $status) {
 		$fields = array('status' => $status);
@@ -206,7 +205,6 @@ class VendasDAO {
 			$fields['data_venda'] = date('Y-m-d');
 		$this->system->sql->update('vendas', $fields, "id='" . $id . "'");
 	}
-
 	// ================================================================
 	public function verificaCompraCursoAberta($usuario_id, $curso_id) {
 		$query = $this->system->sql->select('id', 'vendas', "excluido = 0 and sistema_id = '" . $this->system->getSistemaID() . "' and status = 0 and usuario_id = '" . $usuario_id . "' and id in (SELECT venda_id from vendas_cursos where curso_id = '" . $curso_id . "')");
@@ -231,7 +229,6 @@ class VendasDAO {
 			}
 		}	
 	}
-
 	// ===============================================================
 	public function countVendas($sistema_id = ""){
 		if($sistema_id){
@@ -239,7 +236,6 @@ class VendasDAO {
 		}else{
 			$query = $this->system->sql->select("COUNT(1) qtd", "vendas", "sistema_id = '" . $this->system->getSistemaID() . "'");
 		}
-		
 		$result = end($this->system->sql->fetchrowset($query));
 		return $result['qtd'];
 	}
@@ -431,7 +427,6 @@ vendas AS t2 ON (t1.venda_id=t2.id)', "t2.excluido = 0" . $campos . ' GROUP BY t
 
 		return $professores;
 	}
-
 	// ====================Ranking pelo valor total das compras de um aluno R$=======
 	public function getRankingAluno($where, $limit = '', $order = 'valor_liquido DESC'){
 		$where = "STATUS = 1 GROUP BY aluno_id";
@@ -476,6 +471,24 @@ vendas AS t2 ON (t1.venda_id=t2.id)', "t2.excluido = 0" . $campos . ' GROUP BY t
 		$query = $this->system->sql->select('*', 'vendas_parceiros_comissao', "excluido = 0 " . $campo, 1, 'data_cadastro desc');
 		return end($this->system->sql->fetchrowset($query));
 	}
+	// ================================================================
+	public function tipoVenda($vendaID) {
+		$query = $this->system->sql->select('COUNT(1)', 'vendas_cursos', "venda_id = '" . $vendaID . "'");
+		$cursos = $this->system->sql->querycountunit($query);
+		if ($cursos > 0)
+			return 1; //curso
+		
+		$query = $this->system->sql->select('COUNT(1)', 'vendas_planos', "venda_id = '" . $vendaID . "'");
+		$planos = $this->system->sql->querycountunit($query);
 
+		if ($planos > 0)
+			return 2; //planos
+		//$query = $this->system->sql->select('COUNT(1)', 'vendas_certificados', "venda_id = '" . $vendaID . "'");
+		//$certificados = $this->system->sql->querycountunit($query);
+
+		//if ($certificados > 0)
+		//	return 3; //certificados
+	}
+	// ===============================================================
 }
 // ===================================================================

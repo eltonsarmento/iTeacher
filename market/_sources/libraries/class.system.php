@@ -49,8 +49,8 @@ class System {
 	// ===============================================================
 	//Iniciando as classes / Levantando o sistema
 	private function loadSystem() {
-		//ini_set('error_reporting', E_ERROR | E_WARNING | E_PARSE);
-		ini_set('error_reporting', E_ERROR);
+		ini_set('error_reporting', E_ERROR | E_WARNING | E_PARSE);
+		//ini_set('error_reporting', E_ERROR);
 		//ini_set('error_reporting', E_ALL);
 		
 		ini_set('mysql.connect_timeout', 120);

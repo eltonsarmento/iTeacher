@@ -15,6 +15,7 @@ class InstituicoesDAO extends UsuariosDAO {
             'nome'              => "Sistema - ". trim($input['nome']),
             'data_cadastro'     => date('Y-m-d H:i:s'),            
             'tipo_sistema'      => 1,
+            'dominio'           => trim(str_replace(' ','_',$this->system->func->removeAcentos($input['nome']))),
             'excluido'          => 0
         ));
         $sistemaID = $this->system->sql->nextid();        
@@ -66,7 +67,7 @@ class InstituicoesDAO extends UsuariosDAO {
                 'nome'              => "Sistema - ". trim($input['nome']),
                 'data_cadastro'     => date('Y-m-d H:i:s'),            
                 'tipo_sistema'      => 1,
-                'dominio'           => trim(str_replace(' ','-',$input['nome'])),
+                'dominio'           => trim(str_replace(' ','_',$this->system->func->removeAcentos($input['nome']))),
                 'excluido'          => 0
             ));
             $sistemaID = $this->system->sql->nextid();
@@ -115,8 +116,7 @@ class InstituicoesDAO extends UsuariosDAO {
         return $id;
 	}
 	// ===============================================================
-	public function atualizar($input) {
-
+	public function atualizar($input) {       
         
 		$this->system->sql->update('usuarios', array(
         	'nome'	=> trim($input['nome']),

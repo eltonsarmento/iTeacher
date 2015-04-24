@@ -117,15 +117,22 @@ class Perfil extends PerfilGlobal {
 	private function validarDadosUsuarioProfessor($tipo_de_validacao) {
 		$retorno = array();
 		if ($tipo_de_validacao == 1) {
+
 			 //Nome
 	        if ($this->system->input['nome'] == '') 
 	            $retorno['msg'][] = "O campo nome está vázio.";
 	        //Razao Social
 	        if ($this->system->input['razao_social'] == '')
-	        	$retorno['msg'][] = "O campo Razao Social está vázio";
+	        	$retorno['msg'][] = "O campo Razao Social está vázio";	        	
 	        //CNPJ
 	        if ($this->system->input['cnpj'] == '')
 	        	$retorno['msg'][] = "O campo CNPJ está vázio";
+			//Inscrição Municipal
+	        if($this->system->input['inscricao_municipal'] == '')
+	        	$retorno['msg'][] = "O campo Inscrição Municipal está vázio";
+	         //Inscrição Estadual
+	        if($this->system->input['inscricao_estadual'] == '')
+	        	$retorno['msg'][] = "O campo Inscrição Estadual está vázio";
 	        //Nome Responsável
 	        if($this->system->input['responsavel'] == '') 
 	            $retorno['msg'][] = "O campo Responsável está vázio.";
@@ -134,13 +141,7 @@ class Perfil extends PerfilGlobal {
 	            $retorno['msg'][] = "O campo Email Responsável está vázio.";
 	         //Telefone
 	        if($this->system->input['telefone'] == '')
-	        	$retorno['msg'][] = "O campo Telefone Responsável está vázio";
-	        //Inscrição Municipal
-	        if($this->system->input['inscricao_municipal'] == '')
-	        	$retorno['msg'][] = "O campo Inscrição Municipal está vázio";
-	         //Inscrição Estadual
-	        if($this->system->input['inscricao_estadual'] == '')
-	        	$retorno['msg'][] = "O campo Inscrição Estadual está vázio";
+	        	$retorno['msg'][] = "O campo Telefone Responsável está vázio";	        
 	        //CEP
 	        if ($this->system->input['cep'] == '')
 	        	$retorno['msg'][] = "O campo CEP está vázio";

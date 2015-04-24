@@ -77,6 +77,10 @@ class CursosDAO {
 		return $input['id'];
 	}
 	// ===============================================================
+	public function atualizarCurso($id,$campos) {
+		$this->system->sql->update('cursos', $campos, "id='" . $id . "' and sistema_id='".$this->system->getSistemaID()."'");
+	}
+	// ===============================================================
 	public function atualizarImagemDestaque($id, $imagem) {
 		$this->system->sql->update('cursos', array('destaque_arquivo' => $imagem), "id='" . $id . "' and sistema_id='".$this->system->getSistemaID()."'");
 	}
@@ -452,9 +456,12 @@ class CursosDAO {
 		return end($this->system->sql->fetchrowset($query));	
 	}
 	// ===============================================================
+	public function getBuscaCursos($palavra = '', $order = '') {
+		$query = $this->system->sql->select('c.*, a.area AS categoria', 'cursos c INNER JOIN cursos_areas ca  ON (c.id = ca.curso_id) INNER JOIN areas a ON (a.id = ca.area_id)',  "c.excluido = '0' AND c.exibir_site='1' AND (c.curso like '%".$palavra."%' OR c.tags like '%".$palavra."%' OR c.descricao like '%".$palavra."%') and c.sistema_id='".$this->system->getSistemaID()."'", 10000, $order);
+		return $this->system->sql->fetchrowset($query);	
+	}
+	// ===============================================================
 	public function getCursosByArea($area_id = '', $limit = '', $order = ''){
-
-
 		$query = $this->system->sql->select('c.*, a.area AS categoria', 
 										'cursos c 
 										INNER JOIN cursos_areas ca  ON (c.id = ca.curso_id)

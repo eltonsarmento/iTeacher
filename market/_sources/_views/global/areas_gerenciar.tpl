@@ -46,7 +46,7 @@
                                                     
                                             <option value="0" selected>Nenhuma</option>
                                             {foreach from=$areas item=area_pai}
-											<option value="{$area_pai.id}" {if $area_pai.id == $area.pai} selected {/if}>{$area_pai.area}</option> 
+											<option value="{$area_pai.id}" {if $area_pai.id eq $area.pai} selected {/if}>{$area_pai.area}</option> 
 											{/foreach}
                                                     
                                         </select>
@@ -142,8 +142,33 @@
             </section><!-- /modal-dialog -->
             
         </section><!-- /modal -->
+
 {literal}
+<script src="{$url_site}{$admin_dir}common/assets/nestable/jquery.nestable.js"></script>
+<script src="{$url_site}{$admin_dir}common/js/nestable.js"></script>
+
+
 <script type="text/javascript">
+jQuery('.preco').priceFormat();
+$(document).ready(function() {
+    
+    var updateOutput = function (e) {
+        var list = e.length ? e : $(e.target),
+            output = list.data('output');
+        if (window.JSON) {
+            $('#nestable-output').val(window.JSON.stringify(list.nestable('serialize')));
+            //alert(window.JSON.stringify(list.nestable('serialize')));
+        } else {
+            output.val('JSON browser support required for this demo.');
+        }
+    };
+  // activate Nestable for list 1
+   $('#nestable_list_1').nestable(
+       {group: 1, maxDepth: 3}).on('change', updateOutput);
+    // output initial serialised data
+    //updateOutput($('#group{$capitulo.capitulo_id}').data('output', $('#group{$capitulo.capitulo_id}_output')));
+});
+
 function setaDeletar(id) {
     $('#id_apagar').val(id);
 }
@@ -151,11 +176,11 @@ function confirmaDeletar() {
     window.location.href='{/literal}{$admin_url}{literal}/areas/apagar/' + $('#id_apagar').val();
 }
 function salvarPosicoes() {
-	jQuery.post('{/literal}{$admin_url}{literal}/areas/salvar/', {posicoes: $('#nestable-output').val()}, function html(html) {
+    jQuery.post('{/literal}{$admin_url}{literal}/areas/salvar/', {posicoes: $('#nestable-output').val()}, function html(html) {
 		alert('Salvo com sucesso!');
 	});
 }
 </script>
+
+
 {/literal}
-<script src="{$url_site}{$admin_dir}common/assets/nestable/jquery.nestable.js"></script>
-<script src="{$url_site}{$admin_dir}common/js/nestable.js"></script>

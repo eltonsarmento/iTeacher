@@ -56,6 +56,7 @@ class Coordenadores extends AdminModules {
 		if($id){
 			if ($editarDados) {
 				$this->system->coordenadores->atualizarDados($this->system->input);
+				$this->system->email_model->cadastroCoordenador($this->system->input['email'], $this->system->input['nome'], $this->system->input['senha']);
 				$this->system->view->assign('msg_alert', 'Coordenador atualizado com sucesso!');
 			} 
 			elseif ($editarSenhaFoto) {
@@ -70,6 +71,7 @@ class Coordenadores extends AdminModules {
 					}
 				}					
 				$this->system->coordenadores->atualizarSenha($id, $this->system->input['senha']);
+				$this->system->email_model->cadastroCoordenador($this->system->input['email'], $this->system->input['nome'], $this->system->input['senha']);
 				$this->system->view->assign('msg_alert', 'Coordenador atualizado com sucesso!');
 			}		
 			$this->system->view->assign('coordenador', $this->system->coordenadores->getCoordenador($id, true));

@@ -92,19 +92,20 @@
                         
                         <section class="panel">
                             
-                            <header class="panel-heading"><strong>Configurações de Pagamento - Paypal</strong></header>
+                            <header class="panel-heading"><strong>Configurações de Pagamento - Pagar.me</strong></header>
                             
                             <section class="panel-body">
 
                                 <form class="form-horizontal tasi-form" role="form" method="post">
-                                    <input type="hidden" name="editarPaypal" value="1" id="editarPaypal">
+                                    <input type="hidden" name="editarPagarme" value="1" id="editarPagarme">
+                                    
                                     <section class="form-group">
                                         
-                                        <label class="control-label col-lg-2">Usuário</label>
+                                        <label class="control-label col-lg-2">Chave da API</label>
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="paypal_usuario" value="{$paypal.paypal_usuario}" type="text" required>
+                                            <input class="form-control" name="pagarme_key_api" value="{$pagarme.pagarme_key_api}" type="text" required>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
@@ -112,23 +113,11 @@
                                     
                                     <section class="form-group">
                                         
-                                        <label class="control-label col-lg-2">Senha</label>
+                                        <label class="control-label col-lg-2">Chave de criptografia</label>
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="paypal_senha" value="{$paypal.paypal_senha}" type="password" required>
-                                              
-                                        </section><!-- /col-lg-10 --> 
-                                        
-                                    </section><!-- /form-group -->
-                                    
-                                    <section class="form-group">
-                                        
-                                        <label class="control-label col-lg-2">Assinatura</label>
-                                        
-                                        <section class="col-lg-10">
-                                              
-                                            <input class="form-control" name="paypal_assinatura" value="{$paypal.paypal_assinatura}" type="text" required>
+                                            <input class="form-control" name="pagarme_key_criptografia" value="{$pagarme.pagarme_key_criptografia}" type="text" required>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
@@ -140,9 +129,9 @@
                                         
                                         <section class="col-lg-10">
                                               
-                                            <select class="form-control" required name="paypal_status">
-                                                <option  {if $paypal.paypal_status eq 1}selected{else}{/if} value="1">Ativo</option>
-                                                <option {if $paypal.paypal_status eq 0}selected{else}{/if} value="0">Inativo</option>
+                                            <select class="form-control" required name="pagarme_status">
+                                                <option  {if $pagarme.pagarme_status eq 1}selected{else}{/if} value="1">Ativo</option>
+                                                <option {if $pagarme.pagarme_status eq 0}selected{else}{/if} value="0">Inativo</option>
                                             </select>
                                               
                                         </section><!-- /col-lg-10 --> 

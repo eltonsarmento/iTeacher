@@ -2,6 +2,7 @@
 // ===================================================================
 //session_name('session_system');
 //session_save_path(dirname(__FILE__).'/lms/_sources/libraries/session/');
+
 session_set_cookie_params(0, '/', '.localmarket.com');
 session_start();
 print_r($_GET);

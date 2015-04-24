@@ -47,9 +47,14 @@ class CursosGlobal extends AdminModules {
 					$this->system->cursos->atualizar($this->system->input);
 					$this->system->view->assign('msg_alert', 'Curso "' . $this->system->input['curso'] . '" editado com sucesso!');
 				}else {
+					$usuario = $this->system->usuarios->getUsuario($this->system->session->getItem('session_cod_usuario'));
+					if($usuario['nivel'] == '7'){						
+						$responsavel = $this->system->sistemas->getResponsavelSistema($this->system->getSistemaID());							
+						$this->system->email_model->cursoCadastradoParceiro($responsavel['email'],$this->system->input);
 
-					$id = $this->system->cursos->cadastrar($this->system->input);
-					$this->system->view->assign('msg_alert', 'Curso "' . $this->system->input['curso'] . '" cadastrado com sucesso!');
+						$id = $this->system->cursos->cadastrar($this->system->input);
+						$this->system->view->assign('msg_alert', 'Curso "' . $this->system->input['curso'] . '" cadastrado com sucesso!');
+					}
 				}
 				$this->system->cursos->cadastrarCapitulos($id, $this->system->input['qt_capitulos']);			
 				//Img banner
@@ -90,6 +95,7 @@ class CursosGlobal extends AdminModules {
 
 		$this->system->view->assign('areas_opcoes', $this->areas($areas, $arrayIdAreasDoCurso));
 		$this->system->view->assign('cursos', $this->system->cursos->getCursos());
+		$this->system->view->assign('usuario_nivel', $this->system->session->getItem('session_nivel'));
 		$this->system->view->assign('professores', $this->system->professores->getProfessores());
 		$this->system->admin->topo('cursos','cursos-novo');
 		$this->system->view->display('global/cursos_edicao.tpl');
@@ -230,7 +236,7 @@ class CursosGlobal extends AdminModules {
 	private function areas($areas, $areasDoCurso) {
 		$html = '';
 		foreach ($areas as $area) {
-	    	    $html .= '<label class="label_check"  id_secundario="'. $area['id'] .'"  id="label-' . $area['id'] . '" for="checkbox-' . $area['id'] . '"><input class="checkbox-area"  type="checkbox" id="checkbox-' . $area['id'] . '" name="areas[]" value="' . $area['id'] . '" ' . (in_array($area['id'], $areasDoCurso) ? 'checked="checked"' : '') . '/> ' . $area['area'] . '</label>';
+	    	    $html .= '<label class="label_check"  id_secundario="'. $area['id'] .'"  id="label-' . $area['id'] . '" for="checkbox-' . $area['id'] . '"><input class="checkbox-area"  type="checkbox" id="checkbox-' . $area['id'] . '" name="areas[]" value="' . $area['id'] . '" ' . ($areasDoCurso ? (in_array($area['id'], $areasDoCurso) ? 'checked="checked"' : '') : '' ). '/> ' . $area['area'] . '</label>';
 	    	    $html .= $this->areasFilhas($area['filhas'], $areasDoCurso);
 		}
 	        	return $html;
@@ -240,7 +246,16 @@ class CursosGlobal extends AdminModules {
 	private function areasFilhas($areas, $areasDoCurso) {
 		$html = '';
 		foreach ($areas as $area) {
-	    	    $html .= '<label class="label_check" id_secundario="'. $area['id'] .'" id="label_sub" for="checkbox-' . $area['id'] . '"><input class="checkbox-area"  type="checkbox" id="checkbox-' . $area['id'] . '" name="areas[]" value="' . $area['id'] . '" ' . (in_array($area['id'], $areasDoCurso) ? 'checked="checked"' : '') . '/> ' . $area['area'] . '</label>';
+	    	    $html .= '<label class="label_check" id_secundario="'. $area['id'] .'" id="label_sub" for="checkbox-' . $area['id'] . '"><input class="checkbox-area"  type="checkbox" id="checkbox-' . $area['id'] . '" name="areas[]" value="' . $area['id'] . '" ' . ($areasDoCurso ? (in_array($area['id'], $areasDoCurso) ? 'checked="checked"' : '') : '' ). '/> ' . $area['area'] . '</label>';
+	    	    $html .= $this->areasNetas($area['filhas'], $areasDoCurso);
+		}		
+	        	return $html;
+	}
+
+	private function areasNetas($areas, $areasDoCurso) {
+		$html = '';
+		foreach ($areas as $area) {
+	    	    $html .= '<label class="label_check" id_secundario="'. $area['id'] .'" id="label_neto" for="checkbox-' . $area['id'] . '"><input class="checkbox-area"  type="checkbox" id="checkbox-' . $area['id'] . '" name="areas[]" value="' . $area['id'] . '" ' . ($areasDoCurso ?  (in_array($area['id'], $areasDoCurso) ? 'checked="checked"' : '')  : '' ). '/> ' . $area['area'] . '</label>';
 	    	    $html .= $this->areas($area['filhas'], $areasDoCurso);
 		}
 		

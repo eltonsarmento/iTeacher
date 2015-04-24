@@ -101,7 +101,7 @@
                 
                 <ul class="nav pull-right top-menu">
                     
-                    <li><a href="#" target="_blank" class="dashboard-temp hidden-xs"><i class="fa fa-home"></i> Visualizar Site</a></li>
+                    <li><a href="{$site}" target="_blank" class="dashboard-temp hidden-xs"><i class="fa fa-home"></i> Visualizar Site</a></li>
                     
                     <li class="dropdown">
                         

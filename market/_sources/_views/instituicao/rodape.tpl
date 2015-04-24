@@ -25,7 +25,7 @@
 
     <script src="{$url_site}{$admin_dir}common/market/js/draggable-portlet.js"></script>
     <script src="{$url_site}{$admin_dir}common/market/assets/nestable/jquery.nestable.js"></script>
-    <script src="{$url_site}{$admin_dir}common/market/js/nestable.js"></script>
+    <!-- <script src="{$url_site}{$admin_dir}common/market/js/nestable.js"></script>-->
 
     
     <!-- COMMON JS -->

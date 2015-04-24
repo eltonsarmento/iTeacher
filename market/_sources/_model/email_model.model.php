@@ -56,6 +56,14 @@ class Email_modelMODEL {
 		$this->system->load->dao('configuracoesEmail');
 	}
 	// ===============================================================
+	public function testarEmail($input,$configuracoes) {
+		$titulo = $input['titulo'];
+		$mensagem = html_entity_decode($input['mensagem']);			
+
+		$this->envio($input['email'], $titulo, $mensagem);		
+
+	}
+	// ===============================================================
 	// Administrativo
 	// ===============================================================
 	public function vendaRealizadaAdministrativo($numero = '00000') {
@@ -80,7 +88,6 @@ class Email_modelMODEL {
 		$titulo = $this->system->emails->getValorPorId(15);
 		$mensagem = html_entity_decode($this->system->emails->getValorPorId(16));
 		
-
 		$this->system->load->dao('administrativos');
 		$administrativos = $this->system->administrativos->getAdministrativos();
 
@@ -137,7 +144,7 @@ class Email_modelMODEL {
 
 
 		$this->envio($email, $titulo, $mensagem);
-		$this->gravarNotificacoes($id,$email, $titulo, $mensagem);
+		$this->gravarNotificacoes($email, $titulo, $mensagem);
 	}
 	// ===============================================================
 	//Desativado
@@ -301,7 +308,7 @@ class Email_modelMODEL {
 		$this->setarValor('nome_curso', $curso);	
 
 		$this->envio($aluno['email'], $titulo, $mensagem);
-		$this->gravarNotificacoes(0, $aluno['email'], $titulo, $mensagem);	
+		$this->gravarNotificacoes($aluno['email'], $titulo, $mensagem);	
 	}
 	// ===============================================================
 	public function alteradoStatusCertificadoAluno($alunoId, $cursoId) {
@@ -417,11 +424,10 @@ class Email_modelMODEL {
 		$this->setarValor('senha_professor', $senha);	
 
 		$this->envio($email, $titulo, $mensagem);
-		//$this->gravarNotificacoes($email, $titulo, $mensagem);
+		$this->gravarNotificacoes($email, $titulo, $mensagem);
 	}
 	// ===============================================================
 	public function vendaCursoProfessor($curso, $numero = '00000') {
-		
 		$curso = $this->system->cursos->getCurso($curso);
 		$professor = $this->system->professores->getProfessor($curso['professor_id']);
 
@@ -547,23 +553,23 @@ class Email_modelMODEL {
 	// Coordenadores
 	// ===============================================================
 	public function cadastroCoordenador($email, $nome, $senha) {
-		$titulo = $this->system->emails->getValorPorId(1);
-		$mensagem = html_entity_decode($this->system->emails->getValorPorId(2));
+		$titulo = $this->system->emails->getValorPorId(91);
+		$mensagem = html_entity_decode($this->system->emails->getValorPorId(92));
 		
 		//Setar campos
 		$this->setarValor('nome_coordenador', $nome);
 		$this->setarValor('email_coordenador', $email);
 		$this->setarValor('senha_coordenador',$senha);
 
-		$this->envio($email, $titulo, $mensagem);
-		//$this->gravarNotificacoes($email, $titulo, $mensagem);
+		//$this->envio($email, $titulo, $mensagem);
+		$this->gravarNotificacoes($email, $titulo, $mensagem);
 	}
 	// ===============================================================
 	// Parceiros
 	// ===============================================================
 	public function cadastroParceiro($email, $nome, $senha) {
-		$titulo = $this->system->emails->getValorPorId(5);
-		$mensagem = html_entity_decode($this->system->emails->getValorPorId(6));
+		$titulo = $this->system->emails->getValorPorId(85);
+		$mensagem = html_entity_decode($this->system->emails->getValorPorId(86));
 		
 		//Setar campos
 		$this->setarValor('nome_parceiro', $nome);
@@ -574,9 +580,17 @@ class Email_modelMODEL {
 		//$this->gravarNotificacoes($email, $titulo, $mensagem);
 	}
 	// ===============================================================
+	public function cursoCadastradoParceiro($email, $curso) {
+		$titulo = "Curso cadastrado por Parceiro";
+		$mensagem = html_entity_decode("Olá, acabei de cadastrar um curso. Curso nome: ". $curso['curso'] ." . Espero que o mesmo seja liberado para proseguir com as vendas!");
+
+		$this->envio($email, $titulo, $mensagem);
+		$this->gravarNotificacoes($email, $titulo, $mensagem);
+	}	
+	// ===============================================================
 	public function relatorioFechado($email, $nome, $mes, $ano) {
-		$titulo = $this->system->emails->getValorPorId(7);
-		$mensagem = html_entity_decode($this->system->emails->getValorPorId(8));
+		$titulo = $this->system->emails->getValorPorId(87);
+		$mensagem = html_entity_decode($this->system->emails->getValorPorId(88));
 
 		//Setar campos
 		$this->setarValor('nome_parceiro', $nome);
@@ -615,8 +629,8 @@ class Email_modelMODEL {
 		}
 
 		if ($usuarioNivel == 5) { //Parceiros
-			$titulo = $this->system->emails->getValorPorId(11);
-			$mensagem = html_entity_decode($this->system->emails->getValorPorId(12));
+			$titulo = $this->system->emails->getValorPorId(89);
+			$mensagem = html_entity_decode($this->system->emails->getValorPorId(90));
 		}
 
 		if ($usuarioNivel == 6) { //Administrativo
@@ -643,65 +657,61 @@ class Email_modelMODEL {
 	}
 	// ===============================================================
 	private function envio($email, $titulo, $conteudo) {
-		
 		$usuario = $this->system->usuarios->getUsuarioByEmail($email);
 		if ($usuario['id']) {
 			$this->setarValor('email_usuario', $email);
 			$this->setarValor('senha_usuario', $usuario['senha']);	
 		}
-
-	//	$deNome = $this->system->emails->getValorPorId(84);
-	//	$deEmail = $this->system->emails->getValorPorId(85);
-	//	'imagem_header'	=> $this->system->getUrlSite().'lms/uploads/imagens/'.$this->system->emails->getValorPorId(86),
-	//  'texto_rodape' 	=> html_entity_decode($this->system->emails->getValorPorId(87))	
+		
 		$configuracoesEmail = $this->system->configuracoesEmail->getConfiguracoesGeraisEmail($this->system->getSistemaID());
+		
 		$deNome = $configuracoesEmail['nome'];
 		$deEmail = $configuracoesEmail['email'];
 
 		$conteudo = str_replace(array_keys($this->shortcode), array_values($this->shortcode), $conteudo);
-
 		$this->system->view->assign(array(
 			'url_site'		=> $this->system->getUrlSite(),
-			'imagem_header'	=> $this->system->getUrlSite().'lms/uploads/imagens/'.$configuracoesEmail['imagem_cabecalho'],
+			'imagem_header'	=> $this->system->getUrlSite().'market/uploads/configuracoes_email/'.$configuracoesEmail['imagem_cabecalho'],
 			'titulo'		=> $titulo,
 			'mensagem'		=> $conteudo,
 			'texto_rodape' 	=> html_entity_decode($configuracoesEmail['texto_rodape'])
 		));
 
 		$mensagem = $this->system->view->fetch('global/modelo_email.tpl');
-		
-		$this->system->func->sendMail($email, $titulo, $mensagem, $deNome, $deEmail);
+		$this->system->func->sendMail($email, $titulo, $mensagem, $deNome, $deEmail,$configuracoesEmail);
 		sleep(1);
 	}
-
 	// ===============================================================
-	public function gravarNotificacoes($id,$email, $titulo, $conteudo) {
+	public function gravarNotificacoes($email, $titulo, $conteudo) {
 
-		$id = $this->system->usuarios->getIDByEmail($email);		
+		$usuario = $this->system->usuarios->getUsuarioByEmail($email);		
 		
-		$sistemaID = $this->system->usuarios->getSistemaID($id);
-		$responsavel = $this->system->sistemas->getResponsavelSistema($sistemaID);
-		$remetenteID = $responsavel['id'];	
-		if ($id) {
+		/*$sistemaID = $this->system->usuarios->getSistemaID($id);
+		$responsavel = $this->system->sistemas->getResponsavelSistema($sistemaID);		
+		$remetenteID = $responsavel['id'];	*/
+		
+		if ($usuario['id']) {
 			$conteudo = str_replace(array_keys($this->shortcode), array_values($this->shortcode), $conteudo);
-			$this->system->notificacoes->notificacaoEmail($id, $titulo, $conteudo, $remetenteID);
+			$this->system->notificacoes->notificacaoEmail($usuario['id'], $titulo, $conteudo, $remetenteID);
 		}
 	}
 	// ===============================================================
 	public function enviarContato($nome, $email, $mensagem) {
 		$to = $this->system->getEmail();
-		$titulo = 'Contato IAG';
+		$titulo = 'Contato iTeacher';
 
 		$this->system->view->assign(array(
 			'url_site'		=> $this->system->getUrlSite(),
-			'imagem_header'	=> $this->system->getUrlSite().'lms/uploads/imagens/'.$this->system->emails->getValorPorId(86),
+			'imagem_header'	=> $this->system->getUrlSite().'market/uploads/imagens/'.$this->system->emails->getValorPorId(86),
 			'titulo'		=> $titulo,
 			'mensagem'		=> 'Nome:' . $nome . '<br/>' . $mensagem,
 			'texto_rodape' 	=> html_entity_decode($this->system->emails->getValorPorId(87))
 		));
 		$mensagem = $this->system->view->fetch('global/modelo_email.tpl');
 
-		$this->system->func->sendMail($to, $titulo, $mensagem, $nome, $email);
+		$configuracoesEmail = $this->system->configuracoesEmail->getConfiguracoesGeraisEmail($this->system->getSistemaID());
+
+		$this->system->func->sendMail($to, $titulo, $mensagem, $nome, $email, $configuracoesEmail);
 	}
 	// Grafica
 	// ===============================================================
@@ -717,20 +727,22 @@ class Email_modelMODEL {
 		$mensagem .= 'CURSO: ' . $curso;
 		$this->system->view->assign(array(
 			'url_site'		=> $this->system->getUrlSite(),
-			'imagem_header'	=> $this->system->getUrlSite().'lms/uploads/imagens/'.$this->system->emails->getValorPorId(86),
+			'imagem_header'	=> $this->system->getUrlSite().'market/uploads/imagens/'.$this->system->emails->getValorPorId(86),
 			'titulo'		=> $titulo,
 			'mensagem'		=> $mensagem,
 			'texto_rodape' 	=> html_entity_decode($this->system->emails->getValorPorId(87))
 		));
 		$mensagem = $this->system->view->fetch('global/modelo_email.tpl');
 
-		$this->system->func->sendMail($to, $titulo, $mensagem, $deNome, $deEmail, $anexos);
+		$configuracoesEmail = $this->system->configuracoesEmail->getConfiguracoesGeraisEmail($this->system->getSistemaID());
+
+		$this->system->func->sendMail($to, $titulo, $mensagem, $deNome, $deEmail, $configuracoesEmail, $anexos);
 	}
 	// Portal
 	// ===============================================================
 	public function sejaUmProfessor($nome, $email, $minicurriculo, $cursos, $emailDestino) {
 		$to = $emailDestino;
-		$titulo = 'Seja um Professor IAG';
+		$titulo = 'Seja um Professor iTeacher';
 		$mensagem = '<strong>Nome:</strong> ' . $nome . '<br/>';
 		$mensagem .= '<strong>Email:</strong> ' . $email . '<br/>';
 		$mensagem .= '<strong>Mini-curriculo:</strong> ' . $minicurriculo . '<br/>';
@@ -738,19 +750,21 @@ class Email_modelMODEL {
 
 		$this->system->view->assign(array(
 			'url_site'		=> $this->system->getUrlSite(),
-			'imagem_header'	=> $this->system->getUrlSite().'lms/uploads/imagens/'.$this->system->emails->getValorPorId(86),
+			'imagem_header'	=> $this->system->getUrlSite().'market/uploads/imagens/'.$this->system->emails->getValorPorId(86),
 			'titulo'		=> $titulo,
 			'mensagem'		=> $mensagem,
 			'texto_rodape' 	=> html_entity_decode($this->system->emails->getValorPorId(87))
 		));
 		$mensagem = $this->system->view->fetch('global/modelo_email.tpl');
 
-		$this->system->func->sendMail($to, $titulo, $mensagem, $nome, $email);
+		$configuracoesEmail = $this->system->configuracoesEmail->getConfiguracoesGeraisEmail($this->system->getSistemaID());
+
+		$this->system->func->sendMail($to, $titulo, $mensagem, $nome, $email, $configuracoesEmail);
 	}
 	// ==============================================================
 	public function sejaUmRevendedor($nome, $email, $site, $atuacao, $telefone, $mensagemTexto, $emailDestino) {
 		$to = $emailDestino;
-		$titulo = 'Seja um Revendedor IAG';
+		$titulo = 'Seja um Revendedor iTeacher';
 		$mensagem = '<strong>Nome:</strong> ' . $nome . '<br/>';
 		$mensagem .= '<strong>Email:</strong> ' . $email . '<br/>';
 		$mensagem .= '<strong>Site:</strong> ' . $site . '<br/>';
@@ -760,34 +774,41 @@ class Email_modelMODEL {
 
 		$this->system->view->assign(array(
 			'url_site'		=> $this->system->getUrlSite(),
-			'imagem_header'	=> $this->system->getUrlSite().'lms/uploads/imagens/'.$this->system->emails->getValorPorId(86),
+			'imagem_header'	=> $this->system->getUrlSite().'market/uploads/imagens/'.$this->system->emails->getValorPorId(86),
 			'titulo'		=> $titulo,
 			'mensagem'		=> $mensagem,
 			'texto_rodape' 	=> html_entity_decode($this->system->emails->getValorPorId(87))
 		));
 		$mensagem = $this->system->view->fetch('global/modelo_email.tpl');
 
-		$this->system->func->sendMail($to, $titulo, $mensagem, $nome, $email);	
+		$configuracoesEmail = $this->system->configuracoesEmail->getConfiguracoesGeraisEmail($this->system->getSistemaID());
+
+		$this->system->func->sendMail($to, $titulo, $mensagem, $nome, $email, $configuracoesEmail);	
 	}
 	// ===============================================================
 	public function lembrarSenha($nome, $email, $id_md5) {
 		$to = $email;
 		$link = $this->system->getUrlSite() . 'conta/redefinirSenha/' . $id_md5;
-		$titulo = 'Lembrar Senha - Cursos IAG';
+		$titulo = 'Lembrar Senha - Cursos iTeacher';
 		$mensagem = 'Olá <strong>' . $nome . '</strong><br/><br/>';
 		$mensagem .= 'Você solicitou que sua senha fosse alterada. Para dá continuidade acesse o link abaixo: <br/><br/>';
 		$mensagem .= '<a href="' . $link  . '">' . $link . '</a><br/>';
 
+		
+
 		$this->system->view->assign(array(
 			'url_site'		=> $this->system->getUrlSite(),
-			'imagem_header'	=> $this->system->getUrlSite().'lms/uploads/imagens/'.$this->system->emails->getValorPorId(86),
+			'imagem_header'	=> $this->system->getUrlSite().'market/uploads/imagens/'.$this->system->emails->getValorPorId(86),
 			'titulo'		=> $titulo,
 			'mensagem'		=> $mensagem,
 			'texto_rodape' 	=> html_entity_decode($this->system->emails->getValorPorId(87))
 		));
+
+		$configuracoesEmail = $this->system->configuracoesEmail->getConfiguracoesGeraisEmail($this->system->getSistemaID());
+
 		$mensagem = $this->system->view->fetch('global/modelo_email.tpl');
 		
-		$this->system->func->sendMail($to, $titulo, $mensagem);
+		$this->system->func->sendMail($to, $titulo, $mensagem, $configuracoesEmail);
 	}
 
 }

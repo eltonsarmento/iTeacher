@@ -140,6 +140,12 @@ class AulasDAO {
 		return true;
 	}
 	// ===============================================================
+	public function getCountCapitulosByCurso($curso_id) {
+		$query = $this->system->sql->select('count(*)', 'cursos_capitulos', "curso_id='" . $curso_id . "' and sistema_id='".$this->system->getSistemaID()."' and excluido = 0");
+		return $this->system->sql->querycountunit($query);
+	}
+
+	// ===============================================================
 	public function getAula($id) {
 		$query = $this->system->sql->select('*', 'cursos_aulas', "aula_id= '" . $id . "' and sistema_id='".$this->system->getSistemaID()."'");
 		return end($this->system->sql->fetchrowset($query));
@@ -160,6 +166,7 @@ class AulasDAO {
 						'posicao'		=> ($key+1)
 			        ),
 					"aula_id='" . $aula . "' and curso_id = '" . $curso_id . "' and sistema_id='".$this->system->getSistemaID()."'");
+					echo ($key+1) . '-' . $aula . '/';
 				}
 			}	
 		}		
@@ -185,13 +192,13 @@ class AulasDAO {
 
 		$query = $this->system->sql->select('vimeo, amazon, youtube', 'cursos_aulas', "curso_id = '" . $curso_id . "' and sistema_id='".$sistemaID."' AND excluido = 0 AND gratuito = 1 AND (vimeo != '' OR  amazon != '')");
 		$aulas = $this->system->sql->fetchrowset($query);
+
 		//Escolha aula gratuita randomica
 		$aula = $aulas[rand(0, (count($aulas) - 1))];
 		
 		//Buscando o servidor do curso
 		$this->system->load->dao('cursos');
-		$curso = $this->system->cursos->getCurso($curso_id,true,$sistemaID);
-		
+		$curso = $this->system->cursos->getCurso($curso_id, true, $sistemaID);
 		
 		if ($curso['servidor'] == 1)//amazon
 			$aula['video'] = $aula['amazon'];
@@ -210,12 +217,10 @@ class AulasDAO {
 			else  									//youtube
 				$aula['video'] = $aula['youtube'];	
 		}
-		
 		if ($aula['video'])
 			return base64_encode(urldecode($aula['video']));
 		return false;
 	}
-	
 	// ===============================================================
 	public function obterAulasCompletadas($relacionamentoId) {
 		$query = $this->system->sql->select('aula_id', 'cursos_alunos_aulas', 'concluida = 1 and sistema_id='.$this->system->getSistemaID().' and cursos_alunos_id = ' . $relacionamentoId);

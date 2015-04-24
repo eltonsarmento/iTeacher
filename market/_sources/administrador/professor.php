@@ -73,7 +73,7 @@ class professor extends ProfessorGlobal {
 			$erro_msg = $this->validarDados();
 			if ($erro_msg) {
 				$this->system->view->assign('msg_alert_error', $erro_msg['msg']);
-				$this->system->view->assign('Professor', $this->system->input);
+				$this->system->view->assign('professor', $this->system->input);
 			} else {
 				if ($id) {
 					$this->system->professores->atualizar($this->system->input);										
@@ -86,8 +86,8 @@ class professor extends ProfessorGlobal {
 						$this->system->usuarios->atualizarImagem($id, $nomearquivo);
 					}		
 					$this->system->view->assign('msg_alert_sucesso', 'Professor atualizado com sucesso!');
-				} else {								
-					$id = $this->system->professores->cadastrar($this->system->input);
+				} else {	
+					/*$id = $this->system->professores->cadastrar($this->system->input);
 					if (is_uploaded_file($_FILES['avatar']['tmp_name'])) {
 						$extensao = end(explode('.', $_FILES['avatar']['name']));
 						$nomearquivo = 'avatar_' . $id . '.' .$extensao;
@@ -96,9 +96,9 @@ class professor extends ProfessorGlobal {
 						copy($_FILES['avatar']['tmp_name'], $this->system->getUploadPath() . '/avatar/' . $nomearquivo);
 						$this->system->usuarios->atualizarImagem($id, $nomearquivo);
 					}	
-					$this->system->view->assign('msg_alert', 'Professor cadastrado com sucesso!');
+					$this->system->view->assign('msg_alert', 'Professor cadastrado com sucesso!');*/
 					//Email
-					//$this->system->email_model->cadastroProfessor($this->system->input['email'], $this->system->input['nome'], $this->system->input['senha']);
+					$this->system->email_model->cadastroProfessor($this->system->input['email'], $this->system->input['nome'], $this->system->input['senha']);
 				}
 				if ($this->system->input['nova'])
 					$this->system->func->redirecionar('/professor/novo');

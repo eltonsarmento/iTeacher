@@ -76,6 +76,7 @@
                                         <tr>
                                             
                                             <th><i class="fa fa-bell"></i> Notificaçãos</th>
+                                            <th><i class="fa fa-book"></i> Destinatário</th>
                                             <th><i class="fa fa-book"></i> Curso</th>
                                             <th></th>
                                             
@@ -88,6 +89,7 @@
                                         <tr>
                                             
                                             <td><a data-toggle="modal" href="#visualizarNotificacao" onclick="setarValores({$notificacao.id})">{$notificacao.titulo}</a></td>
+                                            <td class="hidden-xs">{$notificacao.destinatario}</td>
                                             <td class="hidden-xs">
                                                 {foreach from=$notificacao.cursos key=j item=curso}
                                                     &nbsp;

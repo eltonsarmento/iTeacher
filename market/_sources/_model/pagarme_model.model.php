@@ -11,7 +11,7 @@ class Pagarme_modelMODEL {
 	private $nomeCliente = '';
 	private $emailCliente = '';
 	private $referencia = '';
-	private $razao = 'IAG - Compra de Assinatura - Pedido ';
+	private $razao = 'iTeacher - Compra de Assinatura - Pedido ';
 	private $valor = 0.00;
 	private $valorMaximo = 0.00;
 	private $redirectURL = '';
@@ -24,18 +24,15 @@ class Pagarme_modelMODEL {
 	public function __construct() {
 		$this->system =& getInstancia();	
 		$this->system->load->dao('configuracoesgerais');	
-		$this->notificationURL = $this->system->getUrlSite() . 'lms/nasp/pagarme.php';		
-		//$this->notificationURL = 'http://requestb.in/pb9qozpb';
+		$this->notificationURL = $this->system->getUrlSite() . 'lms/nasp/pagarme.php';
 	}
 	// ================================================================
 	// API Assinatura Pagarme
 	// ================================================================
 	private function contaPagarme() {
-		$pagarme = $this->system->configuracoesgerais->getPagarme();
-
+		$pagarme = $this->system->configuracoesgerais->getPagarme($this->system->getSistemaID());
 		$dados['key_api'] 		   = $pagarme['pagarme_key_api'];
 		$dados['key_criptografia'] = $pagarme['pagarme_key_criptografia'];
-
 		return $dados;
 	}
 	// ===============================================================
@@ -150,7 +147,7 @@ class Pagarme_modelMODEL {
 	}
 
 	// ================================================================
-	public function formataValoresTransacao($id){
+	public function formataValoresTransacao($id) {
 
 		$dados = $this->contaPagarme();
 

@@ -9,7 +9,7 @@
   <meta name="keyword" content="">
   <link rel="shortcut icon" href="{$url_site}common/market/img/favicon.png">
 
-  <title>Cursos IAG</title>
+  <title>Iteacher</title>
 
   <!-- Bootstrap core CSS -->
 

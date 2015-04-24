@@ -1,6 +1,6 @@
 <?php
 // ===================================================================
-class ConfiguracoesGeraisGlobal extends AdminModules{
+class ConfiguracoesGeraisGlobal extends AdminModules {
 	// ===============================================================
 	public function __construct(&$system) {
 		$this->system = $system;
@@ -14,6 +14,7 @@ class ConfiguracoesGeraisGlobal extends AdminModules{
 			case 'pagamentosMudarStatus'	:$this->doAlterarStatusPagamento(); break;
 			case 'certificados'				:$this->doEdicaoCertificados(); break;
 			case 'servidores'				:$this->doEdicaoServidores(); break;
+			case 'periodoAcesso'			:$this->doEdicaoPeridoAcesso(); break;
 			case 'pdf'						:$this->doPdf(); break;
 			case 'jpg'						:$this->doJpg(); break;
 			default 						:$this->pagina404(); break;
@@ -23,6 +24,8 @@ class ConfiguracoesGeraisGlobal extends AdminModules{
 	protected function doEdicaoPagamentos() {
 		$editarPagseguro = intval($this->system->input['editarPagseguro']);
 		$editarPaypal = intval($this->system->input['editarPaypal']);
+		$editarPagarme = intval($this->system->input['editarPagarme']);
+
 		//Pagseguro
 		if ($editarPagseguro) {
 			$erro_msg = $this->validarDadosPagamentos();
@@ -38,8 +41,26 @@ class ConfiguracoesGeraisGlobal extends AdminModules{
 			}
 		} 
 		else {
-		    $this->system->view->assign('pagseguro', $this->system->configuracoesgerais->getPagseguro());
+		    $this->system->view->assign('pagseguro', $this->system->configuracoesgerais->getPagseguro($this->system->getSistemaID()));
 		}
+
+		//Pagarme
+		if ($editarPagarme) {
+			$erro_msg = $this->validarDadosPagamentos();			
+			if ($erro_msg) {
+				$this->system->view->assign('msg_alert', $erro_msg['msg']);
+				$this->system->view->assign('pagarme', $this->system->input);
+			} 
+			else {
+				$this->system->configuracoesgerais->atualizarPagamentos($this->system->input);
+				$this->system->view->assign('msg_alert', 'Pagar.me atualizado com sucesso!');
+				$this->system->view->assign('pagarme', $this->system->input);
+			}
+		} 
+		else {
+		    $this->system->view->assign('pagarme', $this->system->configuracoesgerais->getPagarme($this->system->getSistemaID()));
+		}
+
 		//Paypal
 		if ($editarPaypal) {
 			$erro_msg = $this->validarDadosPagamentos();			
@@ -61,7 +82,6 @@ class ConfiguracoesGeraisGlobal extends AdminModules{
 		$this->system->admin->rodape();
 	}
 	// ===============================================================
-
 	protected function doEdicaoTokensDePagamentos() {
 		$editar = $this->system->input['editar'];
 		if ($editar) {
@@ -76,7 +96,6 @@ class ConfiguracoesGeraisGlobal extends AdminModules{
 		$this->system->view->display('professor/configuracoes_pagamentos.tpl');
 		$this->system->admin->rodape();
 	}
-
 	// ================================================================
 	private function validarDadosPagamentos() {
 		//Pagseguro
@@ -88,15 +107,22 @@ class ConfiguracoesGeraisGlobal extends AdminModules{
 	       	if ($this->system->input['pagseguro_token'] == '')
 	        	$retorno['msg'][] = "O campo Token de Segurança deve ser preenchido";
 	    }
+	    //Pagarme
+	    if ($this->system->input['editarPagarme']) {
+	        if ($this->system->input['pagarme_key_api'] == '')
+	        	$retorno['msg'][] = "O campo Chave da API deve ser preenchido";
+	        if ($this->system->input['pagarme_key_criptografia'] == '')
+	        	$retorno['msg'][] = "O campo Chave de criptografia deve ser preenchido";
+	    }
 	    //Paypal
-	    if ($this->system->input['editarPaypal']) {
+	    /*if ($this->system->input['editarPaypal']) {
 	        if ($this->system->input['paypal_usuario'] == '')
 	        	$retorno['msg'][] = "O campo Usuário deve ser preenchido";
 	        if ($this->system->input['paypal_assinatura'] == '')
 	        	$retorno['msg'][] = "O campo Assinatura deve ser preenchido";
-	    }
-		if (count($retorno) > 0)
-		   $retorno['msg'] = implode("<br/>",$retorno['msg']);
+	    }*/
+		if (count($retorno))
+		   $retorno['msg'] = implode('<br/>',$retorno['msg']);
         return $retorno;
 	}
 	// ===============================================================
@@ -207,10 +233,30 @@ class ConfiguracoesGeraisGlobal extends AdminModules{
 	}
 	// ===============================================================
 	private function getHtml() {
-		$html = "<html>
-					<body>Teste</body>
-				</html>";
+		$html = "<html><body>Teste</body></html>";
 		return $html;
+	}
+	// ======================= Perido Acesso ==========================
+	protected function doEdicaoPeridoAcesso() {
+		$editar = intval($this->system->input['editar']);
+		if ($editar) {
+			$sistema_id = intval($this->system->input['sistema_id']);			
+			//Perido Acesso
+			if ($sistema_id) {
+				$this->system->configuracoesgerais->atualizarPeriodoAcesso($this->system->input);
+				$this->system->view->assign('msg_alert', 'Período de Acesso atualizado com sucesso!');
+				$this->system->view->assign('periodo', $this->system->input);
+			}else{
+				$this->system->configuracoesgerais->cadastrarPeriodoAcesso($this->system->input);
+				$this->system->view->assign('msg_alert', 'Período de Acesso cadastrado com sucesso!');
+				$this->system->view->assign('periodo', $this->system->input);
+			}
+		} 		
+		$this->system->view->assign('periodo',$this->system->configuracoesgerais->getPeriodoAcesso());
+		
+		$this->system->admin->topo('configuracoes','configuracoesgerais-periodoAcesso');
+		$this->system->view->display('global/configuracoes_perido_acesso.tpl');
+		$this->system->admin->rodape();
 	}
 }
 // ===================================================================

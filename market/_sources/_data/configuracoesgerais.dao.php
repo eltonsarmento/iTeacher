@@ -15,7 +15,6 @@ class ConfiguracoesgeraisDAO {
 		if (isset($input['produtos_suporte_valor'])) $fields['produtos_suporte_valor'] = $input['produtos_suporte_valor'];
 		if (isset($input['produtos_certificado_tipo'])) $fields['produtos_certificado_tipo'] = $input['produtos_certificado_tipo'];
 		if (isset($input['produtos_certificado_valor'])) $fields['produtos_certificado_valor'] = $input['produtos_certificado_valor'];
-		
 		$this->system->sql->update('configuracoes_gerais', $fields);
 	}
 	// ===============================================================
@@ -33,7 +32,6 @@ class ConfiguracoesgeraisDAO {
 	public function atualizarTermos($input) {
 		$fields = array();
 		if (isset($input['termos_condicoes'])) $fields['termos_condicoes'] = $input['termos_condicoes'];
-		
 		$this->system->sql->update('configuracoes_gerais', $fields);
 	}
 	// ===============================================================
@@ -48,7 +46,8 @@ class ConfiguracoesgeraisDAO {
 		if (isset($input['pagseguro_email'])) $fields['pagseguro_email'] = $input['pagseguro_email'];
 		if (isset($input['pagseguro_token'])) $fields['pagseguro_token'] = $input['pagseguro_token'];
 		if (isset($input['pagarme_key_api'])) $fields['pagarme_key_api'] = $input['pagarme_key_api'];		
-		if (isset($input['pagarme_key_criptografia'])) $fields['pagarme_key_criptografia'] = $input['pagarme_key_criptografia'];		
+		if (isset($input['pagarme_key_criptografia'])) $fields['pagarme_key_criptografia'] = $input['pagarme_key_criptografia'];
+		if (isset($input['pagarme_status'])) $fields['pagarme_status'] = $input['pagarme_status'];
 		if (isset($input['moip_key'])) $fields['moip_key'] = $input['moip_key'];
 		if (isset($input['moip_token'])) $fields['moip_token'] = $input['moip_token'];
 		if (isset($input['paypal_usuario'])) $fields['paypal_usuario'] = $input['paypal_usuario'];
@@ -68,8 +67,8 @@ class ConfiguracoesgeraisDAO {
 		$this->system->sql->update('configuracoes_api_pagamentos', $fields);
 	}
 	// ===============================================================
-	public function getPagseguro() {
-		$query = $this->system->sql->select('pagseguro_status, pagseguro_email, pagseguro_token', 'configuracoes_api_pagamentos');	
+	public function getPagseguro($sistema_id) {
+		$query = $this->system->sql->select('pagseguro_status, pagseguro_email, pagseguro_token', 'configuracoes_api_pagamentos', 'sistema_id=' . $sistema_id);
 		return end($this->system->sql->fetchrowset($query));
 	}
 	// ===============================================================
@@ -83,10 +82,9 @@ class ConfiguracoesgeraisDAO {
 		return end($this->system->sql->fetchrowset($query));
 	}
 	// ===============================================================
-	public function getPagarme() {
-		$query = $this->system->sql->select('pagarme_status, pagarme_key_api,pagarme_key_criptografia', 'configuracoes_api_pagamentos');	
-		$vetor = $this->system->sql->fetchrowset($query);
-		return end($vetor);
+	public function getPagarme($sistema_id) {
+		$query = $this->system->sql->select('pagarme_status, pagarme_key_api,pagarme_key_criptografia', 'configuracoes_api_pagamentos', 'sistema_id=' . $sistema_id);	
+		return end($this->system->sql->fetchrowset($query));
 	}
 	// Imagens
 	// ===============================================================
@@ -140,6 +138,12 @@ class ConfiguracoesgeraisDAO {
 		$query = $this->system->sql->select('certificado_modelo', 'configuracoes_gerais');	
 		return end($this->system->sql->fetchrowset($query));
 	}
+	// ==============================================================
+    public function getCertificadoCompleto() {
+        $query = $this->system->sql->select('*', 'configuracoes_certificados', " sistema_id='".$this->system->getSistemaID()."'");
+        $certificado = end($this->system->sql->fetchrowset($query));  
+        return $certificado;
+    }
 	// Servidor
 	// ===============================================================
 	public function atualizarServidor($input) {
@@ -168,5 +172,26 @@ class ConfiguracoesgeraisDAO {
 		$query = $this->system->sql->select('grafica_email_1, grafica_email_2, grafica_email_3', 'configuracoes_gerais');	
 		return end($this->system->sql->fetchrowset($query));
 	}
+	// Período de Acesso
+	// ===============================================================	
+	public function cadastrarPeriodoAcesso($input) {
+		$this->system->sql->insert('configuracoes_periodo_acesso', array(
+			'sistema_id' => $this->system->getSistemaID(),
+			'periodo_acesso' => trim($input['periodo_acesso'])
+		));
+	}
+	// ===============================================================	
+	public function atualizarPeriodoAcesso($input) {
+		$fields = array();
+		if (isset($input['periodo_acesso'])) $fields['periodo_acesso'] = $input['periodo_acesso'];		
+		
+		$this->system->sql->update('configuracoes_periodo_acesso', $fields);
+	}
+	// ===============================================================
+	public function getPeriodoAcesso() {
+		$query = $this->system->sql->select('periodo_acesso', 'configuracoes_periodo_acesso'," sistema_id='".$this->system->getSistemaID()."'");
+		return end($this->system->sql->fetchrow($query));
+	}
+	// ===============================================================
 }
 // ===================================================================

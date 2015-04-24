@@ -74,6 +74,7 @@
                                             <th class="hidden-xs"><i class="fa fa-archive"></i> Capítulos</th>
                                             <th class="hidden-xs"><i class="fa fa-comment"></i> Quizzes</th>
                                             <th class="hidden-xs"><i class="fa fa-user"></i> Professor</th>
+                                            <th class="hidden-xs"><i class="fa fa-user"></i> Situação</th>
                                             <th class="hidden-xs"><i class="fa fa-laptop"></i> Área</th>
                                             <th></th>
                                             
@@ -89,6 +90,11 @@
                                             <td class="hidden-xs">{$curso.qt_capitulos}</td>
                                             <td class="hidden-xs">{$curso.qt_quiz}</td>
                                             <td class="hidden-xs">{$curso.professor}</td>
+                                            <td class="hidden-xs">                                                
+                                                <span class="label label-{if $curso.exibir_site eq 1}success{else}danger{/if}">
+                                                    <i class="fa fa-check-circle"></i>{if $curso.exibir_site eq 1} Aprovado{else} Aguardando Aprovação{/if}
+                                                </span>                                                
+                                            </td>
                                             <td class="hidden-xs">
                                                 {foreach from=$curso.categorias item=categoria_curso} <span>{$categoria_curso.area}</span> <br/> {/foreach}
                                                 <input type="hidden" value="{$curso.id}" id="curso_id_{$k}" />

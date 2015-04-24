@@ -108,13 +108,17 @@ class VendasGlobal extends AdminModules {
 				if ($this->system->input['nova'])
 					$this->system->func->redirecionar('/vendas/nova');
 				else
-					$this->system->func->redirecionar('/vendas/listar');
+					$this->system->func->redirecionar('/vendas/listarTodas');
 			}
 		} 
 		$this->system->admin->topo('vendas','vendas-editar');
+		$cursos = $this->system->cursos->getCursos();
+		foreach ($cursos as $key => $curso) {
+			if($curso['exibir_site']) $cursosListar[$key] = $curso;
+		}
 		$this->system->view->assign(array(
 			'alunos' 		 => $this->system->alunos->getAlunos(),
-			'cursos' 		 => $this->system->cursos->getCursos(),
+			'cursos' 		 => $cursosListar,
 			'data_venda'	 => date('d/m/Y'),
 			'periodoLiberado'=> ($this->system->session->getItem('session_nivel') == 1 ? true : false)
 		));

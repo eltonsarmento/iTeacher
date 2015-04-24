@@ -11,6 +11,8 @@ class Alunos extends AlunosGlobal {
 			case 'buscar': 		$this->doListar('instituicao/alunos_gerenciar.tpl'); break;
 			case 'novo':
 			case 'editar': 		$this->doEdicao(); 	break;
+			case 'visualizar': 	$this->doVisualizar(); break;	
+			case 'editarnavisualizacao': 		$this->doEditarNaVisualizacao(); break;	
 			default:			$this->pagina404(); break;
 		}	
    	}

@@ -150,9 +150,9 @@ class InstituicoesGlobal extends AdminModules {
         //endereço
         if ($this->system->input['endereco'] == '') 
             $retorno['msg'][] = "O campo Endereço está vázio.";
-        //Comeplemento
+        /*//Comeplemento
         if ($this->system->input['complemento'] == '') 
-            $retorno['msg'][] = "O campo Complemento está vázio.";
+            $retorno['msg'][] = "O campo Complemento está vázio.";*/
         //Bairro
         if ($this->system->input['bairro'] == '') 
             $retorno['msg'][] = "O campo Bairro está vázio.";

@@ -59,7 +59,7 @@ class CertificadosGlobal extends AdminModules {
 			}
 		}elseif ($filtrar) {
 			
-		}
+		}		
 		$certificado = $this->system->configuracoesgerais->getCertificadoCompleto();
 		$this->system->view->assign('certificado',$certificado);
 		$this->system->admin->topo('configuracoes', 'configuracoesgerais-certificados');

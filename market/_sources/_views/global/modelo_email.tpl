@@ -1,14 +1,14 @@
 <html lang="pt-br">
 <head>
 	<meta charset="utf-8">
-	<title>Modelo E-mail</title>
+	<title>Modelo E-mail </title>
 
 </head>
 <body style="background:#fff;width:600px;font-family:'Arial',sans-serif;color:#999;margin:0 auto;padding:0;">
 
 	<div style="background:#e25143;width:600px;height:auto;padding:20px 0;margin:60px 0 0 0;border-top-left-radius:4px;border-top-right-radius:4px;">
 
-		<div style="width:160px;height:40px;margin:0 auto;"><a href="http://cursosiag.com.br/lms"><img src="{$imagem_header}"></a></div>
+		<div style="width:160px;height:40px;margin:0 auto;"><a href="http://iteacher.com.br/market"><img src="{$imagem_header}"></a></div>
 
 	</div>
 
@@ -18,7 +18,7 @@
 
 		{$mensagem}
 		<br/>
-		<span style="font-size:10px;font-weight:400;color:#f00;">E-mail automático. Por favor, não responda a este endereço de e-mail!</span>
+		<span style="font-size:10px;font-weight:400;color:#f00;">E-mail automático. Por favor, não responda a este endereço de e-mail! </span>
 
 	</div>
 

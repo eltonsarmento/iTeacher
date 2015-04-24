@@ -5,6 +5,7 @@ class ConfiguracoesEmailGlobal extends AdminModules{
 	public function __construct() {
 		parent::__construct();
 		$this->system->load->dao('configuracoesemail');
+		$this->system->load->model('email_model');
 	}
 	// ===============================================================
 	public function autoRun() {
@@ -31,8 +32,8 @@ class ConfiguracoesEmailGlobal extends AdminModules{
 				$this->system->view->assign('configuracoes_email', $configuracoesgerais);
 			}else{
 				$this->system->configuracoesemail->cadastrarServidor($this->system->input);
-				$configuracoesgerais = $this->system->configuracoesemail->getConfiguracoesGeraisEmail($id_sistema);				
-				$this->system->view->assign('configuracoes_email', $configuracoesgerais);
+				/*$configuracoesgerais = $this->system->configuracoesemail->getConfiguracoesGeraisEmail($id_sistema);				
+				$this->system->view->assign('configuracoes_email', $configuracoesgerais);*/
 			}
 		}
 		//editando o host
@@ -46,8 +47,15 @@ class ConfiguracoesEmailGlobal extends AdminModules{
 				//Salvar
 				if ($id) {					
 					$this->system->configuracoesemail->atualizarServidor($this->system->input);
-					$this->system->view->assign('configuracoes_email', $this->system->input);
+					//$this->system->view->assign('configuracoes_email', $this->system->input);
 					$this->system->view->assign('msg_alert', 'Host atualizado com sucesso!');
+
+					if ($this->system->input['testarEmail']){
+						$dados['email'] = "elton@kmf.com.br";
+						$dados['titulo'] = "email de teste Iteacher";
+						$dados['mensagem'] = "Olá, esse é só um e-mail de teste";
+						$this->system->email_model->testarEmail($dados);
+					}
 				}
 			}
 		} 
@@ -61,7 +69,7 @@ class ConfiguracoesEmailGlobal extends AdminModules{
 			else {
 				if ($id) {
 					$this->system->configuracoesemail->atualizarRemetente($this->system->input);
-					$this->system->view->assign('configuracoes_email', $this->system->input);
+					//$this->system->view->assign('configuracoes_email', $this->system->input);
 					$this->system->view->assign('msg_alert','Remetente atualizado com sucesso!');
 				}	
 			}
@@ -76,7 +84,7 @@ class ConfiguracoesEmailGlobal extends AdminModules{
 			else {
 				if ($id) {
 					$this->system->configuracoesemail->atualizarModelo($this->system->input);
-					$this->system->view->assign('configuracoes_email', $this->system->input);
+					//$this->system->view->assign('configuracoes_email', $this->system->input);
 					$this->system->view->assign('msg_alert','Modelo do email atualizado com sucesso!');
 				}
 				//Img cabeçalho
@@ -91,8 +99,9 @@ class ConfiguracoesEmailGlobal extends AdminModules{
 			}
 		}
 		else {			
-			if ($id) 
-			    $this->system->view->assign('plano', $this->system->configuracoesemail->getPlano($id));
+			if ($id) 			    
+				$this->system->view->assign('configuracoes_email', $this->system->configuracoesemail->getConfiguracoesGeraisEmail($id_sistema));
+			//$this->system->view->assign('plano', $this->system->configuracoesemail->getPlano($id));			
 		}
 		$this->system->admin->topo('configuracoes','configuracoesemails-novo');
 		$this->system->view->display('global/configuracao_geral_email_edicao.tpl');
@@ -101,9 +110,13 @@ class ConfiguracoesEmailGlobal extends AdminModules{
 	// ===============================================================
 	private function validarDadosHost() {
 		$retorno = array();
+		
     	//host
     	if($this->system->input['host'] == '') 
             $retorno['msg'][] = "O campo Host está vázio.";
+
+        if($this->system->input['SMTPSecure'] == '') 
+            $retorno['msg'][] = "O campo SMTP Secure está vázio.";
         //porta
         if($this->system->input['porta'] == '') 
             $retorno['msg'][] = "O campo Porta está vázio.";		

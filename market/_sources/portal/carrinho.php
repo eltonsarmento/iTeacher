@@ -4,7 +4,6 @@ class Carrinho {
 	// ===============================================================
 	protected $system = null;
 	private $tituloPagina = 'Carrinho';
-	
 	// ===============================================================
 	public function __construct(&$system) {
 		$this->system = $system;
@@ -17,28 +16,28 @@ class Carrinho {
 	// ===============================================================
 	public function autoRun() {
 		switch($this->system->input['do']) {
-			case 'ver':				$this->doVer(); break;
+			case 'ver':					$this->doVer(); break;
 			case 'adicionarCurso':		$this->doAdicionarCurso(); break;
 			case 'adicionarPlano':		$this->doAdicionarPlano(); break;
 			case 'adicionarCupom':		$this->doAdicionarCupom(); break;
 			case 'removerCarrinho':		$this->doRemoverCarrinho(); break;
 			case 'removerCupom':		$this->doRemoverCupom(); break;
-			case 'verificaLogin':			$this->doVerificaLogin(); break;
+			case 'verificaLogin':		$this->doVerificaLogin(); break;
 			case 'verificaCompra':		$this->doVerificaCompra(); break;
 			case 'iniciarMoip':			$this->doIniciarMoip(); break;
 			case 'pagamento':			$this->doPagamento(); break;
 			case 'cancelar':			$this->doCancelar(); break;
-			case 'assinar':			$this->doAssinar(); break;
+			case 'assinar':				$this->doAssinar(); break;
 			/*case 'concluirGratuito': 	$this->doConcluirGratuito();break*/
-			case 'concluirAssinatura':		$this->doConcluirAssinatura(); break;
-			case 'concluirPagSeguro':		$this->doConcluirPagSeguro(); break;
+			case 'concluirAssinatura':	$this->doConcluirAssinatura(); break;
+			case 'concluirPagSeguro':	$this->doConcluirPagSeguro(); break;
 			case 'concluirPagarme':		$this->doConcluirPagarme(); break;
 			case 'confirmacao':			$this->doConfirmacao(); break;
-			default: 				$this->pagina404(); break;
+			default: 					$this->pagina404(); break;
 		}	
 	}
 	// ===============================================================
-	protected function doVer() {
+	protected function doVer() {		
 		$editar = $this->system->input['editar'];
 		$carrinho = $this->system->session->getItem('carrinho_produtos');
 		$cupom = $this->system->session->getItem('carrinho_cupom');
@@ -76,8 +75,6 @@ class Carrinho {
 						$item['valorTotal'] = max(0, $item['valorTotal']);
 					}
 				}
-
-
 				$total += $item['valorTotal'];
 
 				$produto['produto'] 	= $item['curso'];
@@ -99,7 +96,6 @@ class Carrinho {
 				$produto['tipo'] 		= 'plano';
 				$produto['id'] 			= $item['id'];	
 			}
-
 			$produtos[$key] = $produto;
 		}
 		//Cupom
@@ -120,7 +116,7 @@ class Carrinho {
 
 		/*if ($this->system->session->getItem('session_cod_usuario'))
 			$assinante = $this->system->planos->verificaAssinaturaAtiva(' and usuario_id = ' . $this->system->session->getItem('session_cod_usuario'));*/
-		
+
 		//exibir
 		$this->system->view->assign('produtos', $produtos);
 		$this->system->view->assign('total', number_format($total, 2, ',', '.'));
@@ -136,10 +132,11 @@ class Carrinho {
 	protected function doAdicionarCurso() {	
 		$curso_id = $this->system->input['parametro'];					
 		$curso = $this->system->cursos->getCurso($curso_id);
-
+		$certificado = $this->system->input['certificado'];
+		$suporte = $this->system->input['suporte'];
 		$produto = $this->system->cursos->getCursoCondicao($curso['sistema_id']," and id = $curso_id and exibir_site = 1");
+
 		if (!empty($produto['id'])) {
-			
 			//calcular o valor total (curso + certificado + suporte)
 			if ($produto['gratuito']) 
 				$produto['valor'] = 0.00;			
@@ -176,7 +173,6 @@ class Carrinho {
 	// ==============================================================
 	protected function doAdicionarPlano() {
 		$plano_id = $this->system->input['parametro'];
-		
 		$produto = $this->system->planos->getPlano($plano_id);
 		if ($produto['status']) {
 			//tipo
@@ -187,13 +183,11 @@ class Carrinho {
 			$produtos[] = $produto;
 			$this->system->session->addItem('carrinho_produtos', $produtos);		
 		}
-		
 		$this->redirecionarCarrinho();
 	}
 	// ==============================================================
 	protected function doAdicionarCupom() {
 		$cupom = $this->system->input['cupom'];
-
 		$cupom = $this->system->cupons->getCupomCondicao(" and nome = '" . $cupom . "'");
 		$cupomCarrinho = $this->system->session->getItem('carrinho_cupom');		
 
@@ -207,7 +201,6 @@ class Carrinho {
 			if ($cupom['tempo_de'] > date('Y-m-d') || $cupom['tempo_ate'] < date('Y-m-d'))
 				$msg_error = 'Cupom fora do prazo de uso';		
 		}
-
 		if ($msg_error) 
 			$this->system->session->addItem('msg_error', $msg_error);		
 		else 
@@ -224,22 +217,23 @@ class Carrinho {
 		if ($this->system->session->getItem('session_logged_in') && $this->system->session->getItem('session_nivel') == 2) {
 			session_write_close();
 			header('Location: ' . $this->system->getUrlPortal() . 'portal/carrinho/verificaCompra/');
-			exit();
+			die;
 		}
 
 		//msg sucesso
 		if ($msg_success = $this->system->session->getItem('msg_success')) {
 			$this->system->session->deleteItem('msg_success');			
-			$this->system->view->assign('msg_success', $msg_success);	
+			$this->system->view->assign('msg_success', $msg_success);				
 		}
-		
 		
 		$enviar = $this->system->input['enviar'];
 		$email = $this->system->input['email'];
 		$senha = $this->system->input['senha'];
+		
 		if ($enviar) {
 			$this->system->load->dao('login');
 		    $dados = $this->system->login->getLoginDao($email, $senha);
+
 			if ($dados) {
 				$this->system->session->addItem('session_logged_in', 	true);
 				$this->system->session->addItem('session_cod_usuario', 	$dados->id);
@@ -254,8 +248,7 @@ class Carrinho {
 				$this->system->login->updateEntrada();
 
 				//$this->system->session->addItem('manter_logado', $dados->id, true);
-				setcookie("cookie_cod_usuario", $dados->id, 0, '/', '.cursosiag.com.br'); 
-				 
+				setcookie("cookie_cod_usuario", $dados->id, 0, '/', '.cursosiag.com.br'); 				 
 		       	
 		       	if ($this->system->planos->verificaAssinaturaAtiva(' and usuario_id = ' . $this->system->session->getItem('session_cod_usuario'))) {
 		       		session_write_close();
@@ -269,10 +262,9 @@ class Carrinho {
 		        }
 				exit();
 			} else {
-				$this->system->view->assign('msg_error', 'Login ou senha inválida');	
+				$this->system->view->assign('msg_error', 'Login ou senha inválida.');	
 			}
 		}
-
 		//exibir
 		$this->system->site->topo($this->tituloPagina);
 		$this->system->view->display('portal/verifica_login.tpl');
@@ -330,7 +322,6 @@ class Carrinho {
 						$msg_error = 'Já existe uma compra aberta com ' . $produto['plano'] . '. Se não deseja finaliza-la, você poderá cancela-la em seu painel LMS.';		
 						break;
 					}
-
 					$plano = true;	
 				}
 			}
@@ -347,13 +338,11 @@ class Carrinho {
 			$this->system->vendas->deletar($vendaID);
 		}
 		
-
 		//adquirir novo curso na assinatura
 		if ($this->system->planos->verificaAssinaturaAtiva(' and usuario_id = ' . $this->system->session->getItem('session_cod_usuario')) && $curso == true) {
 			$this->doConcluirCursoAssinatura();
 			exit();
 		} 
-
 
 		//Realizar venda
 		$carrinho = $this->system->session->getItem('carrinho_produtos');
@@ -366,7 +355,6 @@ class Carrinho {
 		//Se for valor fixo, tem que pegar o valor total dos itens que usará cupom, para dividir o desconto igual entre os itens.
 		if ($cupom['id'] && $cupom['tipo_desconto'] == 1) {
 			$totalComDesconto = 0; //Total do preço dos itens que usam desconto
-			
 			foreach ($carrinho as $key => $item) 
 				if ($item['tipo'] == 'curso') {
 					if ($this->checkCupomCurso($cupom, $item['id'])) 
@@ -374,16 +362,13 @@ class Carrinho {
 				}
 		}
 
-
 		foreach ($carrinho as $key => $item) {
 			if ($item['tipo'] == 'curso') {
 				$valorSemDesconto = $item['valorTotal'];
 				$valorDesconto = 0;
 				$cupomID = 0;
 
-
 				if ($cupom['id']) {
-
 					if ($this->checkCupomCurso($cupom, $item['id'])) {
 						$cupomID = $cupom['id'];
 						//Fixo
@@ -397,8 +382,6 @@ class Carrinho {
 					}
 				}
 
-
-
 				$total += $item['valorTotal'];
 				$cursoComprado['id'] 				= $item['id'];
 				$cursoComprado['suporte'] 			= $item['suporte'];
@@ -407,12 +390,9 @@ class Carrinho {
 				$cursoComprado['preco_desconto']	= $valorDesconto; //Desconto dado ao produto
 				$cursoComprado['professor_id'] 		= $item['professor_id'];
 				$cursoComprado['cupom_id']			= $cupomID;
-
 				
 				$cursoComprado['preco_comissao'] = $item['valor']; //Preço do curso + suporte que será colhido a baixo
-
 				$cursos[] = $cursoComprado;
-				
 			}
 			if ($item['tipo'] == 'plano') {
 				$total += $item['valor'];
@@ -421,7 +401,6 @@ class Carrinho {
 		}
 		
 		$cupom = $this->system->session->getItem('carrinho_cupom');
-		
 		$campos = array(
 			'usuario_id'		=> 0,
 			'aluno_id'			=> $this->system->session->getItem('session_cod_usuario'),
@@ -439,7 +418,6 @@ class Carrinho {
 			'observacoes'		=> '',
 		);
 
-		
 		$id = $this->system->vendas->cadastrar($campos);
 		$this->system->session->addItem('venda_corrente', $id);
 		$this->system->session->addItem('venda_numero', str_pad($id, 5, "0", STR_PAD_LEFT));
@@ -462,8 +440,11 @@ class Carrinho {
 	}
 	// ==============================================================
 	protected function doPagamento() {
+		$this->system->session->deleteItem('detalhesProdutos');
+		$detalhesProdutos = '';
 		$vendaID = $this->system->session->getItem('venda_corrente');
 		$vendaNumero = $this->system->session->getItem('venda_numero');
+
 		if (!$vendaID) {
 			$this->system->session->addItem('msg_error', 'Houve uma falha, tente novamente mais tarde');	
 			$this->redirecionarCarrinho();		
@@ -472,6 +453,7 @@ class Carrinho {
 		$carrinho = $this->system->session->getItem('carrinho_produtos');
 		$cupom = $this->system->session->getItem('carrinho_cupom');
 		$total = $this->system->session->getItem('carrinho_total');
+
 		$produtos = array();
 		$plano = false;
 		foreach ($carrinho as $key => $item) {
@@ -483,6 +465,7 @@ class Carrinho {
 				$produto['imagem']		= $item['destaque_arquivo'];
 				$produto['tipo'] 		= 'curso';
 				$produto['id'] 			= $item['id'];
+				$detalhesProdutos .= "ID : ".$item['id'] . " Curso : ".$item['curso'] . "<br>";
 			}
 			if ($item['tipo'] == 'plano') {
 				$plano 					= true;
@@ -493,19 +476,25 @@ class Carrinho {
 				$produto['imagem']		= $item['imagem_arquivo'];
 				$produto['tipo'] 		= 'plano';
 				$produto['id'] 			= $item['id'];	
+				$detalhesProdutos .= "ID : ".$item['id'] . " Curso : ".$item['curso'] . "<br>";
 			}
-
 			$produtos[$key] = $produto;
 		}
+		$this->system->session->addItem('detalhesProdutos',$detalhesProdutos);
+
 		$this->system->load->dao('configuracoesgerais');
-		$pagarme = $this->system->configuracoesgerais->getPagarme();
+		$pagarme = $this->system->configuracoesgerais->getPagarme($this->system->getSistemaID());
 		$this->system->view->assign('pagarme_key_encryption', $pagarme['pagarme_key_criptografia']);
+
 		//exibir
 		$this->system->view->assign('produtos', $produtos);
 		$this->system->view->assign('total', number_format($total, 2, ',', '.'));
-		$this->system->view->assign('msg_error', $msg_error);	
+		$this->system->view->assign('msg_error', $msg_error);
+		$this->system->view->assign('total', number_format($total, 2, ',', '.'));
+		$this->system->view->assign('totalPagarme', number_format($total, 2, '', ''));
 		$this->system->view->assign('cupom', $cupom);	
 		$this->system->site->topo($this->tituloPagina);
+
 		if ($plano)
 			$this->system->view->display('portal/pagamento_assinatura.tpl');
 		else
@@ -523,20 +512,20 @@ class Carrinho {
 	}
 	// ==============================================================
 	protected function doConcluirPagSeguro() {
-		$this->system->load->model('pagamento_model');	
+		$this->system->load->model('pagamento_model');
 		
 		$valor = $this->system->session->getItem('carrinho_total');
-		$vendaNumero = $this->system->session->getItem('venda_numero');
+		$vendaNumero = $this->system->session->getItem('venda_corrente');
 		$email = $this->system->session->getItem('session_email');
 		$nome = $this->system->session->getItem('session_nome');
-
+		
 		$this->system->pagamento_model->setValor($valor);
 		$this->system->pagamento_model->setTransacaoID($vendaNumero);
 		$this->system->pagamento_model->setEmailUsuario($email);
 		$this->system->pagamento_model->setNomeUsuario($nome);
-
+		
 		$url = $this->system->pagamento_model->iniciaPagamentoPagSeguro();
-
+		
 		if ($url) {
 			echo "<script> $('#linkEscondido').val('" . $url . "'); </script>";
 			echo "<script> $('#popUp').show(); </script>";
@@ -545,7 +534,6 @@ class Carrinho {
 
 		//Finaliza compra
 		$vendaID = $this->system->session->getItem('venda_corrente');
-
 		if ($vendaID) {
 			$campos['forma_pagamento'] = 1;
 			$this->system->vendas->atualizar($vendaID, $campos);
@@ -554,16 +542,15 @@ class Carrinho {
 	}
 	// ==============================================================
 	protected function doConcluirPagarme() {
+		$card_hash = $this->system->input['pagarme']['card_hash'];
 
-		$card_hash = $this->system->input["card_hash"];
-		if($card_hash){
+		if ($card_hash) {
 			$this->system->load->model('pagamento_model');	
 			$valor = number_format($this->system->session->getItem('carrinho_total'),2,'','');
 			$vendaNumero = $this->system->session->getItem('venda_numero_pagarme');
 			$email = $this->system->session->getItem('session_email');
 			$nome = $this->system->session->getItem('session_nome');
 
-			
 			$parcelas  = $this->system->input["parcelas"];		
 
 			$this->system->pagamento_model->setValor($valor);
@@ -574,17 +561,14 @@ class Carrinho {
 			$this->system->pagamento_model->setCard_Hash($card_hash);
 
 			$id = $this->system->pagamento_model->iniciaPagamentoPagarme();
-
-
 			if ($id) {
-				echo "<script type='text/javascript'>window.location.href='" . $this->system->getUrlPortal(). "portal/carrinho/confirmacao'</script>";			
+				//echo "<script type='text/javascript'>window.location.href='" . $this->system->getUrlPortal(). "portal/carrinho/confirmacao'</script>";			
 				//Finaliza compra
 				$vendaID = $this->system->session->getItem('venda_corrente');
-
 				if ($vendaID) {
-					$campos['forma_pagamento'] = 1;
+					$campos['forma_pagamento'] = 2;
 					$this->system->vendas->atualizar($vendaID, $campos);
-					// echo "<script type='text/javascript'>window.location.href='" . $this->system->getUrlSite(). "carrinho/confirmacao'</script>";
+					// echo "<script type='text/javascript'>window.location.href='" . $this->system->getUrlSite(). "portal/carrinho/confirmacao'</script>";
 				}	
 			}
 			die();
@@ -654,7 +638,6 @@ class Carrinho {
 		$enviar = $this->system->input['enviar'];
 		$this->system->load->model('pagarme_model');
 		
-		
 		if ($enviar) {
 			$erro = array();
 			$card_hash = $this->system->input["card_hash"];
@@ -664,7 +647,6 @@ class Carrinho {
 			//if (empty($card_hash)) $erro[] = 'Card Hash inválido ou inexistente.';
 
 			if (count($erro) == 0) {
-				
 				$this->system->pagarme_model->setNomeCliente($this->system->session->getItem('session_nome'));
 				$this->system->pagarme_model->setEmailCliente($this->system->session->getItem('session_email'));
 				$this->system->pagarme_model->setReferencia($this->system->session->getItem('venda_numero_pagarme'));
@@ -674,9 +656,7 @@ class Carrinho {
 				$this->system->pagarme_model->setCardHash($card_hash);				
 
 				try {
-					
 					$status = $this->system->pagarme_model->gerarSolicitacaoPagarmeAssinatura();
-
 					if ($status == "paid") {
 						$this->system->vendas->atualizar($this->system->session->getItem('venda_numero_pagarme'), array('forma_pagamento' => 1));
 						echo "<script type='text/javascript'>window.location.href='" . $this->system->getUrlPortal(). "portal/carrinho/confirmacao'</script>";
@@ -690,9 +670,6 @@ class Carrinho {
 				} catch (Exception $e) {
 					echo '<script type="text/javascript">alert("Houve uma falha na solicitação. \n' . $e->getMessage() . '")</script>';	
 				}
-				
-
-				
 			} else {
 				echo '<script type="text/javascript">alert("Houve uma falha na solicitação. \n' . implode('\n', $erro) . '")</script>';
 			}
@@ -704,17 +681,12 @@ class Carrinho {
 		$this->system->load->model('pagseguro_model');
 
 		if ($enviar) {
-
 			$erro = array();
 			$carrinho = $this->system->session->getItem('carrinho_produtos');
 			$plano = current($carrinho);
 			if (!$this->system->pagseguro_model->validarPeriodo($plano['meses'])) $erro[] = 'Periodo de plano inválido.';
 
-
 			if (count($erro) == 0) {
-
-
-			
 				$this->system->pagseguro_model->setNomeCliente($this->system->session->getItem('session_nome'));
 				$this->system->pagseguro_model->setEmailCliente($this->system->session->getItem('session_email'));
 				$this->system->pagseguro_model->setReferencia($this->system->session->getItem('venda_corrente'));
@@ -723,31 +695,23 @@ class Carrinho {
 				$this->system->pagseguro_model->setRedirectURL($this->system->getUrlSite() . 'carrinho/confirmacao');
 				
 				try {
-					
 					$url = $this->system->pagseguro_model->gerarSolicitacaoPagSeguro();
-
 					$this->system->vendas->atualizar($this->system->session->getItem('venda_corrente'), array('forma_pagamento' => 1));
-					
 					if ($url) {
 						echo "<script> $('#linkEscondido').val('" . $url . "'); </script>";
 						echo "<script> $('#popUp').show(); </script>";
 						// echo "<script type='text/javascript'>window.open('" . $url . "', '_blank');</script>";
 					}
-
 				} catch (Exception $e) {
 					echo '<script type="text/javascript">alert("Houve uma falha na solicitação. \n' . $e->getMessage() . '")</script>';	
 				}
-				
-
-				
 			} else {
 				echo '<script type="text/javascript">alert("Houve uma falha na solicitação. \n' . implode('\n', $erro) . '")</script>';
 			}
 		}
 	}
 	// ==============================================================
-	protected function doConfirmacao() {	
-
+	protected function doConfirmacao() {
 		$assinatura = $this->system->session->getItem('pagamento_assinatura');
 		$assinaturaID = $this->system->session->getItem('pagamento_assinatura_id');
 		$assinaturaMensagem = $this->system->session->getItem('pagamento_assinatura_mensagem');
@@ -807,5 +771,3 @@ class Carrinho {
 	}
 }
 // ===================================================================
-
-
