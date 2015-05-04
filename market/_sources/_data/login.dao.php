@@ -24,8 +24,8 @@ class LoginDAO {
 					$result = $this->system->sql->select('id, sistema_id, nome, email, senha, avatar, nivel', 'usuarios', "email='".$usuario."' and excluido = 0 and ativo = 1");
     				$setinfo = $this->system->sql->fetchobject($result);    			
 				}
-
-	    	if($this->system->sql->numrows($result) && trim($setinfo->senha) != '') {
+			$numrows = $this->system->sql->numrows($result);
+	    	if(trim($numrows) != '' && trim($setinfo->senha) != '') {
 	    		if($setinfo->senha != $this->system->func->criptografar($senha)){
 	    			return false;
 	    		}

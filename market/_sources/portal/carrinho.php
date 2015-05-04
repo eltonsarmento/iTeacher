@@ -248,7 +248,7 @@ class Carrinho {
 				$this->system->login->updateEntrada();
 
 				//$this->system->session->addItem('manter_logado', $dados->id, true);
-				setcookie("cookie_cod_usuario", $dados->id, 0, '/', '.cursosiag.com.br'); 				 
+				setcookie("cookie_cod_usuario", $dados->id, 0, '/'); 				 
 		       	
 		       	if ($this->system->planos->verificaAssinaturaAtiva(' and usuario_id = ' . $this->system->session->getItem('session_cod_usuario'))) {
 		       		session_write_close();
@@ -411,7 +411,7 @@ class Carrinho {
 			'status'			=> 0,
 			'valor_desconto'	=> $valorDescontoCompra,
 			'valor_total'		=> $total,
-			'data_venda'		=> date('d/m/Y'),
+			'data_venda'		=> date('Y-m-d'),
 			'data_expiracao'	=> '0000-00-00',
 			'cursos'			=> $cursos,
 			'planos'			=> $planos,
@@ -562,13 +562,12 @@ class Carrinho {
 
 			$id = $this->system->pagamento_model->iniciaPagamentoPagarme();
 			if ($id) {
-				//echo "<script type='text/javascript'>window.location.href='" . $this->system->getUrlPortal(). "portal/carrinho/confirmacao'</script>";			
 				//Finaliza compra
 				$vendaID = $this->system->session->getItem('venda_corrente');
 				if ($vendaID) {
 					$campos['forma_pagamento'] = 2;
 					$this->system->vendas->atualizar($vendaID, $campos);
-					// echo "<script type='text/javascript'>window.location.href='" . $this->system->getUrlSite(). "portal/carrinho/confirmacao'</script>";
+					echo "<script type='text/javascript'>window.location.href='" . $this->system->getUrlPortal(). "portal/carrinho/confirmacao'</script>";
 				}	
 			}
 			die();
@@ -588,7 +587,7 @@ class Carrinho {
 
 			foreach ($produtos as $produto)  {
 				if ($produto['tipo'] == 'curso') {
-					$this->system->cursos->cadastrarCursosAluno(array($produto), $this->system->session->getItem('session_cod_usuario'), date('Y-m-d', mktime(0, 0, 0, date('m'), date('d'), (date('Y') + 2))));
+					$this->system->cursos->cadastrarCursosAluno(array($produto), $this->system->getSistemaID(), $this->system->session->getItem('session_cod_usuario'), date('Y-m-d', mktime(0, 0, 0, date('m'), date('d'), (date('Y') + 2))));
 					$this->system->email_model->vendaCursoProfessor($produto['id'], $numero);
 				}
 				// if ($produto['tipo'] == 'plano') {
@@ -759,7 +758,7 @@ class Carrinho {
 	}
 	// ===============================================================
 	private function checkCupomCurso($cupom, $cursoID) {
-		return ((count($cupom['cursos_ativos']) == 0 && !in_array($cursoID, $cupom['cursos_excluidos'])) || (count($cupom['cursos_ativos']) > 0 && in_array($cursoID, $cupom['cursos_ativos'])));
+		return ((count($cupom['cursos_ativos']) == 0 && !in_array($cursoID, (array)$cupom['cursos_excluidos'])) || (count($cupom['cursos_ativos']) > 0 && in_array($cursoID, (array)$cupom['cursos_ativos'])));
 	}
 	// ===============================================================
 	protected function pagina404() {

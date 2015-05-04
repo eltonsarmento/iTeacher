@@ -83,12 +83,14 @@
                                                 <td>
                                                     <a href="{$admin_url}/alunos/visualizar/{$aluno.id}" class="btn btn-success btn-xs tooltips" data-original-title="Visualizar" data-placement="bottom"><i class="fa fa-search"></i></a> 
                                                     <a href="{$admin_url}/alunos/editar/{$aluno.id}" class="btn btn-primary btn-xs tooltips" data-original-title="Editar" data-placement="bottom"><i class="fa fa-pencil"></i></a>
-                                                    <a data-toggle="modal" href="#deletarAluno" onclick="javascript:setaDeletar({$aluno.id});" class="btn btn-danger btn-xs tooltips" data-original-title="Excluir" data-placement="bottom"><i class="fa fa-trash-o"></i></a> |
+                                                    {if empty($aluno.cursos)}
+                                                        <a data-toggle="modal" href="#deletarAluno" onclick="javascript:setaDeletar({$aluno.id},'{$aluno.nome}');" class="btn btn-danger btn-xs tooltips" data-original-title="Excluir" data-placement="bottom"><i class="fa fa-trash-o"></i></a> |
+                                                    {/if}
                                                     <a data-toggle="modal" href="#visualizarHistorico" onclick="getVendasByAluno({$aluno.id});" class="btn btn-success btn-xs tooltips" data-original-title="Histórico" data-placement="bottom"><i class="fa fa-folder"></i></a>
                                                 </td>
                                             {else}
                                                 <td>
-                                                    <a href="{$admin_url}/alunos/visualizar/{$aluno.id}" class="btn btn-success btn-xs tooltips" data-original-title="Visualizar" data-placement="bottom"><i class="fa fa-search"></i></a>                                                     
+                                                    <a href="{$admin_url}/alunos/visualizar/{$aluno.id}" class="btn btn-success btn-xs tooltips" data-original-title="Visualizar" data-placement="bottom"><i class="fa fa-search"></i></a>                                                
                                                     <a data-toggle="modal" href="#visualizarHistorico" onclick="getVendasByAluno({$aluno.id});" class="btn btn-primary btn-xs tooltips" data-original-title="Histórico" data-placement="bottom"><i class="fa fa-folder"></i></a>
                                                 </td>
                                             {/if}
@@ -141,7 +143,7 @@
                         <input type="hidden" value="" id="id_apagar" name="id_apagar" />
                     </section><!-- /modal-header -->
                     
-                    <section class="modal-body">Você deseja fazer isso?</section><!-- /modal-body -->
+                    <section class="modal-body">Você deseja apagar o aluno : <strong id="nome_aluno"></strong> ?</section><!-- /modal-body -->
                     
                     <section class="modal-footer">
 
@@ -267,9 +269,10 @@ function getVendasByAluno(id){
     });
 }
 
-//Delete
-function setaDeletar(id) {
-    $('#id_apagar').val(id);
+// DELEÇÃO//
+function setaDeletar(aluno_id,aluno_descricao) {    
+    $('#id_apagar').val(aluno_id);
+    $("#nome_aluno").html(aluno_descricao);   
 }
 function confirmaDeletar() {
     window.location.href='{/literal}{$admin_url}{literal}/alunos/apagar/' + $('#id_apagar').val();

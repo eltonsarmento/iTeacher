@@ -86,9 +86,13 @@ class ProfessorGlobal extends AdminModules {
 						copy($_FILES['avatar']['tmp_name'], $this->system->getUploadPath() . '/avatar/' . $nomearquivo);
 						$this->system->usuarios->atualizarImagem($id, $nomearquivo);
 					}	
+					//cadastra
+					$this->system->professores->cadastrar($this->system->input);										
+					//alerta
 					$this->system->view->assign('msg_alert', 'Professor cadastrado com sucesso!');
 					//Email
 					$this->system->email_model->cadastroProfessor($this->system->input['email'], $this->system->input['nome'], $this->system->input['senha']);
+
 				}
 				if ($this->system->input['nova'])
 					$this->system->func->redirecionar('/professor/novo');

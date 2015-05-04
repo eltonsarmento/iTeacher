@@ -175,7 +175,7 @@ class ProfessoresDAO extends UsuariosDAO{
         if ($apenas_total)
             return $this->system->sql->querycountunit($this->system->sql->select('count(id) as total', 'usuarios', "excluido='0' and nivel = '".$nivel."'" . $sql_extra));
 
-        $query = $this->system->sql->select('*', 'usuarios', "excluido='0' and nivel = '".$nivel."'" . ($palavra? " and nome like '%" . $palavra . "%'" : ''), $limit, $order);
+        $query = $this->system->sql->select('*', 'usuarios', "excluido='0' and sistema_id = '".  $this->system->getSistemaID() ."' and nivel = '".$nivel."'" . ($palavra? " and nome like '%" . $palavra . "%'" : ''), $limit, $order);
         $professores =  $this->system->sql->fetchrowset($query);
         return $professores;
     }

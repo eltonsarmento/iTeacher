@@ -15,10 +15,14 @@ $sistema_id = (int)$_GET['cod_empresa'];
 if (!$sistema_id) die;
 
 // teste local
-/*$_POST['fingerprint'] = '1213e67a3b34c2848f8317d29bcb8cbc9e0979b8';
-$_POST['object'] = 'transaction';
-$_POST['id'] = '197931';*/
+//$_POST['fingerprint'] = 'f48e41998f8e6c32e1ab1cbadc1aeb7a631d1171';
+//$_POST['object'] = 'transaction';
+//$_POST['id'] = '199546';
 // teste local
+
+$fp = fopen($system->getRootPath() . '/logs/pagarme-assinaturas.txt', 'a');
+$escreve = fwrite($fp, json_encode($_POST)."\n");
+fclose($fp);
 
 if ($_POST['fingerprint']) {
 	$system->setSistemaID($sistema_id);

@@ -126,6 +126,18 @@ class CuponsDAO {
 		}
 		return $cupons;
 	}
+	// ===============================================================	
+	public function consultaUsoCupom($cupom_id) {
+		$query = $this->system->sql->select('u.id, u.email', 'vendas v INNER JOIN vendas_cursos vc ON (vc.venda_id = v.id) INNER JOIN cupons c ON (vc.cupom_id = c.id)  
+			INNER JOIN usuarios u ON (v.usuario_id = u.id)',"c.id = '".$cupom_id."' AND u.sistema_id='" . $this->system->getSistemaID() . "'");				
+		$lista = $this->system->sql->fetchrowset($query);
+		foreach ($lista as $key => $item) {
+			$consulta[$key]['codigo'] = $item['id'];
+			$consulta[$key]['email'] = $item['email'];
+
+		}
+		return $consulta;
+	}
 	// ===============================================================
 }
 // ===================================================================

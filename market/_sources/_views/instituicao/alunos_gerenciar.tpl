@@ -102,7 +102,9 @@
                                                 <a href="{$admin_url}/alunos/visualizar/{$aluno.id}" class="btn btn-success btn-xs tooltips" data-original-title="Visualizar" data-placement="bottom"><i class="fa fa-search"></i></a> 
                                                 {if $visao_adm eq false}    
                                                     <a href="{$admin_url}/alunos/editar/{$aluno.id}" class="btn btn-primary btn-xs tooltips" data-original-title="Editar" data-placement="bottom"><i class="fa fa-pencil"></i></a>
-                                                    <a data-toggle="modal" href="#deletarAluno" onclick="javascript:setaDeletar({$aluno.id});" class="btn btn-danger btn-xs tooltips" data-original-title="Excluir" data-placement="bottom"><i class="fa fa-trash-o"></i></a> |
+                                                    {if empty($aluno.cursos)}
+                                                        <a data-toggle="modal" href="#deletarAluno" onclick="javascript:setaDeletar({$aluno.id}, '{$aluno.nome}');" class="btn btn-danger btn-xs tooltips" data-original-title="Excluir" data-placement="bottom"><i class="fa fa-trash-o"></i></a> |
+                                                    {/if}
                                                     <a data-toggle="modal" href="#visualizarHistorico" onclick="getVendasByAluno({$aluno.id});" class="btn btn-success btn-xs tooltips" data-original-title="Histórico" data-placement="bottom"><i class="fa fa-folder"></i></a>
                                                 {/if}
                                             </td>
@@ -164,15 +166,16 @@
                         
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">Deletar Aluno</h4>
+                        <input type="hidden" value="" id="id_apagar" name="id_apagar" />
                         
                     </section><!-- /modal-header -->
                     
-                    <section class="modal-body">Você deseja fazer isso?</section><!-- /modal-body -->
+                    <section class="modal-body">Você deseja apagar o aluno : <strong id="nome_aluno"></strong> ?</section><!-- /modal-body -->
                     
                     <section class="modal-footer">
 
                         <button data-dismiss="modal" class="btn btn-default" type="button">Não</button>
-                        <button class="btn btn-danger" type="submit">Sim</button>
+                        <button class="btn btn-danger" onclick="javascript:confirmaDeletar();" type="submit">Sim</button>
                         
                     </section><!-- /modal-footer -->
                     
@@ -283,6 +286,13 @@ function getVendasByAluno(id){
         $('#tbody_vendasaluno').html(tabela);
     });
 }
-
+// DELEÇÃO//
+function setaDeletar(aluno_id,aluno_descricao) {    
+    $('#id_apagar').val(aluno_id);
+    $("#nome_aluno").html(aluno_descricao);   
+}
+function confirmaDeletar() {
+    window.location.href='{/literal}{$admin_url}{literal}/alunos/apagar/' + $('#id_apagar').val();
+}
 </script>
 {/literal}

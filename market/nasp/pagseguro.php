@@ -19,6 +19,10 @@ $system->load->model('pagseguro_model');
 $sistema_id = (int)$_GET['cod_empresa'];
 if (!$sistema_id) die;
 
+$fp = fopen($system->getRootPath() . '/logs/pagseguro-assinaturas.txt', 'a');
+$escreve = fwrite($fp, json_encode($_POST)."\n");
+fclose($fp);
+
 if ($_POST['notificationCode'] && $_POST['notificationType'] == 'transaction' && $sistema_id) {
 	$system->setSistemaID($sistema_id);
 	$transaction = $system->pagamento_model->obterTransacao($sistema_id, $_POST);

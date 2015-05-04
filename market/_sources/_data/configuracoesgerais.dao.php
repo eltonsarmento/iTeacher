@@ -43,6 +43,8 @@ class ConfiguracoesgeraisDAO {
 	// ===============================================================
 	public function atualizarPagamentos($input) {		
 		$fields = array();
+		$fields['sistema_id'] = $this->system->getSistemaID();
+		if (isset($input['pagseguro_status'])) $fields['pagseguro_status'] = $input['pagseguro_status'];
 		if (isset($input['pagseguro_email'])) $fields['pagseguro_email'] = $input['pagseguro_email'];
 		if (isset($input['pagseguro_token'])) $fields['pagseguro_token'] = $input['pagseguro_token'];
 		if (isset($input['pagarme_key_api'])) $fields['pagarme_key_api'] = $input['pagarme_key_api'];		
@@ -59,6 +61,7 @@ class ConfiguracoesgeraisDAO {
 	// ===============================================================
 	public function atualizarStatusPagamentos($input) {
 		$fields = array();
+		$fields['sistema_id'] = $this->system->getSistemaID();
 		if (isset($input['pagseguro_status'])) $fields['pagseguro_status'] = ($input['pagseguro_status'] ? 0 : 1);
 		if (isset($input['pagarme_status'])) $fields['pagarme_status'] = ($input['pagarme_status'] ? 0 : 1);
 		if (isset($input['moip_status'])) $fields['moip_status'] = ($input['moip_status'] ? 0 : 1 );

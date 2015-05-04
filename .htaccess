@@ -26,12 +26,18 @@ RewriteRule ^market/recuperar-senha?$								/index.php?categoria=site&module=ma
 RewriteRule ^market/([^/]+)/([^/]+)/([^/]+)/?$						/market/index.php?categoria=$1&module=$2&do=$3&{QUERY_STRING} [L]
 RewriteRule ^market/([^/]+)/([^/]+)/([^/]+)/([0-9]+)/?$				/market/index.php?categoria=$1&module=$2&do=$3&id=$4&{QUERY_STRING} [L]
 
+#nasp
+RewriteRule ^nasp/([^/]+)/pagseguro.php?$							/market/nasp/pagseguro.php?cod_empresa=$1
+RewriteRule ^nasp/([^/]+)/pagarme.php?$								/market/nasp/pagarme.php?cod_empresa=$1
+
+
+#site
+RewriteRule ^/?$										/index.php?categoria=site&module=$1&do=$2&{QUERY_STRING}
+
 #Portal
-RewriteRule ^([^market][^/]+)/([^/]+)/([^/]+)/?$					/index.php?categoria=site&module=$1&do=$2&id=$3&{QUERY_STRING} 
-RewriteRule ^([^market][^/]+)/([^/]+)/?$							/index.php?categoria=site&module=$1&do=$2&{QUERY_STRING} 
-RewriteRule ^([^market][^/]+)/?$									/index.php?categoria=site&module=$1&do=index&{QUERY_STRING} 
-RewriteRule ^/?$													/index.php?categoria=site&module=home&do=index&{QUERY_STRING} 
-
-
-
+RewriteRule ^([^/]+)/?$												/index.php?cliente=$1&categoria=portal&module=home&do=index&{QUERY_STRING}
+RewriteRule ^([^/]+)/portal/?$										/index.php?cliente=$1&categoria=portal&module=home&do=index&{QUERY_STRING}
+RewriteRule ^([^/]+)/portal/([^/]+)/?$								/index.php?cliente=$1&categoria=portal&module=$2&{QUERY_STRING}
+RewriteRule ^([^/]+)/portal/([^/]+)/([^/]+)/?$						/index.php?cliente=$1&categoria=portal&module=$2&do=$3&{QUERY_STRING}
+RewriteRule ^([^/]+)/portal/([^/]+)/([^/]+)/([^/]+)/?$				/index.php?cliente=$1&categoria=portal&module=$2&do=$3&parametro=$4&{QUERY_STRING}
 </IfModule>

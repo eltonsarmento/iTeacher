@@ -62,7 +62,7 @@ class AdminCheckLogin {
 			 	$expire = time() + 60 * 60 * 24 * 30;
 	        else
 	        	$expire = null;
-	        setcookie("cookie_cod_usuario", $dados->id, $expire, '/', '.cursosiag.com.br'); //1 mês
+	        setcookie("cookie_cod_usuario", $dados->id, $expire, '/', '.localmarket.com'); //1 mês
 
 	        
 	       	$this->system->log->registrarLogins();

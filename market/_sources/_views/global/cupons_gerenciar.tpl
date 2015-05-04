@@ -102,9 +102,9 @@
                                                 {if $visao_adm eq false}
                                                     <a href="{$admin_url}/cupons/editar/{$cupom.id}" class="btn btn-primary btn-xs tooltips" data-original-title="Editar" data-placement="bottom"><i class="fa fa-pencil"></i></a>
                                                     <a data-toggle="modal" href="#deletarCupom" onclick="javascript:setaExcluir({$cupom.id});" class="btn btn-danger btn-xs tooltips" data-original-title="Excluir" data-placement="bottom"><i class="fa fa-trash-o"></i></a> |
-                                                    <a data-toggle="modal" href="#visualizarPedidos" class="btn btn-success btn-xs tooltips" data-original-title="Pedidos" data-placement="bottom"><i class="fa fa-shopping-cart"></i></a>
+                                                    <a data-toggle="modal" href="#visualizarPedidos" onclick="javascript:consultaCumpom({$cupom.id},'{$cupom.nome}');" class="btn btn-success btn-xs tooltips" data-original-title="Pedidos" data-placement="bottom"><i class="fa fa-shopping-cart"></i></a>
                                                 {else}
-                                                    <a data-toggle="modal" href="#visualizarPedidos" class="btn btn-primary btn-xs tooltips" data-original-title="Pedidos" data-placement="bottom"><i class="fa fa-shopping-cart"></i></a>
+                                                    <a data-toggle="modal" href="#visualizarPedidos" onclick="javascript:consultaCumpom({$cupom.id},'{$cupom.nome}');" class="btn btn-primary btn-xs tooltips" data-original-title="Pedidos" data-placement="bottom"><i class="fa fa-shopping-cart"></i></a>
                                                 {/if}
                                             </td>
                                             
@@ -178,7 +178,7 @@
                     
                     <section class="modal-body">
                         
-                        <h4>CUPOM001</h4>
+                        <h4 id="nome_cupom"></h4>
                         
                         <hr/>
                         
@@ -199,7 +199,7 @@
                                     
                                 </thead>
                                 
-                                <tbody>
+                                <tbody id="tbody_cupom">
                                     
                                     <tr>
                                         
@@ -208,54 +208,6 @@
                                         
                                     </tr>
                                     
-                                    <tr>
-                                        
-                                        <td><a href="vendas-detalhes.html">2</a></td>
-                                        <td>adriano@cursosiag.com.br</td>
-                                        
-                                    </tr>
-                                    
-                                    <tr>
-                                        
-                                        <td><a href="vendas-detalhes.html">3</a></td>
-                                        <td>adriano@cursosiag.com.br</td>
-                                        
-                                    </tr>
-                                    
-                                    <tr>
-                                        
-                                        <td><a href="vendas-detalhes.html">4</a></td>
-                                        <td>adriano@cursosiag.com.br</td>
-                                        
-                                    </tr>
-                                    
-                                    <tr>
-                                        
-                                        <td><a href="vendas-detalhes.html">5</a></td>
-                                        <td>adriano@cursosiag.com.br</td>
-                                        
-                                    </tr>
-                                    
-                                    <tr>
-                                        
-                                        <td><a href="vendas-detalhes.html">6</a></td>
-                                        <td>adriano@cursosiag.com.br</td>
-                                        
-                                    </tr>
-                                    
-                                    <tr>
-                                        
-                                        <td><a href="vendas-detalhes.html">7</a></td>
-                                        <td>adriano@cursosiag.com.br</td>
-                                        
-                                    </tr>
-                                    
-                                    <tr>
-                                        
-                                        <td><a href="vendas-detalhes.html">8</a></td>
-                                        <td>adriano@cursosiag.com.br</td>
-                                        
-                                    </tr>
                                                                         
                                 </tbody>
                                 
@@ -307,6 +259,26 @@ function setaExcluir(id) {
 //recusar
 function confirmaExcluir() {
     window.location.href='{/literal}{$admin_url}{literal}/cupons/apagar/' + $('#id_excluir').val();
+}
+
+
+
+//historico do aluno
+function consultaCumpom(id,nome){
+    $('#nome_cupom').html(nome);
+    $('#tbody_cupom').html('');
+    $.post('{/literal}{$admin_url}{literal}/cupons/consultaCupom/'+id, function(json){
+        dados = jQuery.parseJSON(json);
+        
+        var itens = "";
+
+       $.each(dados, function(){
+            itens = itens + "<tr><td><a href='#'>"+this.codigo+"</a></td><td>"+this.email+"</td></tr>";              
+        });
+
+        //$('#span_nomeEmailAluno').html("<h4>"+dados[0].aluno['nome']+" - <small>"+dados[0].aluno['email']+"</small></h4>");
+        $('#tbody_cupom').html(itens);
+    });
 }
 
 </script>

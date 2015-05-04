@@ -31,13 +31,14 @@ class AlunosGlobal extends AdminModules {
 		$this->system->admin->rodape();
 	}
 	// ===============================================================
-	protected function listagem() {
+	protected function listagem() {		
 		$palavra = $this->system->input['palavra_busca'];		
 		$base_url = ($palavra ? $this->system->func->baseurl('/alunos/buscar&palavra_busca=' . $palavra) : $this->system->func->baseurl('/alunos/listar'));
 		$total = $this->system->alunos->getAlunos($palavra, 'padrao', 0, '', true);
 		$paginacao = $this->system->func->paginacao($this->pagina, $this->mostrar, $total, $base_url);
 		$alunos = $this->system->alunos->getAlunos($palavra, 'padrao', $this->inicial . ',' . $this->mostrar);
 		foreach ($alunos as $key => $aluno) {
+			$alunos[$key]['cursos'] = $this->system->alunos->getCursos($aluno['id']);
 			$alunos[$key]['cep'] = $this->system->alunos->getValorExtra($aluno['id'], 'cep');
 			$alunos[$key]['endereco'] = $this->system->alunos->getValorExtra($aluno['id'], 'endereco');
 			$alunos[$key]['bairro'] = $this->system->alunos->getValorExtra($aluno['id'], 'bairro');
@@ -45,7 +46,7 @@ class AlunosGlobal extends AdminModules {
 			$alunos[$key]['estado'] = $this->system->alunos->getValorExtra($aluno['id'], 'estado');
 			$alunos[$key]['cpf'] = $this->system->alunos->getValorExtra($aluno['id'], 'cpf');
 			$alunos[$key]['telefone'] = $this->system->alunos->getValorExtra($aluno['id'], 'telefone');
-		}
+		}		
 		$this->system->view->assign('alunos', $alunos);
 		$this->system->view->assign('paginacao', $paginacao);
 		$this->system->view->assign('palavra_busca', $palavra);

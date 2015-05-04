@@ -13,11 +13,12 @@ class CuponsGlobal extends AdminModules {
 		switch($this->system->input['do']) {
 			case 'home':
 			case 'listar':
-			case 'buscar':		$this->doListar();		break;
+			case 'buscar':			$this->doListar();		break;
 			case 'novo':
-			case 'editar': 		$this->doEdicao(); 		break;
-			case 'apagar': 		$this->doDeletar(); 	break;
-			case 'relatorio':	$this->doRelatorio();	break;
+			case 'editar': 			$this->doEdicao(); 		break;
+			case 'apagar': 			$this->doDeletar(); 	break;
+			case 'relatorio':		$this->doRelatorio();	break;
+			case 'consultaCupom':	$this->doRecuperarHistoricoDeCupom();	break;
 			default:			$this->pagina404(); 	break;
 		}	
 	}
@@ -128,6 +129,15 @@ class CuponsGlobal extends AdminModules {
 		$this->system->admin->topo($this->system->func->posicoesMenusGlobais('cupons'));
 		$this->system->view->display('global/cupons_relatorio.tpl');
 		$this->system->admin->rodape();
+	}
+	//================================================================
+	protected function doRecuperarHistoricoDeCupom() {
+		//id do cupom
+		$id = $this->system->input['id'];
+		//recuperando vendas por aluno
+		$usuarioByCupom = $this->system->cupons->consultaUsoCupom($id);
+
+		echo json_encode($usuarioByCupom);
 	}
 }
 // ===================================================================

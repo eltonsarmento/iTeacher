@@ -25,7 +25,7 @@ class VendasDAO {
 			'valor_liquido'		=> trim(number_format(($input['valor_liquido'] ? $input['valor_liquido'] : 0), 2, '.', '')),
 			'valor_total'		=> trim(number_format(($input['valor_total'] ? $input['valor_total'] : 0), 2, '.', '')),
 			'data_expiracao'	=> trim($input['data_expiracao']),
-			'data_venda'		=> date('Y-m-d H:i:s'),
+			'data_venda'		=> ($input['data_venda'] ? $input['data_venda'] : date('Y-m-d H:i:s')),
 			'data_cadastro'		=> date('Y-m-d H:i:s'),
 			'codePagSeguro'		=> trim(($input['codePagSeguro'] ? $input['codePagSeguro'] : '')),
 			'codePagarme'		=> trim(($input['codePagarme'] ? $input['codePagarme'] : '')),
@@ -124,11 +124,15 @@ class VendasDAO {
 			$vendas[$key]['aluno'] =  $aluno['nome'];
 			//forma de pagamento
 			$formaPagamento = end($this->system->sql->fetchrowset($this->system->sql->select('*','configuracoes_api_pagamentos', "sistema_id = '" . $this->system->getSistemaID()."'")));
+			
+			/*
 			if(($formaPagamento['pagseguro_status'] == 1) && ($formaPagamento['paypal_status'] == 0)){
 				$vendas[$key]['forma_pagamento_id'] = 1;
 			} elseif (($formaPagamento['paypal_status'] == 1) && ($formaPagamento['pagseguro_status'] == 1)) {
 				$vendas[$key]['forma_pagamento_id'] = 2;	
 			}
+			*/
+			$vendas[$key]['forma_pagamento_id'] = $venda['forma_pagamento'];
 
 			$nivel_usuario = $this->system->session->getItem('session_nivel');
 			if($nivel_usuario == 8){

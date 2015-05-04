@@ -12,6 +12,7 @@ class Alunos extends AlunosGlobal {
 			case 'novo':
 			case 'editar': 						$this->doEdicao(); 	break;
 			case 'visualizar': 					$this->doVisualizar(); break;		
+			case 'apagar': 					    $this->doDeletar(); break;	
 			case 'editarnavisualizacao': 		$this->doEditarNaVisualizacao(); break;	
 			default:							$this->pagina404(); break;
 		}	

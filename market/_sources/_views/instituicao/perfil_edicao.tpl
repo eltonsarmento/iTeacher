@@ -312,7 +312,7 @@
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="facebook" type="text" value="{$instituicao.facebook}" required>
+                                            <input class="form-control" name="facebook" type="text" value="{$instituicao.facebook}" >
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
@@ -324,7 +324,7 @@
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="twitter" type="text" value="{$instituicao.twitter}" required>
+                                            <input class="form-control" name="twitter" type="text" value="{$instituicao.twitter}" >
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
@@ -336,7 +336,7 @@
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="instagram" type="text" value="{$instituicao.instagram}" required>
+                                            <input class="form-control" name="instagram" type="text" value="{$instituicao.instagram}" >
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
@@ -348,7 +348,7 @@
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="youtube" type="text" value="{$instituicao.youtube}" required>
+                                            <input class="form-control" name="youtube" type="text" value="{$instituicao.youtube}" >
                                               
                                         </section><!-- /col-lg-10 --> 
                                         

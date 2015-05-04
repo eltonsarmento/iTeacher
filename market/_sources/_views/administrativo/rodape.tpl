@@ -1,6 +1,6 @@
  <footer class="site-footer">
             
-            <section class="text-center">{$smarty.now|date_format:"%Y"} &copy; CursosIAG.<a href="#" class="go-top"><i class="fa fa-angle-up"></i></a></section>
+            <section class="text-center">{$smarty.now|date_format:"%Y"} &copy; iTeacher.<a href="#" class="go-top"><i class="fa fa-angle-up"></i></a></section>
             
         </footer>
     

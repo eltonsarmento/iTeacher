@@ -10,7 +10,7 @@ class PaginasDAO {
 
 	private function paginasEstaticas(){
 		$linhas[] =  array(
-			'pag1' => array("titulo" => "Quem Sou",'tipo_id' => 1),
+			'pag1' => array("titulo" => "Quem Somos",'tipo_id' => 1),
 			'pag2' => array("titulo" => "Termos e Condições",'tipo_id' => 2),
 			'pag3' => array("titulo" => "10 Razões para estudar",'tipo_id' => 3),
 			'pag4' => array("titulo" => "Guia de Carreira",'tipo_id' => 4),

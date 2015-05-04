@@ -51,7 +51,7 @@ a, a:hover, a:focus {
     margin: 0;
     padding:20px 15px;
     text-align: center;
-    background: #666666;
+    background: #41cac0;
     border-radius: 5px 5px 0 0;
     -webkit-border-radius: 5px 5px 0 0;
     color: #fff;
@@ -59,11 +59,6 @@ a, a:hover, a:focus {
     text-transform: uppercase;
     font-weight: 300;
     font-family: 'Open Sans', sans-serif;
-}
-
-.form-signin h2.form-signin-heading .logo-iteacher{
-    height: 58px;
-    width: 200px;
 }
 
 .form-signin .checkbox {
@@ -97,12 +92,12 @@ a, a:hover, a:focus {
 }
 
 .form-signin .btn-login {
-    background: #4e98d3;
-    color: #ffffff;
+    background: #f67a6e;
+    color: #fff;
     text-transform: uppercase;
     font-weight: 300;
     font-family: 'Open Sans', sans-serif;
-    box-shadow: 0 4px #3e86c6;
+    box-shadow: 0 4px #e56b60;
     margin-bottom: 20px;
 }
 
@@ -114,7 +109,7 @@ a, a:hover, a:focus {
 }
 
 .form-signin a {
-    color: #666666;
+    color: #41cac0;
 }
 
 .form-signin a:hover {
@@ -3579,6 +3574,9 @@ table.sliders tr td {
 #label_sub {
     margin-left: 25px;
 }
+#label_neto {
+    margin-left: 50px;
+}
 
 .label_check input,
 .label_radio input {
@@ -4700,20 +4698,6 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
 .product-list .pro-img-box {
     position: relative;
 }
-
-.product-list .panel {
-    box-shadow: 0 0 2px #cccccc;
-}
-
-.product-list .no-theme {
-    background: none;
-    width: 100%;
-    min-height: 380px;
-    box-shadow: none;
-    display: block;
-    border: 2px dashed #cccccc;
-}
-
 .adtocart {
     background: #fc5959;
     width: 50px;
@@ -4738,13 +4722,13 @@ tr.odd.gradeX td.sorting_1, tr.even.gradeX td.sorting_1, table.display tr.even.g
 .pro-title {
     color: #5A5A5A;
     display: inline-block;
-    margin: 8px 0 8px;
+    margin-top: 20px;
     font-size: 16px;
 }
 
-.product-list .btn {
-    display: inline-block;
-    float: right;
+.product-list .price {
+    color:#fc5959 ;
+    font-size: 15px;
 }
 
 .pro-img-details {
@@ -5583,11 +5567,16 @@ a.guest-on i {
 .divider-temp {
     margin: 20px auto;
 }
+
 .dashboard-temp {
     background: #ec6459 !important;
     color: #ffffff !important;
     border-color: #ec6459 !important;
     padding: 9px 12px !important;
+}
+
+.date-temp {
+    padding: 10px 0 !important; 
 }
 
 /* TEXTS */
