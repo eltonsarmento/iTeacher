@@ -50,11 +50,10 @@ class CursosGlobal extends AdminModules {
 					$usuario = $this->system->usuarios->getUsuario($this->system->session->getItem('session_cod_usuario'));
 					if($usuario['nivel'] == '7'){						
 						$responsavel = $this->system->sistemas->getResponsavelSistema($this->system->getSistemaID());							
-						$this->system->email_model->cursoCadastradoParceiro($responsavel['email'],$this->system->input);
-
-						$id = $this->system->cursos->cadastrar($this->system->input);
-						$this->system->view->assign('msg_alert', 'Curso "' . $this->system->input['curso'] . '" cadastrado com sucesso!');
+						$this->system->email_model->cursoCadastradoParceiro($responsavel['email'],$this->system->input);						
 					}
+					$id = $this->system->cursos->cadastrar($this->system->input);
+					$this->system->view->assign('msg_alert', 'Curso "' . $this->system->input['curso'] . '" cadastrado com sucesso!');
 				}
 				$this->system->cursos->cadastrarCapitulos($id, $this->system->input['qt_capitulos']);			
 				//Img banner
@@ -106,7 +105,7 @@ class CursosGlobal extends AdminModules {
 		$retorno = array();
         if (!$this->system->input['curso']) 
             $retorno['msg'][] = "O campo de curso está vazio.";
-        elseif (!$this->system->func->isUnique('cursos', 'url', $this->system->input['url'],  ' and excluido = 0 ' . ($this->system->input['id'] ? ' and id != ' . $this->system->input['id'] : '')))
+        elseif (!$this->system->func->isUnique('cursos', 'url', $this->system->input['url'],  "and sistema_id = '".$this->system->getSistemaID() ."' and excluido = 0 " . ($this->system->input['id'] ? ' and id != ' . $this->system->input['id'] : '')))
         	$retorno['msg'][] = "Já existe um curso com esse nome, por favor usar outro, pois as urls são os nomes dos cursos.";
         if (!$this->system->input['tags']) 
             $retorno['msg'][] = "O campo de tags está vazio.";			
