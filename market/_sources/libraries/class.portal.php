@@ -60,11 +60,13 @@ class Portal {
 	public function topo($tituloPagina = '') {
 		$this->system->load->dao('areas');
 		$this->system->load->dao('usuarios');
+		$this->system->load->dao('instituicoes');
 		
 		$areas =  $this->system->areas->getAreas($palavra, 12);	
 		$vCursos  = $this->system->session->getItem('carrinho_cursos');
 		$cliente  = $this->system->usuarios->getUsuarioBySistemaID();
-
+		$instituicao = $this->system->instituicoes->getInstituicaoBySistemaID($this->sistema_id, true);
+		
 		$this->system->view->assign(array(
 			'usuario_id'		=> $this->system->session->getItem('session_cod_usuario'),
 			'usuario_nome'		=> $this->system->session->getItem('session_nome'),
@@ -73,6 +75,7 @@ class Portal {
 			'url_site'			=> $this->system->getUrlSite(),
 			'url_portal'		=> $this->system->getUrlPortal(),
 			'tituloPagina'		=> $tituloPagina,
+			'nomeInstituicao'	=> $instituicao['nome'],
 			'categorias'		=> $areas,
 			'cliente'		    => $cliente,
 			'total_carrinho'	=> ($vCursos['total_carrinho'] ? $vCursos['total_carrinho'] : '0'),

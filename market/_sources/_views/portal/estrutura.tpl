@@ -17,7 +17,7 @@
     <!-- ========== FAVICON ========== -->
 
 	<!-- ========== TITLE ========== -->
-	<title>iTeacher - Theme Light</title>
+	<title>iTeacher - {$nomeInstituicao}</title>
 
 	<!-- ========== CSS ========== -->
 	<link rel="stylesheet" type="text/css" href="{$url_site}market/common/portal/assets/css/bootstrap.min.css">
