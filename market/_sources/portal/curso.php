@@ -30,7 +30,7 @@ class Curso {
 			$curso['valor_dividido'] 	= number_format(($curso['valor'] / 12), 2, ',', '.');
 			$curso['valor'] 			= number_format($curso['valor'], 2,',','.');
 			if ($curso['gratuito']) $curso['valor'] = 0;
-
+			
 			$this->system->view->assign('aulaGratuita', $this->system->aulas->getAulaGratuitaByCurso($curso['id'], $curso['sistema_id']));
 			$this->system->view->assign('curso', $curso);				
 			$this->system->view->assign('professor', $professor);

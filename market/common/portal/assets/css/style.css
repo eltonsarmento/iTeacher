@@ -2,27 +2,6 @@
 /* COLOR PRIMARY */
 /* COLOR SECUNDARY */
 /* FONT COLOR */
-
-/*property*/
-
-.property {
-    padding: 100px 0;
-}
-
-.gray-bg {
-    background: #f4f4f4;
-}
-
-.property h1 {
-    color: #333;
-    font-size: 24px;
-    text-transform: uppercase;
-    font-family: 'Fjalla One',sans-serif;
-    font-weight: 400;
-    margin-bottom: 30px;
-}
-
-
 .btn {
   border: 0 !important;
 }
@@ -408,6 +387,19 @@ body {
 .price-end {
   font-size: 31px;
 }
+
+/* INÍCIO - MODAL CUSTOM */
+.course .modal-content {    
+    margin-top: 200px;
+}
+.course .modal-body {
+  padding: 0;    
+}
+.course .fade.in {
+  background: rgba(0, 0, 0, 0.6);    
+}
+/* FIM - MODAL CUSTOM */
+
 /* SIGNATURE */
 .signature h1 {
   margin-bottom: 20px;
@@ -430,6 +422,7 @@ body {
 .form-cart {
   padding: 10px;
 }
+
 /* LOGIN PAGE */
 .form-login {
   max-width: 400px;

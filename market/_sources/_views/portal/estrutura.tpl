@@ -66,7 +66,7 @@
 					<span class="pull-right">
 						{if $usuario_categoria eq 'aluno'}
 							{if $cliente.nivel eq 5}
-								<a href="{$url_portal}portal/certificado" data-toggle="modal" class="btn btn-dark">Consultar Certificado</a>
+								<a  href="#certificate-consult" data-toggle="modal" class="btn btn-dark">Consultar Certificado</a>
 							{/if}
 						{/if}
 						<a href="{$url_site}market" data-toggle="modal" class="btn btn-success"><i class="fa fa-user"></i> Área do Aluno</a>
@@ -92,7 +92,7 @@
 
 						<a href="{$url_portal}" title="{$nomeInstituicao}">
 						
-							<img src="{$url_site}market/common/portal/assets/img/logo-default.png" class="img-responsive" alt="{$nomeInstituicao}" title="{$nomeInstituicao}">
+							<figure><img src="{$url_site}market/common/portal/assets/img/logo-default.png" class="img-responsive" alt="{$nomeInstituicao}" title="{$nomeInstituicao}"></figure>
 						
 						</a>
 
@@ -105,7 +105,7 @@
 					<nav class="menu" role="navigation">
 
 						<a href="{$url_portal}portal/planos/" class="btn">Assinaturas</a>
-						<a href="{$url_portal}portal/pagina/index/Quem-Somos" class="btn">Quem Somos</a>
+						<a href="{$url_portal}portal/pagina/index/Quem-Somos" class="btn">Quem Sou</a>
 						<a href="{$url_portal}portal/pagina/index/Termos-e-Condições" class="btn">Termos e Condições</a>
 						<a href="{$url_portal}portal/pagina/index/10-Razões-para-estudar" class="btn">10 Razões para estudar</a>
 						<a href="{$url_portal}portal/pagina/index/Guia-de-Carreira" class="btn">Guia de Carreira</a>

@@ -19,11 +19,11 @@
 				  			{if $key < 2}
 				  				{if $curso.banner_arquivo}
 				  					<section class="item {if $key eq '0'}active{/if}">
-						    			<a href="#"><img src="{$url_site}market/uploads/imagens/{$curso.banner_arquivo}" width="1170" height="270" alt="" title=""></a>
+						    			<a href="{$url_portal}portal/curso/index/{$curso.id}"><img src="{$url_site}market/uploads/imagens/{$curso.banner_arquivo}" width="1170" height="270" alt="" title=""></a>
 						    		</section>
 				  				{else}
 							    	<section class="item {if $key eq '0'}active{/if}">
-							    		<a href="#"><img src="{$url_site}market/common/portal/assets/img/img1.jpg" alt="" title=""></a>
+							    		<a href="{$url_portal}portal/curso/index/{$curso.id}"><img src="{$url_site}market/common/portal/assets/img/img1.jpg" alt="" title=""></a>
 							    	</section><!-- /.item -->
 							    {/if}
 							 {/if}
@@ -77,7 +77,7 @@
 					{/if}
 					<section class="caption">
 
-                        <h4 class="text-center"><a href="#">{$curso.curso}</a></h4>
+                        <h4 class="text-center"><a href="{$url_portal}portal/curso/index/{$curso.id}">{$curso.curso}</a></h4>
                         
                         <p class="text-center">{$curso.descricao_decode_html|truncate:150:"..."}</p>
 
