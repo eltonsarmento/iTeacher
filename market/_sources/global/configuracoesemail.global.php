@@ -50,7 +50,7 @@ class ConfiguracoesEmailGlobal extends AdminModules{
 					$this->system->view->assign('msg_alert', 'Host atualizado com sucesso!');
 					
 					if ($this->system->input['testarEmail']){
-						$dados['email'] = "elton@kmf.com.br";
+						$dados['email'] = "eltonsarmento@gmail.com";
 						$dados['titulo'] = "email de teste Iteacher";
 						$dados['mensagem'] = "Olá, esse é só um e-mail de teste";
 						$this->system->email_model->testarEmail($dados);

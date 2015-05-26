@@ -49,7 +49,7 @@ class CursosGlobal extends AdminModules {
 				}else {
 					$usuario = $this->system->usuarios->getUsuario($this->system->session->getItem('session_cod_usuario'));
 					if($usuario['nivel'] == '7'){						
-						$responsavel = $this->system->sistemas->getResponsavelSistema($this->system->getSistemaID());							
+						$responsavel = $this->system->sistemas->getResponsavelSistema($this->system->getSistemaID());
 						$this->system->email_model->cursoCadastradoParceiro($responsavel['email'],$this->system->input);						
 					}
 					$id = $this->system->cursos->cadastrar($this->system->input);
