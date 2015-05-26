@@ -46,10 +46,9 @@ class ConfiguracoesEmailGlobal extends AdminModules{
 			} else {
 				//Salvar
 				if ($id) {					
-					$this->system->configuracoesemail->atualizarServidor($this->system->input);
-					//$this->system->view->assign('configuracoes_email', $this->system->input);
+					$this->system->configuracoesemail->atualizarServidor($this->system->input);					
 					$this->system->view->assign('msg_alert', 'Host atualizado com sucesso!');
-
+					
 					if ($this->system->input['testarEmail']){
 						$dados['email'] = "elton@kmf.com.br";
 						$dados['titulo'] = "email de teste Iteacher";
@@ -100,8 +99,7 @@ class ConfiguracoesEmailGlobal extends AdminModules{
 		}
 		else {			
 			if ($id) 			    
-				$this->system->view->assign('configuracoes_email', $this->system->configuracoesemail->getConfiguracoesGeraisEmail($id_sistema));
-			//$this->system->view->assign('plano', $this->system->configuracoesemail->getPlano($id));			
+				$this->system->view->assign('configuracoes_email', $this->system->configuracoesemail->getConfiguracoesGeraisEmail($id_sistema));	
 		}
 		$this->system->admin->topo('configuracoes','configuracoesemails-novo');
 		$this->system->view->display('global/configuracao_geral_email_edicao.tpl');

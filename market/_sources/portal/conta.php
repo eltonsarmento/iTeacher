@@ -14,11 +14,30 @@ class Conta {
 	// ===============================================================
 	public function autoRun() {
 		switch($this->system->input['do']) {
-			case 'cadastro':	$this->doCadastro(); break;
-			case 'lembrarSenha':$this->doLembrarSenha(); break;
-			case 'redefinirSenha':$this->doRedefinirSenha(); break;
-			default: 			$this->pagina404(); break;
+			case 'cadastro':		$this->doCadastro(); break;
+			case 'lembrarSenha':	$this->doLembrarSenha(); break;
+			case 'redefinirSenha':	$this->doRedefinirSenha(); break;
+			case 'logout':			$this->doLogout(); break;
+			default: 				$this->pagina404(); break;
 		}	
+	}
+	// ===============================================================
+	protected function doLogout() {
+		$this->system->load->dao('login');
+		$this->system->login->deslogar($this->system->session->getItem('session_cod_usuario'));
+		
+		$cod_empresa = $this->system->session->getItem('session_cod_empresa');
+		$empresa_cliente = $this->system->session->getItem('session_empresa_cliente');
+
+		$this->system->session->endSession();
+		@session_destroy();
+		session_start();
+
+		$this->system->session->addItem('session_cod_empresa', $cod_empresa);
+		$this->system->session->addItem('session_empresa_cliente', $empresa_cliente);
+
+		header('location:' . $this->system->getUrlSite() . $empresa_cliente . '/portal/');
+		die;
 	}
 	// ===============================================================
 	protected function doCadastro() {

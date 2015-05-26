@@ -32,7 +32,7 @@ RewriteRule ^nasp/([^/]+)/pagarme.php?$								/market/nasp/pagarme.php?cod_empr
 
 
 #site
-RewriteRule ^/?$										/index.php?categoria=site&module=$1&do=$2&{QUERY_STRING}
+RewriteRule ^/?$													/index.php?categoria=site&module=$1&do=$2&{QUERY_STRING}
 
 #Portal
 RewriteRule ^([^/]+)/?$												/index.php?cliente=$1&categoria=portal&module=home&do=index&{QUERY_STRING}

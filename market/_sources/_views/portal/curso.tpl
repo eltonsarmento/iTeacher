@@ -122,7 +122,9 @@
 								</tr>
 									{foreach item=aula from=$capitulo.aulas}
 										<tr>
-											<td><b>Aula {$aula.posicao} </b> - {$aula.nome}</td>
+											<td>
+												<a href="#free" class="free" onclick="abrirVideo('{if ($servidor == 1)}{$aula.amazon}{else}{$aula.vimeo}{/if}')" rel="modal:open"><i class="fa fa-play-circle"></i><b>Aula {$aula.posicao} </b> - {$aula.nome}</a>
+											</td>
 											<td class="text-right"><span class="label label-default">{$aula.duracao}</span></td>
 										</tr>
 									{/foreach}
@@ -160,7 +162,7 @@
 
 				<section class="media">
 
-					<span class="pull-left"><img src="assets/img/img-teacher.jpg" alt="" title="" class="media-object"></span>
+					<span class="pull-left"><img src="{$url_site}market/uploads/avatar/{$professor.avatar}" alt="" title="" class="media-object"></span>
 
 					<section class="media-body">
     					
@@ -184,6 +186,9 @@
         </section><!--.modal-content-->
     </section><!--.modal-->
 
+<script type="text/javascript" src="{$url_site}market/common/portal/assets/js/jquery.base64.js"></script>
+<script type="text/javascript" src="{$url_site}market/common/portal/assets/js/kmf.jquery.js"></script>
+<script type="text/javascript" src="{$url_site}market/common/portal/assets/js/jquery.modal.js" ></script>
 <script type="text/javascript" src="{$url_site}market/common/portal/assets/js/jwplayer/jwplayer.js" ></script>
 <script type="text/javascript" src="{$url_site}market/common/portal/assets/js/jwplayer/jwplayer.html5.js"></script>
 <script type="text/javascript">jwplayer.key="iutRDqcT78F7yRwhJrXKoCvFzYyfVxWm4kAJuA==";</script>
@@ -192,7 +197,7 @@
 {literal}
 <script type="text/javascript">
 function abrirVideo(video) {
-    jwplayer("videoModal").setup({
+	jwplayer("videoModal").setup({
         logo: {
             {/literal}
             file: "{$url_site}market/common/portal/assets/jwplayer/imagens/logo-iteacher.png",
@@ -213,8 +218,8 @@ jwplayer("aulaGratuita").setup({ldelim}
         link: "{$url_site}"
       {rdelim},
     file: buscarVideo('{$aulaGratuita}'),
-    width: 464,
-    height: 261,
+    width: 653,
+    height: 367,
     autostart: true
 {rdelim});
 {/if}

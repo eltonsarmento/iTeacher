@@ -29,7 +29,7 @@
                         
                         <section class="panel">
                             
-                            <header class="panel-heading"><strong>Editar - Área</strong></header>
+                            <header class="panel-heading"><strong>Editar - Categoria</strong></header>
                             
                             <section class="panel-body">
                                 
@@ -38,7 +38,7 @@
                                     <input type="hidden" value="{$area.id}" name="id"/>
                                     <section class="form-group">
                                         
-                                        <label class="control-label col-lg-2">Área</label>
+                                        <label class="control-label col-lg-2">Categoria</label>
                                         
                                         <section class="col-lg-10">
                                               
@@ -102,7 +102,7 @@
                     <section class="modal-header">
                         
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Deletar Área</h4>
+                        <h4 class="modal-title">Deletar Categoria</h4>
                         
                     </section><!-- /modal-header -->
                     

@@ -14,9 +14,8 @@ class PaginasDAO {
 			'pag2' => array("titulo" => "Termos e Condições",'tipo_id' => 2),
 			'pag3' => array("titulo" => "10 Razões para estudar",'tipo_id' => 3),
 			'pag4' => array("titulo" => "Guia de Carreira",'tipo_id' => 4),
-			'pag5' => array("titulo" => "Assinaturas",'tipo_id' => 5),
-			'pag6' => array("titulo" => "Cursos Online",'tipo_id' => 6),
-			'pag7' => array("titulo" => "Suporte",'tipo_id' => 7)
+			'pag5' => array("titulo" => "Cursos Online",'tipo_id' => 5),
+			'pag6' => array("titulo" => "Suporte",'tipo_id' => 6)
 		);	
 		return $linhas;
 	}	

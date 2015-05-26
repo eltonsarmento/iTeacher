@@ -85,7 +85,7 @@ class ParceirosDAO extends UsuariosDAO {
 	}
     
 	// ===============================================================
-	public function getParceiros($palavra = '', $metodo_busca = '', $limit, $order = 'nome', $apenas_total = false, $filtrarSistema = true) {
+	public function getParceiros($palavra = '', $metodo_busca = '', $limit = '', $order = 'nome', $apenas_total = false, $filtrarSistema = true) {
 
         //ATUALIZADO AQUI **** ADICIONADO ESSA CONDIÇÃO 
         if ($filtrarSistema)

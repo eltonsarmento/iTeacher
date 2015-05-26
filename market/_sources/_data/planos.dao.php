@@ -11,12 +11,13 @@ class PlanosDAO {
 	// ===============================================================
 	public function cadastrar($input) {
 		$this->system->sql->insert('planos', array(
-        	'plano' 	=> $input['plano'],
-        	'meses'		=> $input['meses'],
-        	'valor'		=> $input['valor'],
-        	'descricao'	=> $input['descricao'],
-        	'status'	=> $input['status'],
-        	'codigoPlanoPagarme'	=> $input['codigoPlanoPagarme'],
+        	'sistema_id' => $this->system->getSistemaID(),
+        	'plano' 	 => $input['plano'],
+        	'meses'		 => $input['meses'],
+        	'valor'		 => $input['valor'],
+        	'descricao'	 => $input['descricao'],
+        	'status'	 => $input['status'],
+        	'codigoPlanoPagarme'	=> ($input['codigoPlanoPagarme'] ? $input['codigoPlanoPagarme'] : ""),
         	'imagem_arquivo' 	=> "",
         	'excluido'	=> 0
         ));
@@ -31,7 +32,6 @@ class PlanosDAO {
         	'valor'		=> $input['valor'],
         	'descricao'	=> $input['descricao'],
         	'status'	=> $input['status'],
-        	'codigoPlanoPagarme'	=> $input['codigoPlanoPagarme'],
         	'imagem_arquivo' 	=> "",
         	'excluido'	=> 0
         ),

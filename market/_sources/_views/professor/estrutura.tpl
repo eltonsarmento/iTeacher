@@ -208,7 +208,7 @@
                             {if $visao_adm eq false}
                                 <li {if $submenu eq 'cursos-novo'}class="active"{/if}><a href="{$admin_url}/cursos/novo">Adicionar Novo</a></li>
                                 <li class="divider"></li>
-                                <li {if $submenu eq 'areas-listar'}class="active"{/if}><a href="{$admin_url}/areas/listar">Ger. Áreas</a></li>
+                                <li {if $submenu eq 'areas-listar'}class="active"{/if}><a href="{$admin_url}/areas/listar">Ger. Categorias</a></li>
                             {/if}
                             
                         </ul>

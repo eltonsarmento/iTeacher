@@ -8,7 +8,11 @@
 
 	<div style="background:#e25143;width:600px;height:auto;padding:20px 0;margin:60px 0 0 0;border-top-left-radius:4px;border-top-right-radius:4px;">
 
-		<div style="width:160px;height:40px;margin:0 auto;"><a href="http://iteacher.com.br/market"><img src="{$imagem_header}"></a></div>
+		<div style="width:160px;height:40px;margin:0 auto;">
+			<a href="http://iteacher.com.br/market">
+				<img src="{$imagem_header}" style="width:160px;height:40px;margin:0 auto;">
+			</a>
+		</div>
 
 	</div>
 

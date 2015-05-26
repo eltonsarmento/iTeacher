@@ -236,14 +236,19 @@ class VendasGlobal extends AdminModules {
 	protected function doDetalhesVenda() {
 		$id = (int)$this->system->input['id'];
 		$venda = $this->system->vendas->getVenda($id);
+
 		$data = strtotime(substr($venda['data_venda'], 2,8));
-		$venda['data_venda'] = date('d/m/Y',$data);
+		$venda['data_venda'] = date('d/m/Y',$data);		
+
 		$data = strtotime(substr($venda['data_expiracao'], 2,8));
 		$venda['data_expiracao'] = date('d/m/Y',$data);
+
 		$cursos = $this->doRecuperarCursoByIdVenda(TRUE);
-		$aluno = $cursos[0]['aluno'];
-		if ($this->system->session->getItem('session_nivel') == 5 && ($venda['parceiro_id'] != $this->system->session->getItem('session_cod_usuario')))
+		$aluno = $cursos[0]['aluno'];		
+
+		if ($this->system->session->getItem('session_nivel') == 7 && ($venda['parceiro_id'] != $this->system->session->getItem('session_cod_usuario')))
 			$this->system->func->redirecionar('/vendas/listar');
+
 		$this->system->view->assign(array(			
 			'venda'					=> $venda,
 			'cursos'				=> $cursos,

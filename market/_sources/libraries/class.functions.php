@@ -373,8 +373,7 @@ class Functions {
 		return ($result[$campo] ? false : true);
 	}
 	//=================================================================
-	public function sendMail($to, $titulo, $mensagem, $deNome = "Cursos iTeacher", $deEmail = '', $configuracoesEmail, $anexos = array()) {		
-				
+	public function sendMail($to, $titulo, $mensagem, $deNome = "Cursos iTeacher", $deEmail = '', $configuracoesEmail, $anexos = array()) {				
 		if ($deEmail == '') {			
 			$deEmail = $this->system->getEmail();
 		}
@@ -383,18 +382,22 @@ class Functions {
 		require_once(dirname(__FILE__)."/phpmailer/class.phpmailer.php");
 		// Inicia a classe PHPMailer
 		$mail = new PHPMailer();
+		//$mail->SMTPDebug  = 2;
+		//$mail->Mailer = 'mail';
 		
 		$mail->IsSMTP();
+
 		
 		if(!empty($configuracoesEmail)){
 			$mail->Host = $configuracoesEmail['host'];				
 			$mail->Port = $configuracoesEmail['porta'];
 			$mail->Username = $configuracoesEmail['email'];
 			$mail->Password = $configuracoesEmail['senha'];			
-			$mail->SMTPSecure = $configuracoesEmail['SMTPSecure'];
+			$mail->SMTPSecure = $configuracoesEmail['SMTP Secure'];	
+			//$mail->SMTPAuth = false;
 		}		
-		
-        try {    
+
+		try {    
 	
 			$mail->AddAddress($to);
 			$mail->SetFrom($deEmail, $deNome);
@@ -406,10 +409,12 @@ class Functions {
 			
 			$mail->Send();
 		} catch (phpmailerException $e) {
-  			//echo $e->errorMessage(); //Pretty error messages from PHPMailer
-		} catch (Exception $e) {
-  			//echo $e->getMessage(); //Boring error messages from anything else!
+  			echo $e->errorMessage(); //Pretty error messages from PHPMailer
+		} catch (Exception $e) {			
+  			echo $e->getMessage(); //Boring error messages from anything else!
 		}
+
+		//die;
 
 
 		//Enviar o email (MODO ANTIGO)

@@ -33,7 +33,7 @@
                                         
                                         <section class="thumbnail">
                                             
-                                            <img src="{$url_site}market/uploads/cursos/{$curso_andamento.destaque_arquivo}" class="img-responsive img-thumbnail" alt="Curso de Web Design">
+                                            <img src="{$url_site}market/uploads/imagens/{$curso_andamento.destaque_arquivo}" class="img-responsive img-thumbnail" alt="Curso de Web Design">
                                             
                                             <section class="caption">
                                                 

@@ -22,11 +22,15 @@ class Curso {
 		$curso_id = $this->system->input['parametro']; 
 		if ($curso_id) {
 			$curso 	   					= $this->system->cursos->getCursoSemSistemaId($curso_id,$campos = '*');	
-			$professor 					= $this->system->professores->getProfessorPortal($curso['professor_id']);
+			//$professor 					= $this->system->professores->getProfessorPortal($curso['professor_id']);
+
+			$professor = $this->system->professores->getProfessor($curso['professor_id'], true);
+			$professor['minicurriculo'] = $this->system->professores->getValorExtra($professor['id'], 'minicurriculo');
+
 			$curso['valor_dividido'] 	= number_format(($curso['valor'] / 12), 2, ',', '.');
 			$curso['valor'] 			= number_format($curso['valor'], 2,',','.');
 			if ($curso['gratuito']) $curso['valor'] = 0;
-			
+
 			$this->system->view->assign('aulaGratuita', $this->system->aulas->getAulaGratuitaByCurso($curso['id'], $curso['sistema_id']));
 			$this->system->view->assign('curso', $curso);				
 			$this->system->view->assign('professor', $professor);

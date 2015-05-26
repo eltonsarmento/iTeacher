@@ -53,9 +53,9 @@
 
 					<article class="thumbnail">
 						{if $curso.destaque_arquivo}
-							<img src="{$url_site}market/uploads/imagens/{$curso.destaque_arquivo}" alt="" title="">							
+							<a href="{$url_portal}portal/curso/index/{$curso.id}"><img src="{$url_site}market/uploads/imagens/{$curso.destaque_arquivo}" alt="" title=""></a>
 						{else}
-							<img src="{$url_site}market/common/portal/assets/img/img-thumbnail.jpg" alt="" title="">
+							<a href="{$url_portal}portal/curso/index/{$curso.id}"><img src="{$url_site}market/common/portal/assets/img/img-thumbnail.jpg" alt="" title=""></a>
 						{/if}
 						{if $curso.gratuito eq 1}
 							<section class="price offer">
@@ -68,7 +68,7 @@
 						{/if}
 						<section class="caption">
 
-	                        <h4 class="text-center"><a href="#">{$curso.curso}</a></h4>
+	                        <h4 class="text-center"><a href="{$url_portal}portal/curso/index/{$curso.id}">{$curso.curso}</a></h4>
 	                        
 	                        <p class="text-center">{$curso.descricao_decode_html}</p>
 

@@ -31,8 +31,7 @@ class PaginasGlobal extends AdminModules{
 				$this->system->view->assign('pagina', $this->system->input);
 			} else {
 				//Salvar
-				if ($id) {		
-						
+				if ($id) {								
 					$this->system->paginas->atualizar($this->system->input);
 					$this->system->view->assign('msg_alert', 'Página atualizada com sucesso!');
 				}

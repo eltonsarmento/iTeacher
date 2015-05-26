@@ -173,7 +173,9 @@ class Carrinho {
 	// ==============================================================
 	protected function doAdicionarPlano() {
 		$plano_id = $this->system->input['parametro'];
+
 		$produto = $this->system->planos->getPlano($plano_id);
+		
 		if ($produto['status']) {
 			//tipo
 			$produto['tipo'] = 'plano';
@@ -214,8 +216,8 @@ class Carrinho {
 	}
 	// ==============================================================
 	protected function doVerificaLogin() {
-		if ($this->system->session->getItem('session_logged_in') && $this->system->session->getItem('session_nivel') == 2) {
-			session_write_close();
+		if ($this->system->session->getItem('session_logged_in')/* && $this->system->session->getItem('session_nivel') == 2*/) {
+			//session_write_close();
 			header('Location: ' . $this->system->getUrlPortal() . 'portal/carrinho/verificaCompra/');
 			die;
 		}
@@ -245,18 +247,18 @@ class Carrinho {
 
 				$categorias = $this->system->arrays->getArrayCategorias();
 				$this->system->session->addItem('session_nivel_categoria', $categorias[$dados->nivel]);
-				$this->system->login->updateEntrada();
+				$this->system->login->updateEntrada($this->system->session->getItem('session_cod_usuario'));
 
 				//$this->system->session->addItem('manter_logado', $dados->id, true);
 				setcookie("cookie_cod_usuario", $dados->id, 0, '/'); 				 
 		       	
 		       	if ($this->system->planos->verificaAssinaturaAtiva(' and usuario_id = ' . $this->system->session->getItem('session_cod_usuario'))) {
-		       		session_write_close();
+		       		//session_write_close();
 		        	header('Location: ' . $this->system->getUrlPortal() . 'portal/carrinho/ver/');
 		        	exit();
 		       	}
 		        else {
-		        	session_write_close();
+		        	//session_write_close();
 		        	header('Location: ' . $this->system->getUrlPortal() . 'portal/carrinho/verificaCompra/');
 		        	exit();
 		        }
@@ -319,7 +321,7 @@ class Carrinho {
 						$msg_error = 'Você não pode usar cupom para adquirir um plano!';		
 						break;
 					} elseif ($this->system->vendas->verificaCompraPlanoAberta($this->system->session->getItem('session_cod_usuario'), $produto['id'])) {
-						$msg_error = 'Já existe uma compra aberta com ' . $produto['plano'] . '. Se não deseja finaliza-la, você poderá cancela-la em seu painel LMS.';		
+						$msg_error = 'Já existe uma compra aberta com ' . $produto['plano'] . '. Se não deseja finaliza-la, você poderá cancela-la em seu painel de Usuário.';		
 						break;
 					}
 					$plano = true;	

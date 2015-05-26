@@ -129,8 +129,8 @@ class CursosGlobal extends AdminModules {
 		//if (!$this->system->input['perfil']) 
         //    $retorno['msg'][] = "O campo perfil do aluno precisa ser preenchido.";
 			
-        //if ($this->system->input['professor_id'] == 0) 
-        //    $retorno['msg'][] = "O campo professor precisa ser preenchido.";
+        if ($this->system->input['professor_id'] == 0) 
+            $retorno['msg'][] = "O campo professor precisa ser preenchido.";
 			
         if(!$this->system->input['qt_capitulos']) 
 			$this->system->input['qt_capitulos'] = 1;

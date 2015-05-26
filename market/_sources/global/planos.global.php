@@ -38,6 +38,23 @@ class PlanosGlobal extends AdminModules{
 					$this->system->view->assign('msg_alert', 'Plano atualizado com sucesso!');
 				}
 				else {		
+					$this->system->load->model('pagarme_model');
+					$this->system->load->dao('configuracoesgerais');
+
+					$campos = $this->system->input;					
+					$pagarme = $this->system->configuracoesgerais->getPagarme($this->system->getSistemaID());
+
+					if($pagarme['pagarme_status'] == 1){					
+
+						try {							
+							$id_plano = $this->system->pagarme_model->criarPlano($campos);
+							$this->system->input['codigoPlanoPagarme'] = $id_plano;
+
+						} catch (Exception $e) {
+							$this->system->view->assign('msg_alert', 'O plano não foi criado no Pagarme!');	
+						}
+						
+					}					
 					$id = $this->system->planos->cadastrar($this->system->input);
 					$this->system->view->assign('msg_alert', 'Plano cadastrado com sucesso!');
 				}
@@ -71,7 +88,24 @@ class PlanosGlobal extends AdminModules{
 					$this->system->planos->atualizar($this->system->input);
 					$this->system->view->assign('msg_alert', 'Plano atualizado com sucesso!');
 				}
-				else {		
+				else {	
+					$this->system->load->model('pagarme_model');
+					$this->system->load->dao('configuracoesgerais');
+
+					$campos = $this->system->input;					
+					$pagarme = $this->system->configuracoesgerais->getPagarme($this->system->getSistemaID());
+
+					if($pagarme['pagarme_status'] == 1){					
+
+						try {							
+							$id_plano = $this->system->pagarme_model->criarPlano($campos);
+							$this->system->input['codigoPlanoPagarme'] = $id_plano;
+
+						} catch (Exception $e) {
+							$this->system->view->assign('msg_alert', 'O plano não foi criado no Pagarme!');	
+						}
+						
+					}					
 					$id = $this->system->planos->cadastrar($this->system->input);
 					$this->system->view->assign('msg_alert', 'Plano cadastrado com sucesso!');
 				}

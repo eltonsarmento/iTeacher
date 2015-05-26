@@ -165,19 +165,19 @@
                                         
                                         <section class="controls col-lg-10">
                                             
-                                            <section class="fileupload fileupload-new" data-provides="fileupload">
+                                            <section class="fileupload {if $configuracoes_email.imagem_cabecalho}fileupload-exists{else}fileupload-new{/if}" data-provides="fileupload">
                                                 
                                                 <span class="btn btn-white btn-file">
                                                     
                                                     <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Selecione a imagem</span>
                                                     <span class="fileupload-exists"><i class="fa fa-undo"></i> Alterar</span>
-                                                    <input type="file" name="imagem_cabecalho" class="default" />
+                                                    <input type="file" name="imagem_cabecalho" class="default"/>
                                                     
                                                 </span>
                                                 
-                                                <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                                <span class="fileupload-preview" style="margin-left:5px;">{$configuracoes_email.imagem_cabecalho}</span>
                                                 
-                                                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                                <a href="#" class="close fileupload-exists" data-dismiss="fileupload"  style="float: none; margin-left:5px;"></a>
                                                 
                                             </section><!-- /fileupload -->
                                             

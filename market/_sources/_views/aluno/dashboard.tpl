@@ -54,7 +54,7 @@
                             
                                 <section class="thumbnail">
                                     {if $ultimo_curso.curso}
-                                    <img src="{$url_site}market/uploads/cursos/{$ultimo_curso.destaque_arquivo}" class="img-responsive img-thumbnail" alt="{$ultimo_curso.curso}">
+                                    <img src="{$url_site}market/uploads/imagens/{$ultimo_curso.destaque_arquivo}" class="img-responsive img-thumbnail" alt="{$ultimo_curso.curso}">
                                     {else}
                                     {/if}
                                     <section class="caption">

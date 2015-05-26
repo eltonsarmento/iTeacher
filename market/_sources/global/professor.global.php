@@ -27,6 +27,9 @@ class ProfessorGlobal extends AdminModules {
 	}
 	// ===============================================================
 	protected function doListar() {		
+		$titulo = $this->system->emails->getValorPorId(95);
+		$mensagem = html_entity_decode($this->system->emails->getValorPorId(96));
+		
 		$this->listagem();
 		$this->system->admin->topo('professor', 'professor-listar');
 		$this->system->view->display('instituicao/professor_gerenciar.tpl');

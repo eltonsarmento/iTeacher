@@ -9,7 +9,7 @@
                         <ul class="breadcrumb">
                             
                             <li><a href="{$admin_url}/dashboard/home"><i class="fa fa-home"></i> Dashboard</a></li>
-                            <li class="active">Gerenciar Áreas</li>
+                            <li class="active">Gerenciar Categoria</li>
                             
                         </ul>
                         
@@ -32,7 +32,7 @@
 									<input type="hidden" value="{$area.id}" name="id"/>
                                     <section class="form-group">
                                         
-                                        <label>Área</label>
+                                        <label>Categoria</label>
                                                       
                                         <input class="form-control" name="area" value="{$area.area}" type="text" autofocus required>
                                                 
@@ -71,7 +71,7 @@
                         
                         <section class="panel">
                             
-                            <header class="panel-heading"><strong>Todas as Áreas</strong></header>
+                            <header class="panel-heading"><strong>Todas as Categoria</strong></header>
 
                             <section class="panel-body">
                                         
@@ -124,7 +124,7 @@
                     <section class="modal-header">
                         
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Deletar Área</h4>
+                        <h4 class="modal-title">Deletar Categoria</h4>
                         
                     </section><!-- /modal-header -->
                     

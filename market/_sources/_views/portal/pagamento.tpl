@@ -62,13 +62,14 @@
 				</div><!-- /text-center -->
 				
 				<div class="row">
-				
+					
+					{if $configs_pagamentos.pagseguro_status}
 					<div class="col-lg-4">
-
 						<button onclick="finalizarPagamento();"  class="btn btn-white btn-block btn-round btn-lg">Pagseguro</button>
-
 					</div><!-- /col-lg-4 -->
+					{/if}
 
+					{if $configs_pagamentos.pagarme_status}
 					<div class="col-lg-4">
 						<form  method="POST" action="{$url_portal}portal/carrinho/concluirPagarme/">
 							<input type="hidden" name="enviado" value="1">                                
@@ -83,8 +84,9 @@
 								data-amount="{$totalPagarme}">
 							</script>
 						</form>
-
 					</div><!-- /col-lg-4 -->
+					{/if}
+
 					<!--
 					<div class="col-lg-4">
 
@@ -92,11 +94,11 @@
 
 					</div><!-- /col-lg-4 -->
 
-					<div class="col-lg-4">
+					<!-- <div class="col-lg-4">
 
 						<a href="#" class="btn btn-white btn-block btn-round btn-lg">PayPal</a>
 
-					</div><!-- /col-lg-4 -->
+					</div> -->
 				
 				</div>
 				

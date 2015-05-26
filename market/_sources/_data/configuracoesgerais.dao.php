@@ -89,6 +89,11 @@ class ConfiguracoesgeraisDAO {
 		$query = $this->system->sql->select('pagarme_status, pagarme_key_api,pagarme_key_criptografia', 'configuracoes_api_pagamentos', 'sistema_id=' . $sistema_id);	
 		return end($this->system->sql->fetchrowset($query));
 	}
+	// ===============================================================
+	public function getConfiguracoesPagamentos($sistema_id) {
+		$query = $this->system->sql->select('*', 'configuracoes_api_pagamentos', 'sistema_id=' . $sistema_id);	
+		return end($this->system->sql->fetchrowset($query));
+	}
 	// Imagens
 	// ===============================================================
 	public function atualizarImagens($input) {

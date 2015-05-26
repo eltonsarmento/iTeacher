@@ -78,13 +78,14 @@ class System {
 		$this->loadDataBase();
 		
 		$this->session = new Session();
+		//$this->session->endSession();
 		$this->load = new Loader();
 		$this->arrays = new Arrays();
 		$this->log = new Log();
 		
 		$this->input = Input::parse_incoming();
 		$this->func  = new Functions();
-		
+
 		if ($this->loadAdmin) {
 			require(LIBS_DIR . '/class.admin.php');
 			require(LIBS_DIR . '/../global/admin.global.php');
@@ -104,17 +105,16 @@ class System {
 			}
 		} elseif ($this->loadPortal) {
 			require(LIBS_DIR . '/class.portal.php');
-
 			$this->site = new Portal();
-
+		
 			//recupera  o cliente pela sessao e seta na url_portal para os links.
 			$dominioCliente = $this->session->getItem('session_empresa_cliente');
-			if(!empty($dominioCliente))
-				self::$url_portal = self::$url_site . $dominioCliente . '/';			
+			if (!empty($dominioCliente))
+				self::$url_portal = self::$url_site . $dominioCliente . '/';
 		} else {
 			require(LIBS_DIR . '/class.site.php');			
 			//$this->session->deleteItem('session_empresa_cliente');
-			$this->site = new Site();			
+			$this->site = new Site();
 		}
 	}
 	// ===============================================================
@@ -147,6 +147,10 @@ class System {
 	// ===============================================================
 	public function getUrlSite() {
 		return self::$url_site;
+	}
+	// ===============================================================
+	public function setUrlPortal($dominio) {
+		self::$url_portal = self::$url_site . $dominio . "/";
 	}
 	// ===============================================================
 	public function getUrlPortal() {

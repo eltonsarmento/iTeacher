@@ -21,12 +21,17 @@ class Pagina {
 	protected function doIndex() {
 		$titulo = str_replace('-',' ',$this->system->input['parametro']);
 		
+		if ($titulo == "Assinaturas") $layout = "portal/planos.tpl";
+		else{
+			
+		} $layout = "portal/pagina.tpl";
+
 		$pagina = $this->system->paginas->getPaginaByName($titulo);
 		$pagina['conteudo'] = nl2br($pagina['conteudo']);
 		
 		$this->system->view->assign('pagina', $pagina);				
 		$this->system->site->topo();
-		$this->system->view->display('portal/pagina.tpl');
+		$this->system->view->display($layout);
 		$this->system->site->rodape();
 	}
 	

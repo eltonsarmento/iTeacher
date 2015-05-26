@@ -493,6 +493,12 @@ vendas AS t2 ON (t1.venda_id=t2.id)', "t2.excluido = 0" . $campos . ' GROUP BY t
 		//if ($certificados > 0)
 		//	return 3; //certificados
 	}
+	// ================================================================
+	public function verificaCompraPlanoAberta($usuario_id, $plano_id) {
+		$query = $this->system->sql->select('id', 'vendas', "excluido = 0 and status = 0 and usuario_id = '" . $usuario_id . "' and id in (SELECT venda_id from vendas_planos where plano_id = '" . $plano_id . "')");
+		$result = end($this->system->sql->fetchrowset($query));
+		return ($result['id'] ? true : false);
+	}
 	// ===============================================================
 }
 // ===================================================================

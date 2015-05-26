@@ -51,7 +51,7 @@
                         <section class="panel alert-info">
                             
                             <header class="panel-heading alert-info"><strong>Ajuda</strong></header>
-                            
+                                                        
                             <section class="list-group">
                                 <a class="list-group-item" data-toggle="modal" href="#modeloShortcode" >Lista de shortcodes disponíveis </a>
                             </section><!-- /list-group -->
@@ -68,9 +68,11 @@
                             
                             <section class="list-group">
                                 
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(95, 96);">Quando o professor for cadastrado (enviar e-mail com dados de acesso)</a>
                                 <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(73, 74);">Quando um aluno deixar uma dúvida</a>
                                 <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(75, 76);">Após 12 horas da dúvida deixada</a>
                                 <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(77, 78);">Após 48 horas da dúvida deixada</a>
+                                
                                 
                             </section><!-- /list-group -->
                         

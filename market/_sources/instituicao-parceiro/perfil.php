@@ -90,6 +90,16 @@ class Perfil extends PerfilGlobal {
 	        //Email
 	        if ($this->system->input['email'] == '')
 	        	$retorno['msg'][] = "O campo E-mail está vázio";
+	        //Email Responsável
+	        if($this->system->input['email'] == '') 
+	            $retorno['msg'][] = "O campo Email Responsável está vázio.";
+	        elseif(!$this->system->func->checkEmail($this->system->input['email']))
+	        	$retorno['msg'][] = "O campo E-mail é inválido";
+	        elseif($this->system->usuarios->checkEmailCadastrado($this->system->input['id'], $this->system->input['email'], $this->system->getSistemaID()))
+	        	$retorno['msg'][] = "Já existe um usuário cadastrado com esse e-mail";
+
+	        if($this->system->input['email'] != '')
+	        	$this->system->input['email_responsavel'] = $this->system->input['email'];
 	       //CPF
 	        if ($this->system->input['cpf'] != '' && !$this->system->func->validaCPF($this->system->input['cpf']))
 	        	$retorno['msg'][] = "O campo CPF é inválido.";

@@ -56,7 +56,7 @@ class Email_modelMODEL {
 		$this->system->load->dao('configuracoesEmail');
 	}
 	// ===============================================================
-	public function testarEmail($input,$configuracoes) {
+	public function testarEmail($input) {
 		$titulo = $input['titulo'];
 		$mensagem = html_entity_decode($input['mensagem']);			
 
@@ -415,8 +415,8 @@ class Email_modelMODEL {
 	// Professor
 	// ===============================================================
 	public function cadastroProfessor($email, $nome, $senha) {
-		$titulo = $this->system->emails->getValorPorId(21);
-		$mensagem = html_entity_decode($this->system->emails->getValorPorId(22));
+		$titulo = $this->system->emails->getValorPorId(95);
+		$mensagem = html_entity_decode($this->system->emails->getValorPorId(96));
 		
 		//Setar campos
 		$this->setarValor('nome_professor', $nome);
@@ -656,11 +656,12 @@ class Email_modelMODEL {
 		$this->shortcode['[[' . $key . ']]'] = $value;
 	}
 	// ===============================================================
-	private function envio($email, $titulo, $conteudo) {
+	private function envio($email, $titulo, $conteudo) {		
+
 		$usuario = $this->system->usuarios->getUsuarioByEmail($email);
 		if ($usuario['id']) {
 			$this->setarValor('email_usuario', $email);
-			$this->setarValor('senha_usuario', $usuario['senha']);	
+			$this->setarValor('senha_usuario', $this->system->func->descriptografar($usuario['senha']));	
 		}
 		
 		$configuracoesEmail = $this->system->configuracoesEmail->getConfiguracoesGeraisEmail($this->system->getSistemaID());
@@ -669,6 +670,7 @@ class Email_modelMODEL {
 		$deEmail = $configuracoesEmail['email'];
 
 		$conteudo = str_replace(array_keys($this->shortcode), array_values($this->shortcode), $conteudo);
+		
 		$this->system->view->assign(array(
 			'url_site'		=> $this->system->getUrlSite(),
 			'imagem_header'	=> $this->system->getUrlSite().'market/uploads/configuracoes_email/'.$configuracoesEmail['imagem_cabecalho'],
@@ -684,15 +686,18 @@ class Email_modelMODEL {
 	// ===============================================================
 	public function gravarNotificacoes($email, $titulo, $conteudo) {
 
-		$usuario = $this->system->usuarios->getUsuarioByEmail($email);		
+		$usuario = $this->system->usuarios->getUsuarioByEmail($email);	
 		
 		/*$sistemaID = $this->system->usuarios->getSistemaID($id);
 		$responsavel = $this->system->sistemas->getResponsavelSistema($sistemaID);		
 		$remetenteID = $responsavel['id'];	*/
 		
 		if ($usuario['id']) {
-			$conteudo = str_replace(array_keys($this->shortcode), array_values($this->shortcode), $conteudo);
-			$this->system->notificacoes->notificacaoEmail($usuario['id'], $titulo, $conteudo, $remetenteID);
+			$this->setarValor('email_usuario', $email);
+			$this->setarValor('senha_usuario', $this->system->func->descriptografar($usuario['senha']));	
+
+			$conteudo = str_replace(array_keys($this->shortcode), array_values($this->shortcode), $conteudo);			
+			$this->system->notificacoes->notificacaoEmail($usuario['id'], utf8_decode($titulo), utf8_decode($conteudo), $remetenteID);
 		}
 	}
 	// ===============================================================

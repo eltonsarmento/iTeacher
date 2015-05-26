@@ -10,14 +10,14 @@
 
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="description" content="">
-    <meta name="author" content="iTeacher - Plataforma Educacional (www.iteacher.com.br)">
+    <meta name="author" content="{$nomeInstituicao} - Plataforma Educacional (www.iteacher.com.br)">
     <meta name="keywords" content="">
     <meta name="robots" content="index,follow">
 
     <!-- ========== FAVICON ========== -->
 
 	<!-- ========== TITLE ========== -->
-	<title>iTeacher - {$nomeInstituicao}</title>
+	<title>{$nomeInstituicao}</title>
 
 	<!-- ========== CSS ========== -->
 	<link rel="stylesheet" type="text/css" href="{$url_site}market/common/portal/assets/css/bootstrap.min.css">
@@ -53,7 +53,7 @@
 				<section class="col-lg-6 col-sm-6 col-xs-12">
 					{if $usuario_nome}
 						Olá <strong>{$usuario_nome}</strong>, seja bem-vindo. 											
-						<a href="http://localmarket.com/market/aluno/login/logoutPortal" data-toggle="modal" class="btn btn-success"><i class="fa fa-user"></i> Sair</a>
+						<a href="{$url_portal}portal/conta/logout" data-toggle="modal" class="btn btn-success"><i class="fa fa-user"></i> Sair</a>
 					{else}
 						<a href="{$url_portal}portal/conta/cadastro" class="btn registre"><b>Cadastre-se</b> agora!</a>
 					{/if}
@@ -67,10 +67,9 @@
 						{if $usuario_categoria eq 'aluno'}
 							{if $cliente.nivel eq 5}
 								<a href="{$url_portal}portal/certificado" data-toggle="modal" class="btn btn-dark">Consultar Certificado</a>
-							{/if}						
-							<a href="{$url_site}market" data-toggle="modal" class="btn btn-success"><i class="fa fa-user"></i> Área do Aluno</a>
+							{/if}
 						{/if}
-
+						<a href="{$url_site}market" data-toggle="modal" class="btn btn-success"><i class="fa fa-user"></i> Área do Aluno</a>
 					</span>
 
 				</section><!-- /.col-lg-6 -->
@@ -91,9 +90,9 @@
 
 					<section >
 
-						<a href="{$url_portal}" title="iTeacher - Theme Light">
+						<a href="{$url_portal}" title="{$nomeInstituicao}">
 						
-							<img src="{$url_site}market/common/portal/assets/img/logo-default.png" class="img-responsive" alt="iTeacher - Theme Light" title="iTeacher - Theme Light">
+							<img src="{$url_site}market/common/portal/assets/img/logo-default.png" class="img-responsive" alt="{$nomeInstituicao}" title="{$nomeInstituicao}">
 						
 						</a>
 
@@ -105,8 +104,8 @@
 
 					<nav class="menu" role="navigation">
 
-						<a href="{$url_portal}portal/pagina/index/Assinaturas" class="btn">Assinaturas</a>
-						<a href="{$url_portal}portal/pagina/index/Quem-Sou" class="btn">Quem Sou</a>
+						<a href="{$url_portal}portal/planos/" class="btn">Assinaturas</a>
+						<a href="{$url_portal}portal/pagina/index/Quem-Somos" class="btn">Quem Somos</a>
 						<a href="{$url_portal}portal/pagina/index/Termos-e-Condições" class="btn">Termos e Condições</a>
 						<a href="{$url_portal}portal/pagina/index/10-Razões-para-estudar" class="btn">10 Razões para estudar</a>
 						<a href="{$url_portal}portal/pagina/index/Guia-de-Carreira" class="btn">Guia de Carreira</a>

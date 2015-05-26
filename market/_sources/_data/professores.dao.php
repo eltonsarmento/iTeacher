@@ -293,9 +293,8 @@ class ProfessoresDAO extends UsuariosDAO{
     public function getProfessorPortal($id) {
         $query = $this->system->sql->select('u.*, ud.*', 'usuarios u INNER JOIN usuarios_dados ud ON (u.id = ud.usuario_id)', "u.nivel = '5' AND u.excluido = '0' AND u.ativo = '1' ". ($id ? " AND u.id='".$id."' " : ""));
         $professor = $this->system->sql->fetchrowset($query);
-                
         return $professor;
     }
-
+    // ===============================================================
 }
 // ===================================================================

@@ -83,10 +83,14 @@ class NotificacoesDAO {
 			$codigosCursos1 = $this->system->sql->fetchrowset($queryCursos1);
 			foreach ($codigosCursos1 as $resultadoCurso1)
 					$cursosID1[] = $resultadoCurso1['curso_id'];
-			$cursosID1[] = 0;
-			$sql_extra .= " AND (SELECT COUNT(notificacao_id) FROM notificacoes_cursos WHERE curso_id IN (" . implode(',', $cursosID1) . ") 
-			AND   notificacao_id NOT IN (SELECT notificacao_id FROM notificacoes_lidas WHERE usuario_id = '" . $usuario['id'] . "')) > 0  
-			AND notificacoes.id NOT IN (SELECT notificacao_id FROM notificacoes_lidas WHERE usuario_id = '". $usuario['id'] ."')";
+						
+			if(count($cursosID1)){
+				$sql_extra .= " AND (SELECT COUNT(notificacao_id) FROM notificacoes_cursos WHERE curso_id IN (" . implode(',', $cursosID1) . ") 
+				AND   notificacao_id NOT IN (SELECT notificacao_id FROM notificacoes_lidas WHERE usuario_id = '" . $usuario['id'] . "')) > 0  
+				AND notificacoes.id NOT IN (SELECT notificacao_id FROM notificacoes_lidas WHERE usuario_id = '". $usuario['id'] ."')";
+			}else{
+				$sql_extra .= " AND notificacoes.id NOT IN (SELECT notificacao_id FROM notificacoes_lidas WHERE usuario_id = '". $usuario['id'] ."')";				
+			}
 		}else{
 			$sql_extra .= " AND notificacoes.id NOT IN (SELECT notificacao_id from notificacoes_lidas WHERE usuario_id = '" . $usuario['id'] . "') ";										
 		}

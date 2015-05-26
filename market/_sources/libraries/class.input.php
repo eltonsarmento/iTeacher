@@ -63,7 +63,7 @@ class Input {
         $val = str_replace ("\""          , "&quot;"        , $val);
         $val = preg_replace("/\\\$/"      , "&#036;"        , $val);
         $val = preg_replace("/\r/"        , ""              , $val);
-        $val = str_replace ("!"           , "&#33;"         , $val);
+        //$val = str_replace ("!"           , "&#33;"         , $val);
         $val = str_replace ("'"           , "&#39;"         , $val);
         $val = preg_replace("/\\\(?!&amp;#|\?#)/", "&#092;" , $val);
         return $val;

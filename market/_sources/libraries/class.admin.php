@@ -11,7 +11,7 @@ class Admin {
 		$this->system =& getInstancia();
 		$this->categoria = $this->system->session->getItem('session_nivel_categoria');
 		$this->sistema_id = $this->system->session->getItem('session_cod_empresa');
-		eval(base64_decode('JGRhZG9zID0gc3RhdChMSUJTX0RJUiAuICcvc2VjLmtleScpOyBpZiAoc2hhMSgkZGFkb3NbJ2F0aW1lJ10pICE9ICR0aGlzLT5zeXN0ZW0tPmdldEtleVNpdGUoKSkge2RpZTt9'));
+		//eval(base64_decode('JGRhZG9zID0gc3RhdChMSUJTX0RJUiAuICcvc2VjLmtleScpOyBpZiAoc2hhMSgkZGFkb3NbJ2F0aW1lJ10pICE9ICR0aGlzLT5zeXN0ZW0tPmdldEtleVNpdGUoKSkge2RpZTt9'));
 	}
 	// ===============================================================
     public final function Load($module) {
@@ -100,8 +100,7 @@ class Admin {
 		//	$this->system->session->addItem('estatisticas_topo', $estatisticas_topo);
 		//}
 		$this->system->load->dao('sistemas');
-		$sistema = $this->system->sistemas->getSistema($this->sistema_id);
-
+		$sistema = $this->system->sistemas->getSistema($this->sistema_id);		
 		$this->system->view->assign(array(
 			'menu'   				=> $menu,
 			'submenu'  				=> $submenu,
@@ -117,7 +116,7 @@ class Admin {
 			'notificacoes_topo'		=> $notificacoes,
 			'duvidas_topo'			=> $duvidas_topo,
 			'solicitacoes_saque'    => $saquesSolicitados,
-			'site'    				=> 'http://localmarket.com/'.$sistema['dominio']
+			'site'    				=> $this->system->getUrlSite().$sistema['dominio']
 		));
 		switch($this->system->session->getItem('estrutura'))  {
 			case 'secundaria':

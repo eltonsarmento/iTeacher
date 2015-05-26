@@ -35,7 +35,7 @@
                                     <input type="hidden" value="1" name="editar"/> 
                                     
                                     <section class="form-group">                                       
-                                        <label class="control-label col-lg-3">Informe o perído de acesso em (MESÊS): </label>                        
+                                        <label class="control-label col-lg-3">Informe o perído de acesso em (MESES): </label>                        
                                         <section class="col-lg-1">                              
                                             <input class="form-control" maxlength="2" name="periodo_acesso" {if $visao_adm eq true} disabled{/if} value="{$periodo.periodo_acesso}" type="number" required>                              
                                         </section><!-- /col-lg-10 --> 

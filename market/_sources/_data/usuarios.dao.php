@@ -16,6 +16,7 @@ class UsuariosDAO {
 	public function atualizar($input) {
 		$this->system->sql->update('usuarios', array(
         	'nome'	=> trim($input['nome']),
+        	'email' => trim($input['email']),
         ),
 		"id='" . $input['id'] . "'");
 		$this->system->sql->update('usuarios_dados', array(
@@ -31,7 +32,7 @@ class UsuariosDAO {
         	'inscricao_estadual'    => trim($input['inscricao_estadual']),
         	'nome_responsavel'      => trim($input['responsavel']),
         	'area_atuacao'      	=> trim($input['area_atuacao']),
-        	'email_secundario'      => trim($input['email_responsavel']),
+        	'email_secundario'      => trim($input['email_responsavel']),        	
         	'cnpj'			        => trim($input['cnpj']),
         	'razao_social'			=> trim($input['razao_social']),
         	'site'			        => trim($input['site']),

@@ -11,10 +11,13 @@
 						<b>Formas de Pagamento</b> 
 
 						<span class="pull-right">
-
+							{if $configs_pagamentos.pagseguro_status}
 							<a href="#" target="_blank" class="btn btn-default"><img src="{$url_site}market/common/portal/assets/img/logo-pagseguro.png"></a>
-							<a href="#" target="_blank" class="btn btn-default"><img src="{$url_site}market/common/portal/assets/img/logo-paypal.png"></a>
+							{/if}
 
+							{if $configs_pagamentos.pagarme_status}
+							<a href="#" target="_blank" class="btn btn-default"><img src="{$url_site}market/common/portal/assets/img/logo-pagarme.png"></a>
+							{/if}
 						</span>
 
 					</section><!-- /.col-lg-6 -->

@@ -10,18 +10,21 @@ class Cursos extends CursosGlobal {
    	protected function doListar() {
 		$sql = "and usuario_id = '".$this->system->session->getItem('session_cod_usuario')."'";
 
-		$cursos = $this->system->cursos->getCursosCondicao($sistema_id,$sql);
-		foreach ($cursos as $key => $curso) {
-			//Professor
-			$professor = $this->system->professores->getProfessor($curso['professor_id']);
-			$cursos[$key]['professor'] = $professor['nome'];
-			//Categorias
-			$categorias = $this->system->cursos->getAreasByCurso($curso['id']);
-			$cursos[$key]['categorias'] = $categorias;
-			//Alunos
-			$cursos[$key]['alunos'] = $this->system->cursos->getTotalAlunos($curso['id']);
-			//Quiz
-			$cursos[$key]['qt_quiz'] = $this->system->quiz->getTotalQuiz($curso['id']);
+		$todosCursos = $this->system->cursos->getCursosCondicao($sistema_id,$sql);
+		foreach ($todosCursos as $key => $curso) {
+			if(!$curso['exibir_site']){
+				$cursos[$key] = $curso;
+				//Professor
+				$professor = $this->system->professores->getProfessor($curso['professor_id']);
+				$cursos[$key]['professor'] = $professor['nome'];
+				//Categorias
+				$categorias = $this->system->cursos->getAreasByCurso($curso['id']);
+				$cursos[$key]['categorias'] = $categorias;
+				//Alunos
+				$cursos[$key]['alunos'] = $this->system->cursos->getTotalAlunos($curso['id']);
+				//Quiz
+				$cursos[$key]['qt_quiz'] = $this->system->quiz->getTotalQuiz($curso['id']);
+			}
 		}
 		
 		$this->system->view->assign('usuario_nivel', $this->system->session->getItem('session_nivel'));

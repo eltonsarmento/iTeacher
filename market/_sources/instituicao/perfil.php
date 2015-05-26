@@ -139,6 +139,10 @@ class Perfil extends PerfilGlobal {
 	        //Email Responsável
 	        if($this->system->input['email_responsavel'] == '') 
 	            $retorno['msg'][] = "O campo Email Responsável está vázio.";
+	        elseif(!$this->system->func->checkEmail($this->system->input['email_responsavel']))
+	        	$retorno['msg'][] = "O campo E-mail é inválido";
+	        elseif($this->system->usuarios->checkEmailCadastrado($this->system->input['id'], $this->system->input['email_responsavel'], $this->system->getSistemaID()))
+	        	$retorno['msg'][] = "Já existe um usuário cadastrado com esse e-mail";	       
 	         //Telefone
 	        if($this->system->input['telefone'] == '')
 	        	$retorno['msg'][] = "O campo Telefone Responsável está vázio";	        

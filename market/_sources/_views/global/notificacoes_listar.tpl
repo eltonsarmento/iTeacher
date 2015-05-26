@@ -32,7 +32,8 @@
                                 <article id="notificacao_{$notificacao.id}" class="media-notification {if $notificacao.lida eq true} old {else} new {/if}">                                    
                                     <a class="pull-left thumb p-thumb"><img src="{$url_site}/market/uploads/avatar/{$notificacao.avatar}"></a>
                                     <section class="media-body">                                        
-                                        <strong>{$notificacao.remetente}</strong>
+                                        <strong>{$notificacao.titulo}</strong><br>
+                                        <strong>Remetente: {$notificacao.remetente}</strong>
                                         <p><i class="fa fa-clock-o"></i> {$notificacao.data}</p>                                        
                                         <p>
                                             <a href="#visualizarNotificacao" onclick="abrirMensagem({$notificacao.id});" 
