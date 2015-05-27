@@ -1,4 +1,5 @@
 <?php
+// ===================================================================
 require_once(dirname(__FILE__) . '/usuarios.dao.php');
 // ===================================================================
 class AdministradoresDAO extends UsuariosDAO {
@@ -43,8 +44,6 @@ class AdministradoresDAO extends UsuariosDAO {
             'area_atuacao'          => trim($input['area_atuacao']),
             'telefone_responsavel'  => trim($input['telefone_responsavel']),
             'site'                  => trim($input['site']),
-
-
         ));
         $this->system->sql->update('usuarios', array('reference' => md5($id)), "id='" . $id . "'");
         return $id;
