@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -21,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="{$url_site}{$admin_dir}common/market/assets/font-awesome/css/wfont-aesome.css"  />  
     <link rel="stylesheet" type="text/css" href="{$url_site}{$admin_dir}common/market/assets/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" type="text/css" href="{$url_site}{$admin_dir}common/market/assets/nestable/jquery.nestable.css" />
+
     <link rel="stylesheet" type="text/css" href="{$url_site}{$admin_dir}common/market/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
     <link rel="stylesheet" type="text/css" href="{$url_site}{$admin_dir}common/market/assets/bootstrap-fileupload/bootstrap-fileupload.css" />
     <link rel="stylesheet" type="text/css" href="{$url_site}{$admin_dir}common/market/assets/bootstrap-datepicker/css/datepicker.css" />
@@ -30,17 +30,15 @@
 
     <link href="{$url_site}{$admin_dir}common/market/css/style.css" rel="stylesheet">
     <link href="{$url_site}{$admin_dir}common/market/css/style-responsive.css" rel="stylesheet" />
+    <link href="{$url_site}{$admin_dir}common/market/css/tasks.css" rel="stylesheet">
+    <link href="{$url_site}{$admin_dir}common/market/assets/bootstrap-select/selectize.bootstrap.css" rel="stylesheet">
+
     <script src="{$url_site}{$admin_dir}common/market/js/jquery.js"></script>
     
-    
-    <link href="{$url_site}{$admin_dir}common/market/css/tasks.css" rel="stylesheet">
-
-    <link href="{$url_site}{$admin_dir}common/market/assets/bootstrap-select/selectize.bootstrap.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
-      <script src="{$url_site}{$admin_dir}common/market/js/html5shiv.js"></script>
-      <script src="{$url_site}{$admin_dir}common/market/js/respond.min.js"></script>
-      
+        <script src="{$url_site}{$admin_dir}common/market/js/html5shiv.js"></script>
+        <script src="{$url_site}{$admin_dir}common/market/js/respond.min.js"></script>
     <![endif]-->
 </head>
 

@@ -48,6 +48,7 @@
 
                         <input type="hidden" value="{$curso_id}" name="curso_id"/>
                         <input type="hidden" value="" class="capitulo_posicao_aulas" name="capitulo_posicao_aulas"/>                        
+                        
                         {foreach item=capitulo key=k from=$capitulos}
                         <section class="panel panel-default">
                             
@@ -58,10 +59,9 @@
                                 <span class="tools pull-right" onclick="javascript:setaDeletarCapitulo({$capitulo.capitulo_id}, {$capitulo.curso_id}, '{$capitulo.descricao}');"><a class="fa fa-chevron-up" href="javascript:;"></a><a class="fa fa-times" data-toggle="modal" href="#deletarCapitulo"></a></span>
 
                                 <!-- USO NO MODAL -->
-                                    <input type="hidden" id="descricao_{$capitulo.capitulo_id}" value="{$capitulo.descricao}" />
-                                    <input type="hidden" id="numero_{$capitulo.capitulo_id}" value="{$k+1}" />
-                                    <!-- <input type="hidden" id="numero_{$capitulo.capitulo_id}" value="{$capitulo.capitulo}" /> -->
-                                    <input type="hidden" id="id_{$capitulo.capitulo_id}" value="{$capitulo.capitulo_id}" />
+                                <input type="hidden" id="descricao_{$capitulo.capitulo_id}" value="{$capitulo.descricao}" />
+                                <input type="hidden" id="numero_{$capitulo.capitulo_id}" value="{$k+1}" />
+                                <input type="hidden" id="id_{$capitulo.capitulo_id}" value="{$capitulo.capitulo_id}" />
                                 <!-- FIM USO NO MODAL -->
 
                                 <!-- USO SALVAR POSICOES CAPITULOS -->
@@ -105,7 +105,6 @@
                                 </section><!-- /dd -->
                             
                             </section><!-- /panel-body -->
-                        
                         </section><!-- /panel -->
                         {/foreach}
                         

@@ -7,40 +7,45 @@
     </section><!-- /container -->
 
 
-    <script src="{$url_site}{$admin_dir}common/market/js/jquery.js"></script>
-    <script src="{$url_site}{$admin_dir}common/market/js/dateFormat.js"></script>
+    <!--<script src="{$url_site}{$admin_dir}common/market/js/jquery.js"></script>-->
 
     <!-- JS -->
-    
+    <script src="{$url_site}{$admin_dir}common/market/js/dateFormat.js"></script>
+    <script src="{$url_site}{$admin_dir}common/market/assets/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
     <script src="{$url_site}{$admin_dir}common/market/js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="{$url_site}{$admin_dir}common/market/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="{$url_site}{$admin_dir}common/market/js/jquery.dcjqaccordion.2.7.js"></script>
     <script src="{$url_site}{$admin_dir}common/market/js/jquery.scrollTo.min.js"></script>
     <script src="{$url_site}{$admin_dir}common/market/js/jquery.nicescroll.js" type="text/javascript"></script>
     <script src="{$url_site}{$admin_dir}common/market/js/respond.min.js" ></script>
+    <script src="{$url_site}{$admin_dir}common/market/js/draggable-portlet.js"></script>
+    <script src="{$url_site}{$admin_dir}common/market/assets/nestable/jquery.nestable.js"></script>
+
+    <script src="{$url_site}{$admin_dir}common/market/js/common-scripts.js"></script>
+    <script src="{$url_site}{$admin_dir}common/market/js/nestable.js"></script>
+
     <script src="{$url_site}{$admin_dir}common/market/assets/ckeditor/ckeditor.js"></script>  
     
     <script src="{$url_site}{$admin_dir}common/market/js/jquery.tagsinput.js"></script>
     <script src="{$url_site}{$admin_dir}common/market/js/bootstrap-switch.js"></script>
-
-
-    <script src="{$url_site}{$admin_dir}common/market/js/draggable-portlet.js"></script>
-    <script src="{$url_site}{$admin_dir}common/market/assets/nestable/jquery.nestable.js"></script>
-    <!-- <script src="{$url_site}{$admin_dir}common/market/js/nestable.js"></script>-->
-
     
     <!-- COMMON JS -->
     <script src="{$url_site}{$admin_dir}common/market/js/jquery.stepy.js"></script>
     <script type="text/javascript" src="{$url_site}{$admin_dir}common/market/js/jquery.form.min.js"></script>
+    
+
     <!-- JS -->
     
     <script type="text/javascript" src="{$url_site}{$admin_dir}common/market/assets/fuelux/js/spinner.min.js"></script>
     <script type="text/javascript" src="{$url_site}{$admin_dir}common/market/assets/bootstrap-fileupload/bootstrap-fileupload.js"></script>
     <script type="text/javascript" src="{$url_site}{$admin_dir}common/market/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
     <script type="text/javascript" src="{$url_site}{$admin_dir}common/market/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+    
+
     <script type="text/javascript" src="{$url_site}{$admin_dir}common/market/assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="{$url_site}{$admin_dir}common/market/assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
     <script type="text/javascript" src="{$url_site}{$admin_dir}common/market/assets/bootstrap-daterangepicker/moment.min.js"></script>
     <script type="text/javascript" src="{$url_site}{$admin_dir}common/market/assets/bootstrap-daterangepicker/daterangepicker.js"></script>
+    
     <script type="text/javascript" src="{$url_site}{$admin_dir}common/market/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
     <script type="text/javascript" src="{$url_site}{$admin_dir}common/market/assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
     <script type="text/javascript" src="{$url_site}{$admin_dir}common/market/assets/jquery-multi-select/js/jquery.multi-select.js"></script>
@@ -48,14 +53,10 @@
     
     
     <!-- COMMON JS -->
-    
-    <script src="{$url_site}{$admin_dir}common/market/js/common-scripts.js"></script>
     <script src="{$url_site}{$admin_dir}common/market/js/advanced-form-components.js"></script>
     <script src="{$url_site}{$admin_dir}common/market/js/maskMoney.js"></script>
     
     <script src="{$url_site}{$admin_dir}common/market/assets/bootstrap-select/selectize.js" ></script>
-
-
 
     <script>
         $(function() {
@@ -78,6 +79,7 @@
         $('#texto_modal').wysihtml5();
         $('#wysihtml5_notificacao').wysihtml5();
     </script>
+    
     {literal}
     <script>
     $(document).ready(function() {
@@ -86,7 +88,5 @@
     </script>
     
     {/literal}
-    
-
 </body>
 </html>

@@ -211,7 +211,7 @@ class AulasGlobal extends AdminModules {
 			$aulasAUX[$capitulo] = $aulas[$key];
 		$aulas = $aulasAUX;
 
-		//$this->system->aulas->salvarPosicaoCapitulos($curso_id, $capitulos);
+		$this->system->aulas->salvarPosicaoCapitulos($curso_id, $capitulos);
 		$this->system->aulas->salvarPosicaoAulas($curso_id, $aulas);
 		$this->system->session->addItem('alteradoPosicao', true);
 		//echo "<script>window.location.reload();</script>";

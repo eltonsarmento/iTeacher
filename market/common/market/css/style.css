@@ -51,7 +51,7 @@ a, a:hover, a:focus {
     margin: 0;
     padding:20px 15px;
     text-align: center;
-    background: #666666;
+    background: #41cac0;
     border-radius: 5px 5px 0 0;
     -webkit-border-radius: 5px 5px 0 0;
     color: #fff;
@@ -59,11 +59,6 @@ a, a:hover, a:focus {
     text-transform: uppercase;
     font-weight: 300;
     font-family: 'Open Sans', sans-serif;
-}
-
-.form-signin h2.form-signin-heading .logo-iteacher{
-    height: 58px;
-    width: 200px;
 }
 
 .form-signin .checkbox {
@@ -97,12 +92,12 @@ a, a:hover, a:focus {
 }
 
 .form-signin .btn-login {
-    background: #4e98d3;
-    color: #ffffff;
+    background: #f67a6e;
+    color: #fff;
     text-transform: uppercase;
     font-weight: 300;
     font-family: 'Open Sans', sans-serif;
-    box-shadow: 0 4px #3e86c6;
+    box-shadow: 0 4px #e56b60;
     margin-bottom: 20px;
 }
 
@@ -114,7 +109,7 @@ a, a:hover, a:focus {
 }
 
 .form-signin a {
-    color: #666666;
+    color: #41cac0;
 }
 
 .form-signin a:hover {
