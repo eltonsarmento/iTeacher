@@ -17,7 +17,7 @@ class Sobre {
 	}
 	// ===============================================================
 	protected function doSobre() {
-		$this->system->site->topo();
+		$this->system->site->topo(2);
 		$this->system->view->display('site/sobre.tpl');
 		$this->system->site->rodape();
 	}

@@ -20,13 +20,10 @@
 		
 		<div class="container">
 		
-			<p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eget est egestas ligula blandit mollis. Ut id purus sodales, luctus tortor ut, gravida tortor. Morbi tempor, elit non interdum eleifend, metus enim volutpat ligula, eget auctor urna arcu a enim. Suspendisse ornare enim et arcu pretium pretium. Pellentesque condimentum finibus magna. Phasellus venenatis eget purus sed commodo. Nullam mattis odio nec dapibus dignissim. Mauris tortor nulla, sodales at faucibus ut, gravida a nisl. Aenean porttitor purus eget leo semper, semper rhoncus felis suscipit. Duis suscipit, sem sed vehicula feugiat, sem lorem varius dui, nec elementum eros eros quis diam. Cras sollicitudin risus velit, at pharetra dui volutpat nec. Donec eros elit, mattis sit amet libero vitae, venenatis finibus massa. Vivamus venenatis quam non magna vestibulum rhoncus.</p>
-		
 			<div class="text-center feature-head title-instituicao">
 
 				<h1>Planos e Preços</h1>
-				<p>Professional html Template Perfect for Admin Dashboard</p>
-
+				
 			</div><!-- /feature-head -->
 			
 			<div class="row">

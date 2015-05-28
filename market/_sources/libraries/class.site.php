@@ -34,14 +34,15 @@ class Site {
         return preg_replace("/[^a-zA-Z0-9\-\_]/", "", $name);
     }
 	// ===============================================================
-	public function topo($tituloPagina = '') {
+	public function topo($secao_ativa = 1, $tituloPagina = '') {
 		$this->system->view->assign(array(
 			'usuario_id'		=> $this->system->session->getItem('session_cod_usuario'),
 			'usuario_nome'		=> $this->system->session->getItem('session_nome'),
 			'usuario_categoria'	=> $this->system->session->getItem('session_nivel_categoria'),
 			'carrinhoTotal'		=> count($this->system->session->getItem('carrinho_produtos')),
 			'url_site'			=> $this->system->getUrlSite(),
-			'tituloPagina'		=> $tituloPagina
+			'tituloPagina'		=> $tituloPagina,
+			'ativo'				=> $secao_ativa
 		));
         echo $this->system->view->fetch($this->categoria.'/estrutura.tpl');
 	}

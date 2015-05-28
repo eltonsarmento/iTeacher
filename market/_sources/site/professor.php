@@ -31,10 +31,9 @@ class Professor {
 				$id = $this->system->professores->cadastrarBySite($this->system->input);
 				$this->system->view->assign('msg_sucesso', 'Cadastrado com sucesso!');				
 			}				
-
 		}
 		
-		$this->system->site->topo(0);
+		$this->system->site->topo(3);
 		$this->system->view->display('site/professor.tpl');
 		$this->system->site->rodape();
 	}

@@ -33,6 +33,14 @@ RewriteRule ^nasp/([^/]+)/pagarme.php?$								/market/nasp/pagarme.php?cod_empr
 
 #site
 RewriteRule ^/?$													/index.php?categoria=site&module=$1&do=$2&{QUERY_STRING}
+RewriteRule ^site/?$											    /index.php?categoria=site&module=home&do=site&{QUERY_STRING}
+RewriteRule ^professor/index/?$										/index.php?categoria=site&module=professor&do=index&{QUERY_STRING}
+RewriteRule ^instituicao/index/?$									/index.php?categoria=site&module=instituicao&do=index&{QUERY_STRING}
+RewriteRule ^sobre/index/?$											/index.php?categoria=site&module=sobre&do=index&{QUERY_STRING}
+RewriteRule ^clientes/index/?$										/index.php?categoria=site&module=clientes&do=index&{QUERY_STRING}
+RewriteRule ^blog/index/?$											/index.php?categoria=site&module=blog&do=index&{QUERY_STRING}
+RewriteRule ^contato/index/?$										/index.php?categoria=site&module=contato&do=index&{QUERY_STRING}
+
 
 #Portal
 RewriteRule ^([^/]+)/?$												/index.php?cliente=$1&categoria=portal&module=home&do=index&{QUERY_STRING}

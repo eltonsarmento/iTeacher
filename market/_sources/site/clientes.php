@@ -17,7 +17,7 @@ class Clientes {
 	}
 	// ===============================================================
 	protected function doClientes() {
-		$this->system->site->topo();
+		$this->system->site->topo(5);
 		$this->system->view->display('site/clientes.tpl');
 		$this->system->site->rodape();
 	}

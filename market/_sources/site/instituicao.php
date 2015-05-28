@@ -19,7 +19,7 @@ class Instituicao {
 	}
 	// ===============================================================
 	protected function doCatalogoDePlanos() {
-		$this->system->site->topo();
+		$this->system->site->topo(4);
 		$this->system->view->display('site/instituicao.tpl');
 		$this->system->site->rodape();
 	}

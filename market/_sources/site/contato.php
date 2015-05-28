@@ -60,7 +60,7 @@ class Contato {
 		}
 		
 
-		$this->system->site->topo();
+		$this->system->site->topo(6);
 		$this->system->view->display('site/contato.tpl');
 		$this->system->site->rodape();
 	}

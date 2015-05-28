@@ -9,7 +9,7 @@
 	<meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 	<link rel="shortcut icon" href="{$url_site}market/common/site/img/favicon.png">
 
-	<title>iTeacher | Home</title>
+	<title>iTeacher LMS - Plataforma de Ensino a Distância para Empresas e Professores Freelancers</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="{$url_site}market/common/site/css/bootstrap.min.css" rel="stylesheet">
@@ -50,7 +50,7 @@
 				
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="fa fa-bars"></span></button>
 					
-					<a class="navbar-brand" href="{$url_site}">i<span>Teacher</span></a>
+					<a href="{$url_site}"><img class="navbar-brand" src="{$url_site}market/common/site/img/logo.png" alt="Logo iTeacher"></a>
 				
 				</div><!-- /navbar-header -->
 				
@@ -58,13 +58,13 @@
 					
 					<ul class="nav navbar-nav">
 						
-						<li class="active"><a href="{$url_site}">Home</a></li>
-						<li><a href="{$url_site}sobre/index">Sobre o iTeacher</a></li>
-						<li><a href="{$url_site}professor/index">Professor</a></li>
-						<li><a href="{$url_site}instituicao/index">Instituição</a></li>
-						<li><a href="{$url_site}clientes/index">Clientes</a></li>
-						<li><a href="{$url_site}blog/index">Blog</a></li>
-						<li><a href="{$url_site}contato/index">Contato</a></li>
+						<li{if $ativo eq 1} class="active"{/if}><a href="{$url_site}">Home</a></li>
+						<li{if $ativo eq 2} class="active"{/if}><a href="{$url_site}sobre/index">Sobre o iTeacher</a></li>
+						<li{if $ativo eq 3} class="active"{/if}><a href="{$url_site}professor/index">Professor</a></li>
+						<li{if $ativo eq 4} class="active"{/if}><a href="{$url_site}instituicao/index">Instituição</a></li>
+						<li{if $ativo eq 5} class="active"{/if}><a href="{$url_site}clientes/index">Clientes</a></li>
+						<li{if $ativo eq 6} class="active"{/if}><a href="#">Blog</a></li>
+						<li{if $ativo eq 7} class="active"{/if}><a href="{$url_site}contato/index">Contato</a></li>
 						<li class="divider"></li>
 						<li class="login"><a href="{$url_site}market"><i class="fa fa-lock"></i> Login</a></li>
 					
