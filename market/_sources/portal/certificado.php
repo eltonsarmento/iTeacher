@@ -3,30 +3,42 @@
 class Certificado {
 	// ===============================================================
 	protected $system = null;
-	private $limit = '';
-	
 	// ===============================================================
 	public function __construct(&$system) {
 		$this->system = $system;
+		$this->system->load->dao('certificados');
 		$this->system->load->dao('cursos');
+		$this->system->load->dao('alunos');
 	}
 	// ===============================================================
 	public function autoRun() {
 		switch($this->system->input['do']) {
-			//case 'index': 	$this->doIndex(); break;
-			//default: 		$this->pagina404(); break;			
-			default: 		$this->doIndex(); break;
+			case 'buscar':	$this->doBuscar(); break;
+			default: 		$this->pagina404(); break;
 		}	
 	}
 	// ===============================================================
-	protected function doIndex() {
-		$cursos = $this->system->cursos->getCursosSemSistemaId();
-		$this->system->view->assign('cursos', $cursos);
+	protected function doBuscar() {
+		$id = $this->system->input['id'];
+		if ($id) {
+			if (substr($id, 0, 4) == 'CITE');
+				$id = substr($id, 4);
+			$certificado = $this->system->certificados->getCertificado($id);
+			$curso = $this->system->cursos->getCurso($certificado['curso_id']);
+			$aluno = $this->system->alunos->getAluno($certificado['aluno_id']);
+			$data = date('d') . ' de ' . $this->system->arrays->getMes(date('m')) . ' de ' . date('Y');
+		}
+
+		//exibir
+		$this->system->view->assign('certificado', $certificado);
+		$this->system->view->assign('curso', $curso);
+		$this->system->view->assign('aluno', $aluno);
+		$this->system->view->assign('data', $data);
+		$this->system->view->assign('id', $id);
 		$this->system->site->topo();
 		$this->system->view->display('portal/certificado.tpl');
 		$this->system->site->rodape();
 	}
-	
 	// ===============================================================
 	protected function pagina404() {
 		$url = end(explode($this->system->getUrlSite(), $_SERVER['REQUEST_URI']));
@@ -35,5 +47,6 @@ class Certificado {
 		$this->system->view->display('site/pagina404.tpl');
 		$this->system->site->rodape();
 	}
+	// ===============================================================
 }
 // ===================================================================

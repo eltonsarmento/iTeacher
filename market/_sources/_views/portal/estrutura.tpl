@@ -66,9 +66,10 @@
 					<span class="pull-right">
 						{if $usuario_categoria eq 'aluno'}
 							{if $cliente.nivel eq 5}
-								<a  href="#certificate-consult" data-toggle="modal" class="btn btn-dark">Consultar Certificado</a>
+								
 							{/if}
 						{/if}
+						<a  href="#certificate-consult" data-toggle="modal" class="btn btn-dark">Consultar Certificado</a>
 						<a href="{$url_site}market" data-toggle="modal" class="btn btn-success"><i class="fa fa-user"></i> Área do Aluno</a>
 					</span>
 
@@ -146,22 +147,7 @@
 		        		<li><a href="{$url_portal}portal/categorias/index/{$categoria.id}">{$categoria.area}</a></li>
 		        	{/foreach}
 		        </ul>
-			        <!-- <li><a href="{$url_site}portal/categorias">Categoria</a></li>
-			        <li><a href="{$url_site}portal/categorias">Categoria</a></li>
-			        <li><a href="{$url_site}portal/categorias">Categoria</a></li>
-			        <li><a href="{$url_site}portal/categorias">Categoria</a></li>
-			        <li><a href="{$url_site}portal/categorias">Categoria</a></li>
-			        <li><a href="{$url_site}portal/categorias">Categoria</a></li>
-			        <li><a href="{$url_site}portal/categorias">Categoria</a></li>
-			        <li><a href="{$url_site}portal/categorias">Categoria</a></li>
-			        <li><a href="{$url_site}portal/categorias">Categoria</a></li>
-			        <li><a href="{$url_site}portal/categorias">Categoria</a></li>
-			        <li><a href="{$url_site}portal/categorias">Categoria</a></li>
-			        <li><a href="{$url_site}portal/categorias">Categoria</a></li>
-	        	</ul>
-
-			</section><!-- /.navbar-collapse -->
-			
+			        
 		</section><!-- /.container -->
 	
 	</nav>
@@ -194,13 +180,7 @@
 				<section class="col-lg-8 col-sm-6 col-xs-12">
 
 					<span class="pull-right">
-						{if $carrinhoTotal eq 0}
-                    		Ops, seu carrinho esta vazio! :( <a href="{$url_portal}portal/carrinho/ver" class="btn btn-dark btn-cart"><i class="fa fa-shopping-cart"></i></a>
-                    	{else}
-                    		Carrinho de Compras - <b>{$carrinhoTotal} Itens</b> <a href="{$url_portal}portal/carrinho/ver" class="btn btn-dark btn-cart"><i class="fa fa-shopping-cart"></i></a>
-                    	{/if}
-						
-
+						Carrinho de Compras - <b>{$carrinhoTotal} Itens</b> <a href="{$url_portal}portal/carrinho/ver" class="btn btn-dark btn-cart"><i class="fa fa-shopping-cart"></i></a>
 					</span>
 
 				</section><!-- /.col-lg-6 -->

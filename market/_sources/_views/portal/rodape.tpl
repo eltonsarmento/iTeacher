@@ -95,43 +95,40 @@
 
 				</section><!-- /.modal-header -->
 
-				<section class="modal-body">
+				<form role="form" action="{$url_portal}portal/certificado/buscar" method="post">
+					<section class="modal-body">
 
-					<form role="form">
-
-						<section class="alert alert-danger fade in">
+						<!-- <section class="alert alert-danger fade in">
 
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 
 							Certificado inválido!
 
-						</section><!-- /.alert -->
+						</section> --><!-- /.alert -->
 
 						<section class="form-group">
 
 							<label>Número do Certificado</label>
-							<input type="text" class="form-control" required autofocus>
+							<input type="text" class="form-control" name="id" required autofocus>
 
 						</section><!-- /.form-group -->
 
-					</form>
+					</section><!-- /.modal-body -->
 
-				</section><!-- /.modal-body -->
+					<section class="modal-footer">
 
-				<section class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+	        			<button type="submit" class="btn btn-dark">Consultar</button>
 
-					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        			<button type="button" class="btn btn-dark">Consultar</button>
+					</section><!-- /.modal-footer -->
 
-				</section><!-- /.modal-footer -->
+				</form>
 
 			</section><!-- /.modal-content -->
 
 		</section><!-- /.modal-dialog -->
 
 	</section><!-- /.modal -->
-
-	
 
 	<!-- ========== JS ========== -->
 	<script src="{$url_site}market/common/portal/assets/js/bootstrap.min.js"></script>
