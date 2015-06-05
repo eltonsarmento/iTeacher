@@ -1,8 +1,7 @@
-
-        <section id="main-content">
+<section id="main-content">
           
             <section class="wrapper site-min-height">
-
+                
                 <section class="row">
                     
                     <section class="col-lg-12">
@@ -10,292 +9,208 @@
                         <ul class="breadcrumb">
                             
                             <li><a href="{$admin_url}/dashboard/home"><i class="fa fa-home"></i> Dashboard</a></li>
-                            <li><a href="{$admin_url}/instituicoes/listar">Instituições</a></li>
-                            <li class="active">Editar Instituição - Cursos IAG</li>
+                            <li><a href="{$admin_url}/professor/listar">Professor</a></li>
+                            <li class="active">Adicionar Novo</li>
                             
                         </ul>
                         
                     </section><!-- /col-lg-12 -->
                 
                 </section><!-- /row -->
+
+                {if $msg_alert_error}
+                    <div class="alert alert-danger">{$msg_alert_error}</div>
+                {/if}
+                {if $msg_alert_sucesso}
+                    <div class="alert alert-success">{$msg_alert_sucesso}</div>
+                {/if}
                 
                 <section class="row">
                     
-                    
                     <section class="col-lg-12">
-                        {if $msg_sucesso}
-                            <div class="alert alert-info">{$msg_sucesso}</div>
-                        {/if}
-                        {if $msg_error}
-                            <div class="alert alert-danger">{$msg_error}</div>
-                        {/if}
+                        
                         <section class="panel">
                             
-                            <header class="panel-heading"><strong>{if $instituicao.id}Editar{else}Cadastrar{/if} - Instituição</strong></header>
+                            <header class="panel-heading"><strong>Adicionar Novo - Professor</strong></header>
                             
                             <section class="panel-body">
                                 
-                                <form class="form-horizontal tasi-form" action="" method="post" enctype="multipart/form-data">
-                                    <input type="hidden" name="editar" value="1">
-                                    <input type="hidden" name="id" value="{$instituicao.id}">
+                                <form class="form-horizontal tasi-form" method="post" action="" enctype="multipart/form-data">
+                                    <input type="hidden" value="0" name="nova" id="nova" />
+                                    <input type="hidden" value="1" name="editar"/>
+                                    <input type="hidden" value="{$professor.id}" name="id"/>
                                     
+                                    <!-- NOME -->
                                     <section class="form-group">
                                         
                                         <label class="control-label col-lg-2">Nome</label>
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="nome" type="text" value="{$instituicao.nome}" >
-                                              
-                                        </section><!-- /col-lg-10 --> 
-                                        
-                                    </section><!-- /form-group -->
-
-                                    <section class="form-group">
-                                        
-                                        <label class="control-label col-lg-2">Domíno Portal</label>
-                                        
-                                        <section class="col-lg-10">
-                                              
-                                            <input class="form-control" name="dominio" type="text" value="{$instituicao.dominio}" >
-                                              
-                                        </section><!-- /col-lg-10 --> 
-                                        
-                                    </section><!-- /form-group -->
-
-                                    <section class="form-group">
-                                        
-                                        <label class="control-label col-lg-2">E-mail </label>
-                                        
-                                        <section class="col-lg-10">
-                                              
-                                            <input class="form-control" name="email" type="text" value="{$instituicao.email}" >
+                                            <input class="form-control" name="nome" type="text" id="nome" value="{$professor.nome}" autofocus required>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
                                     </section><!-- /form-group -->
                                     
+                                    <!-- Domínio -->
                                     <section class="form-group">
                                         
-                                        <label class="control-label col-lg-2">Razão Social</label>
+                                        <label class="control-label col-lg-2">Domínio Portal</label>
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="razao_social" type="text" value="{$instituicao.razao_social}" >
+                                            <input class="form-control" name="dominio" type="text" id="dominio" value="{$professor.dominio}" autofocus required>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
                                     </section><!-- /form-group -->
                                     
+                                    <!-- EMAIL -->
                                     <section class="form-group">
                                         
-                                        <label class="control-label col-lg-2">CNPJ</label>
+                                        <label class="control-label col-lg-2">E-mail</label>
                                         
                                         <section class="col-lg-10">
-                                            
-                                            <input class="form-control" name="cnpj" type="text" data-mask="99.999.999/9999-99" value="{$instituicao.cnpj}" >
+                                              
+                                            <input class="form-control" name="email" id="email" value="{$professor.email}" type="email" required>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
                                     </section><!-- /form-group -->
                                     
+                                    <!-- CPF -->
                                     <section class="form-group">
                                         
-                                        <label class="control-label col-lg-2">Responsável</label>
+                                        <label class="control-label col-lg-2">CPF</label>
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="nome_responsavel" type="text" value="{$instituicao.nome_responsavel}" >
+                                            <input class="form-control" name="cpf" id="cpf" value="{$professor.cpf}" data-mask="999.999.999-99" type="text">
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
                                     </section><!-- /form-group -->
                                     
-                                    <section class="form-group">
-                                        
-                                        <label class="control-label col-lg-2">E-mail Responsável</label>
-                                        
-                                        <section class="col-lg-10">
-                                              
-                                            <input class="form-control" name="email_secundario" type="text" value="{$instituicao.email_secundario}" >
-                                              
-                                        </section><!-- /col-lg-10 --> 
-                                        
-                                    </section><!-- /form-group -->
-                                    
-                                    <section class="form-group">
-                                        
-                                        <label class="control-label col-lg-2">Telefone Responsável</label>
-                                        
-                                        <section class="col-lg-10">
-                                              
-                                            <input class="form-control" name="telefone_responsavel" data-mask="(99) 9999 - 9999" value="{$instituicao.telefone_responsavel}" type="text">
-                                              
-                                        </section><!-- /col-lg-10 --> 
-                                        
-                                    </section><!-- /form-group -->
-                                    
-                                    <section class="form-group">
-                                        
-                                        <label class="control-label col-lg-2">Inscrição Municipal</label>
-                                        
-                                        <section class="col-lg-10">
-                                              
-                                            <input class="form-control" name="inscricao_municipal" value="{$instituicao.inscricao_municipal}" type="text">
-                                              
-                                        </section><!-- /col-lg-10 --> 
-                                        
-                                    </section><!-- /form-group -->
-                                    
-                                    <section class="form-group">
-                                        
-                                        <label class="control-label col-lg-2">Inscrição Estadual</label>
-                                        
-                                        <section class="col-lg-10">
-                                              
-                                            <input class="form-control" name="inscricao_estadual" value="{$instituicao.inscricao_estadual}" type="text">
-                                              
-                                        </section><!-- /col-lg-10 --> 
-                                        
-                                    </section><!-- /form-group -->
-                                    
+                                    <!-- CEP -->
                                     <section class="form-group">
                                         
                                         <label class="control-label col-lg-2">CEP</label>
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="cep" data-mask="99999-999" value="{$instituicao.cep}" type="text" >
+                                            <input class="form-control" name="cep" id="cep" value="{$professor.cep}" data-mask="99999-999" type="text" required>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
                                     </section><!-- /form-group -->
                                     
+                                    <!-- ENDEREÇO -->
                                     <section class="form-group">
                                         
                                         <label class="control-label col-lg-2">Endereço</label>
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="endereco" type="text" value="{$instituicao.endereco}" >
+                                            <input class="form-control" name="endereco" id="endereco" value="{$professor.endereco}" type="text" required>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
                                     </section><!-- /form-group -->
                                     
+                                    <!-- COMPLEMENTO -->
                                     <section class="form-group">
                                         
                                         <label class="control-label col-lg-2">Complemento</label>
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="complemento" value="{$instituicao.complemento}" type="text">
+                                            <input class="form-control" name="complemento" id="complemento" value="{$professor.complemento}" type="text">
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
                                     </section><!-- /form-group -->
                                     
+                                    <!-- BAIRRO -->
                                     <section class="form-group">
                                         
                                         <label class="control-label col-lg-2">Bairro</label>
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="bairro" type="text" value="{$instituicao.bairro}" >
+                                            <input class="form-control" name="bairro" id="bairro" value="{$professor.bairro}" type="text" required>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
                                     </section><!-- /form-group -->
                                     
+                                    <!-- ESTADO -->
                                     <section class="form-group">
                                         
                                         <label class="control-label col-lg-2">Estado</label>
                                         
                                         <section class="col-lg-2">
-                                              
-                                            <select class="form-control m-bot15" name="estado" id="estados">
-                                                
-                                                
-                                                
-                                            </select>
+                                            <select id="estados" name="estado" class="form-control m-bot15"></select>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
                                     </section><!-- /form-group -->
                                     
+                                    <!-- CIDADE -->
                                     <section class="form-group">
                                         
                                         <label class="control-label col-lg-2">Cidade</label>
                                         
                                         <section class="col-lg-2">
-                                              
-                                            <select class="form-control m-bot15" name="cidade" id="cidades">
-                                                
-                                                
-                                                
-                                            </select>
+                                            <select id="cidades" class="form-control m-bot15" name="cidade"></select>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
                                     </section><!-- /form-group -->
                                     
+                                    <!-- TELEFONE -->
                                     <section class="form-group">
                                         
-                                        <label class="control-label col-lg-2">Site</label>
+                                        <label class="control-label col-lg-2">Telefone</label>
                                         
                                         <section class="col-lg-10">
-                                            
-                                            <section class="input-group m-bot15">
-                                                
-                                                <span class="input-group-addon">http://</span>
-                                                
-                                                <input class="form-control" name="site" type="text" value="{$instituicao.site}" >
-                                                
-                                            </section><!-- /input-group -->
-
+                                              
+                                            <input class="form-control" name="telefone" id="telefone" value="{$professor.telefone}" data-mask="(99) 9999 - 9999" type="text">
+                                              
                                         </section><!-- /col-lg-10 --> 
                                         
                                     </section><!-- /form-group -->
                                     
-                                    <section class="form-group">
-                                        
-                                        <label class="control-label col-lg-2">Área de Atuação</label>
-                                        
-                                        <section class="col-lg-10">
-  
-                                            <input class="form-control" name="area_atuacao" type="text" value="{$instituicao.area_atuacao}" >
-
-                                        </section><!-- /col-lg-10 --> 
-                                        
-                                    </section><!-- /form-group -->
-                                    
+                                    <!-- SENHA -->
                                     <section class="form-group">
                                         
                                         <label class="control-label col-lg-2">Senha</label>
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="senha" type="password" >
+                                            <input class="form-control" name="senha" type="password" {if !$professor.id} required {/if}>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
                                     </section><!-- /form-group -->
                                     
+                                    <!-- CONFIRME A SENHA -->
                                     <section class="form-group">
                                         
                                         <label class="control-label col-lg-2">Confirme a Senha</label>
                                         
                                         <section class="col-lg-10">
                                               
-                                            <input class="form-control" name="senha2" type="password" >
+                                            <input class="form-control" name="senha2" type="password" {if !$professor.id} required {/if}>
                                               
                                         </section><!-- /col-lg-10 --> 
                                         
                                     </section><!-- /form-group -->
-                                    
+
+                                    <!-- IMAGEM -->
                                     <section class="form-group">
                                         
-                                        <label class="control-label col-lg-2">Logo</label>
+                                        <label class="control-label col-lg-2">Avatar</label>
                                         
                                         <section class="controls col-lg-10">
                                             
@@ -305,7 +220,7 @@
                                                     
                                                     <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Selecione a imagem</span>
                                                     <span class="fileupload-exists"><i class="fa fa-undo"></i> Alterar</span>
-                                                    <input type="file" name="logo_instituicao" class="default" />
+                                                    <input type="file" name="avatar" class="default" />
                                                     
                                                 </span>
                                                 
@@ -319,13 +234,14 @@
                                         
                                     </section><!-- /form-group -->
 
+                                    <!-- AÇÕES -->
                                     <section class="form-group">
                                           
                                         <section class="col-lg-offset-2 col-lg-10">
                                               
-                                            <button class="btn btn-success" type="submit"><i class="fa fa-check-circle"></i> {if $instituicao.id}Editar{else}Salvar{/if}</button>
-                                            <button class="btn btn-default" type="submit"><i class="fa fa-plus-circle"></i> {if $instituicao.id}Editar{else}Salvar{/if} e adicionar outro</button>
-                                            <span>ou <a href="todas-as-instituicoes.html">voltar a listagem</a></span>
+                                            <button class="btn btn-success" type="submit"><i class="fa fa-check-circle"></i> {if $professor.id}Editar{else}Salvar{/if}</button>
+                                            <button class="btn btn-default" onclick="$('#nova').val(1)" type="submit"><i class="fa fa-plus-circle"></i> {if $professor.id}Editar{else}Salvar{/if} e adicionar outro</button>
+                                            <span>ou <a href="{$admin_url}/professor/listar">voltar a listagem</a></span>
                                               
                                         </section><!-- /col-lg-offset-2 col-lg-10 --> 
                                           
@@ -335,16 +251,23 @@
 
                             </section><!-- /panel-body --> 
                         
-                        </section><!-- /panel -->  
+                        </section><!-- /panel --> 
                         
                     </section><!-- /col-lg-12 -->
                 
-                </section><!-- /row -->
+                </section><!-- /row --> 
 
             </section><!-- /wrapper -->
             
         </section><!-- /main-content -->
 {literal}
+<script type="text/javascript">
+$(document).ready(function(){
+    {/literal}
+    //{if $msg_alert} jAlert('{$msg_alert}'); {/if}
+    {literal}
+});
+</script>
 <script type="text/javascript"> 
 $(document).ready(function ($) {
     $.getJSON('{/literal}{$url_site}{literal}market/common/market/js/estados_cidades.json', function (data) {
@@ -355,7 +278,7 @@ $(document).ready(function ($) {
         });   
         $("#estados").html(options);    
         {/literal}    
-        $("#estados").val('{$instituicao.estado}'); //SETA O VALOR DO ESTADO AQUI !!
+        $("#estados").val('{$professor.estado}'); //SETA O VALOR DO ESTADO AQUI !!
         {literal}
         $("#estados").change(function () {        
             var options_cidades = '';
@@ -372,7 +295,7 @@ $(document).ready(function ($) {
             });
             $("#cidades").html(options_cidades);
             {/literal}
-            $("#cidades").val('{$instituicao.cidade}');  //SETA O VALOR DA CIDADE AQUI !!
+            $("#cidades").val('{$professor.cidade}');  //SETA O VALOR DA CIDADE AQUI !!
             {literal}
         }).change();        
     });

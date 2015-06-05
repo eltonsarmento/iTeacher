@@ -8,6 +8,7 @@ class InstituicoesGlobal extends AdminModules {
 		parent::__construct();
 		$this->system->load->dao('instituicoes');
 		$this->system->load->dao('administrativos');
+		$this->system->load->dao('sistemas');
 	}
 	// ===============================================================
 	public function autoRun() {
@@ -112,6 +113,12 @@ class InstituicoesGlobal extends AdminModules {
         //Nome
         if ($this->system->input['nome'] == '') 
             $retorno['msg'][] = "O campo Nome está vázio.";
+
+        if ($this->system->input['dominio'] == '') 
+            $retorno['msg'][] = "O campo Domínio Portal está vázio.";
+        elseif ($this->system->sistemas->getSistemaByDominio($this->system->input['dominio'])) 
+        	$retorno['msg'][] = "Já existe um Domínio cadastrado com esse usuário.";	
+
         //Razão social
         if ($this->system->input['razao_social'] == '') 
             $retorno['msg'][] = "O campo Razão Social está vázio.";
@@ -127,14 +134,14 @@ class InstituicoesGlobal extends AdminModules {
         elseif(!$this->system->func->checkEmail($this->system->input['email']))
         	$retorno['msg'][] = "O campo E-mail é inválido";
         elseif($this->system->administrativos->checkEmailCadastrado($this->system->input['id'], $this->system->input['email'], $this->system->getSistemaID()))        	
-        		$retorno['msg'][] = "Já existe um usuário cadastrado com esse e-mail";	
+        		$retorno['msg'][] = "Já existe um usuário cadastrado com esse e-mail '".$this->system->input['email']."'";	
         	//Email Secundário
         if ($this->system->input['email_secundario'] == '')
         	$retorno['msg'][] = "O campo E-mail Responsável esta vázio";
         elseif(!$this->system->func->checkEmail($this->system->input['email_secundario']))
         	$retorno['msg'][] = "O campo E-mail Responsável é inválido";
         elseif($this->system->administrativos->checkEmailCadastrado($this->system->input['id'], $this->system->input['email_secundario'], $this->system->getSistemaID()))        	
-        		$retorno['msg'][] = "Já existe um usuário cadastrado com esse e-mail";	
+        		$retorno['msg'][] = "Já existe um usuário cadastrado com esse e-mail '".$this->system->input['email_secundario']."'";
 		//Telfone responsavel
         if ($this->system->input['telefone_responsavel'] == '') 
             $retorno['msg'][] = "O campo Telefone Responsável está vázio.";        

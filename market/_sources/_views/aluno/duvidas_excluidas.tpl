@@ -42,7 +42,7 @@
                                 <section class="user-head">
                                     
                                     <i class="fa fa-comment"></i>
-                                    <h3>Dúvidas</h3>
+                                    <h3>Dúvidas excluídas</h3>
                                     
                                 </section>
                                 
@@ -58,7 +58,7 @@
                                         {else}
                                             {foreach item=duvidaLateral from=$duvidas}
                                                 <li {if $duvidaLateral.id == $duvida_selecionada} class="active"  {elseif $duvidaLateral.mensagem.lido == 0 && $duvidaLateral.mensagem.remetente_id != $usuario_id}  {/if}>
-                                                    <a href="{$admin_url}/duvidas/listar/{$duvidaLateral.id}">
+                                                    <a href="{$admin_url}/duvidas/excluidos/{$duvidaLateral.id}">
                                                         <span>{$duvidaLateral.titulo}</span><br>
                                                         <small><i>{$duvidaLateral.aluno.nome}</i>- <strong>{$duvidaLateral.curso.curso}</strong></small>
                                                     </a> 
@@ -76,14 +76,6 @@
                                 <section class="chat-room-head">
                                     
                                     <h3>{$duvida.titulo} - <strong>{$duvida.curso.curso}</strong></h3>
-                                    
-                                    <span class="pull-right position">
-                                        {if $duvida.fechada == 0}
-                                            <a href="{$admin_url}/duvidas/fechar/{$duvida.id}" class="btn btn-warning tooltips" data-original-title="Fechar" data-placement="bottom"><i class="fa fa-check"></i></a>
-                                        {/if}
-                                        <a href="{$admin_url}/duvidas/excluir/{$duvida.id}" class="btn btn-danger tooltips" data-original-title="Excluir" data-placement="bottom"><i class="fa fa-trash-o"></i></a>
-                                    
-                                    </span>
                                     
                                 </section>
                                 
@@ -119,19 +111,6 @@
                                     
                                 </section>
                                 
-                                <footer>
-                                    <form action="{$admin_url}/duvidas/responder/{$duvida.id}" method="post">
-                                        <section class="chat-txt">
-                                            
-                                                <input type="hidden" value="enviar"/>
-                                                <textarea class="form-control" name="comentario" cols="30" rows="5"></textarea>
-                                            
-                                        </section>
-                                        
-                                        <button class="btn btn-danger">Enviar</button>
-                                    </form>
-                                </footer>
-                            
                             </aside>
                             {/if}
                         </section>

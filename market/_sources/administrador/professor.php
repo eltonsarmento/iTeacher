@@ -122,7 +122,7 @@ class professor extends ProfessorGlobal {
 		else
 			$this->system->admin->topo('professores','professor-novo');
 		
-		$this->system->view->display('instituicao/professor_edicao.tpl');
+		$this->system->view->display('administrador/editar_professor.tpl');
 		$this->system->admin->rodape();
 	}
 

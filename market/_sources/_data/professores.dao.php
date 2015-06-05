@@ -70,7 +70,7 @@ class ProfessoresDAO extends UsuariosDAO{
             'nome'              => "Sistema - ". trim($input['nome']),
             'data_cadastro'     => date('Y-m-d H:i:s'),            
             'tipo_sistema'      => 1,
-            'dominio'           => trim(str_replace(' ','_',$this->system->func->removeAcentos($input['nome']))),
+            'dominio'           => trim(str_replace(' ','_',$this->system->func->removeAcentos($input['dominio']))),
             'excluido'          => 0
             ));
             $sistemaID = $this->system->sql->nextid();

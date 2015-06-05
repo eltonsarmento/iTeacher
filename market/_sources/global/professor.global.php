@@ -123,6 +123,15 @@ class ProfessorGlobal extends AdminModules {
         //Nome
         if($this->system->input['nome'] == '') 
             $retorno['msg'][] = "O campo nome está vazio.";
+
+        //Domínio Portal
+        if(array_key_exists("dominio", $this->system->input)){
+        	if ($this->system->input['dominio'] == '') 
+            	$retorno['msg'][] = "O campo Domínio Portal está vázio.";
+        	elseif ($this->system->sistemas->getSistemaByDominio($this->system->input['dominio'])) 
+        		$retorno['msg'][] = "Já existe um Domínio cadastrado com esse usuário.";
+        }
+        
         //Email
         if ($this->system->input['email'] == '')
         	$retorno['msg'][] = "O campo E-mail está vazio";

@@ -39,7 +39,7 @@
                                                 
                                                 <section class="caption-title">
                                                 
-                                                    <h4>{$curso_andamento.curso}</h4>
+                                                    <h4><a href="{$admin_url}/cursos/verCurso/{$curso_andamento.id}">{$curso_andamento.curso}</a></h4>
                                                     
                                                 </section><!-- /caption-title -->
                                                 

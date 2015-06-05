@@ -259,9 +259,7 @@
                             </section><!-- /form-group -->
 
                             
-                        </form>
-                        <button class="btn btn-success" id="btnForm" onclick="enviarDuvida();"><i class="fa fa-check-circle"></i> Enviar</button>
-                    
+                        </form>                                        
                     </section><!-- /modal-body -->
                     
                     <section class="modal-footer">

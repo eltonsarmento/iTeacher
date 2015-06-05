@@ -42,7 +42,7 @@
                                 <section class="user-head">
                                     
                                     <i class="fa fa-comment"></i>
-                                    <h3>Dúvidas</h3>
+                                    <h3>Dúvidas Pendentes</h3>
                                     
                                 </section>
                                 
@@ -58,7 +58,7 @@
                                         {else}
                                             {foreach item=duvidaLateral from=$duvidas}
                                                 <li {if $duvidaLateral.id == $duvida_selecionada} class="active"  {elseif $duvidaLateral.mensagem.lido == 0 && $duvidaLateral.mensagem.remetente_id != $usuario_id}  {/if}>
-                                                    <a href="{$admin_url}/duvidas/listar/{$duvidaLateral.id}">
+                                                    <a href="{$admin_url}/duvidas/pendentes/{$duvidaLateral.id}">
                                                         <span>{$duvidaLateral.titulo}</span><br>
                                                         <small><i>{$duvidaLateral.aluno.nome}</i>- <strong>{$duvidaLateral.curso.curso}</strong></small>
                                                     </a> 
