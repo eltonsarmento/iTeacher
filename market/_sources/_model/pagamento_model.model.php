@@ -124,11 +124,23 @@ class Pagamento_modelMODEL {
 		$paymentRequest->addItem('0001', $this->razao, 1, $this->valor);
 		$paymentRequest->setReference($this->transacaoID);
 
+		$nomeUsuario = preg_replace('/\d/', '', $this->nomeUsuario);
+		$nomeUsuario = preg_replace('/[\n\t\r]/', ' ', $nomeUsuario);
+		$nomeUsuario = preg_replace('/\s(?=\s)/', '', $nomeUsuario);
+		$nomeUsuario = trim($nomeUsuario);
+		$nomeUsuario = explode(' ', $nomeUsuario);
+		 
+		if (count($nomeUsuario) == 1) {
+		    $nomeUsuario[] = ' sem Sobrenome';
+		}
+		$nomeUsuario = implode(' ', $nomeUsuario);
+
 		// Dados do usuario
 		$paymentRequest->setSender(
-			$this->nomeUsuario,
-			$this->emailUsuario
+			$nomeUsuario,
+			trim($this->emailUsuario)
 		);
+		
 		// Url de retorno após pagamento
 		$paymentRequest->setRedirectUrl($this->system->getUrlSite());
 
@@ -137,7 +149,7 @@ class Pagamento_modelMODEL {
 		$paymentRequest->addParameter('sistemaID', $this->system->session->getItem('session_cod_empresa'));
 		
 		try {
-			$credentials = $this->obterCredenciaisPagSeguro();                           
+			$credentials = $this->obterCredenciaisPagSeguro();
 			$url = $paymentRequest->register($credentials);
 			return $url;
 		} catch (PagSeguroServiceException $e) {        	

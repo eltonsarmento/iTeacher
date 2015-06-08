@@ -1,21 +1,46 @@
 <?php
-
 require_once(dirname(__FILE__).'/../global/vendas.global.php');
 // ===================================================================
 class Pedidos extends VendasGlobal {	
 	// ===============================================================
 	public function autoRun() {
-		
 		switch($this->system->input['do']) {
 			case 'listar': 								$this->doListar(); break;		
 			case 'status':								$this->doAlterarPagamento(); break;
 			case 'cursosByVenda': 						$this->doRecuperarCursoByIdVenda(); break;	
 			case 'atualizaComprovante':					$this->doAtualizaComprovante(); break;
+			case 'cancelar':							$this->doCancelar(); break;
 			default: 									$this->pagina404(); break;
-		}
-		
+		}	
 	}
-
+	// ===============================================================
+	public function doCancelar() {
+		$id = $this->system->input['id'];
+		$venda = $this->system->vendas->getVenda($id);
+		$this->system->vendas->alterarPagamento($id, 2);
+		$regerarDados = array();
+		//cursos
+		foreach($this->system->vendas->getCursosByVenda($id) as $curso) {
+			$cursoAluno = end($this->system->cursos->getCursosAlunos(" and curso_id = '" . $curso['curso_id'] . "' and usuario_id = '" . $venda['aluno_id'] . "'"));
+			$this->system->cursos->deleteCursoAluno($cursoAluno['id']);
+			$regerarDados[] = $curso['professor_id'];
+		}
+		//planos
+		$plano = $this->system->vendas->getPlanoVenda($venda['id']);
+		if ($plano['id']) {
+			$planoAluno = $this->system->planos->getPlanoAluno(" and usuario_id = '" . $venda['aluno_id'] . "' and plano_id = '" . $plano['id'] . "'");	
+			if ($planoAluno['id'])
+				$this->system->planos->desativarAssinatura($planoAluno['id']);
+		}
+		if (count($regerarDados) > 0) {
+			list($ano, $mes, $dia) = explode('-', $venda['data_venda']);
+			if (date('Y-m') != $ano.'-'.$mes) {
+				$this->regerarComissaoProfessor($regerarDados, $mes, $ano);
+			}
+		}
+		$this->system->saldo_model->removerVenda($id);
+		$this->system->func->redirecionar('/pedidos/listar/');
+	}
 	// ===============================================================
 	protected function doAtualizaComprovante() {
 		$id = intval($this->system->input['id']);

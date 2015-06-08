@@ -1,5 +1,3 @@
-
-        
         <section id="main-content">
           
             <section class="wrapper site-min-height">
@@ -81,8 +79,9 @@
                                             <td>
                                                 
                                                 <a data-toggle="modal" href="#uploadComprovante" class="btn btn-warning btn-xs tooltips" data-original-title="Comprovante" onclick="setaIdVenda({$venda.id});" data-placement="bottom"><i class="fa fa-upload"></i></a>
-                                                <!-- <a data-toggle="modal" href="#cancelarPedido" onclick="cancelaPedido({$venda.id});"class="btn btn-danger btn-xs tooltips" data-original-title="Cancelar" data-placement="bottom"><i class="fa fa-times"></i></a> -->
-                                                
+                                                {if $venda.status == 0}
+                                                <a data-toggle="modal" href="#cancelarPedido" onclick="window.location.href='/market/aluno/pedidos/cancelar/{$venda.id}'" class="btn btn-danger btn-xs tooltips" data-original-title="Cancelar" data-placement="bottom"><i class="fa fa-times"></i></a>
+                                                {/if}
                                             </td>
                                             
                                         </tr>
