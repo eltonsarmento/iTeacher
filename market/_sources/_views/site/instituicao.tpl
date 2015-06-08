@@ -27,40 +27,35 @@
 			</div><!-- /feature-head -->
 			
 			<div class="row">
-           
-				<div class="col-lg-3 col-sm-3">
+           		
 
-					<div class="pricing-table">
+           		{foreach item=plano from=$planos}
 
-						<div class="pricing-head">
+					<div class="col-lg-3 col-sm-3">
 
-							<h1>Basic</h1>
-							<h2><span class="note">R$</span>40,00</h2>
+						<div class="pricing-table">
 
-						</div><!-- /pricing-head -->
+							<div class="pricing-head">
 
-						<ul class="list-unstyled">
+								<h1>{$plano.plano}</h1>
+								<h2><span class="note">R$</span>{$plano.valor|number_format:2:",":"."}</h2>
 
-							<li>8 hours coverage</li>
-							<li>500 digital images</li>
-							<li>100 A3 Hard Copy</li>
-							<li>Bridal portrait with 11X14</li>
-							<li>Engagement portrait with 11X14</li>
-							<li>Income Tax included</li>
+							</div><!-- /pricing-head -->
+							<ul class="list-unstyled">
+								<p>{$plano.descricao}</p>
+							</ul>							
 
-						</ul>
+							<div class="price-actions">
 
-						<div class="price-actions">
+								<a href="{$url_site}/instituicao/cadastrar/{$plano.id}" class="btn">Assinar Agora</a>
 
-							<a href="pre-cadastro.html" class="btn">Assinar Agora</a>
+							</div><!-- /price-actions -->
 
-						</div><!-- /price-actions -->
+						</div><!-- /pricing-table -->
 
-					</div><!-- /pricing-table -->
-
-				</div><!-- /col-lg-3 -->
-
-				<div class="col-lg-3 col-sm-3">
+					</div><!-- /col-lg-3 -->
+				{/foreach}
+				<!-- <div class="col-lg-3 col-sm-3">
 
 					<div class="pricing-table">
 
@@ -69,7 +64,7 @@
 							<h1>Pro</h1>
 							<h2><span class="note">R$</span>80,00</h2>
 
-						</div><!-- /pricing-head -->
+						</div>
 
 						<ul class="list-unstyled">
 
@@ -84,77 +79,17 @@
 
 						<div class="price-actions">
 
-							<a href="pre-cadastro.html" class="btn">Assinar Agora</a>
+							<a href="{$url_site}/instituicao/cadastrar?plano=Pro" class="btn">Assinar Agora</a>
 
-						</div><!-- /price-actions -->
+						</div>
 
-					</div><!-- /pricing-table -->
+					</div>
 
-				</div><!-- /col-lg-3 -->
+				</div> -->
 
-				<div class="col-lg-3 col-sm-3">
+				
 
-					<div class="pricing-table most-popular">
-
-						<div class="pricing-head">
-
-							<h1>Premium</h1>
-							<h2><span class="note">R$</span>120,00</h2>
-
-						</div><!-- /pricing-head -->
-
-						<ul class="list-unstyled">
-
-							<li>8 hours coverage</li>
-							<li>500 digital images</li>
-							<li>100 A3 Hard Copy</li>
-							<li>Bridal portrait with 11X14</li>
-							<li>Engagement portrait with 11X14</li>
-							<li>Income Tax included</li>
-
-						</ul>
-
-						<div class="price-actions">
-
-							<a href="{$admin_url}/instituicao/cadastrar" class="btn">Assinar Agora</a>
-
-						</div><!-- /price-actions -->
-
-					</div><!-- /pricing-table -->
-
-				</div><!-- /col-lg-3 -->
-
-				<div class="col-lg-3 col-sm-3">
-
-					<div class="pricing-table">
-
-						<div class="pricing-head">
-
-							<h1>Personalizado</h1>
-							<h2><span class="note">Entre em contato!</span></h2>
-
-						</div><!-- /pricing-head -->
-
-						<ul class="list-unstyled">
-
-							<li>8 hours coverage</li>
-							<li>500 digital images</li>
-							<li>100 A3 Hard Copy</li>
-							<li>Bridal portrait with 11X14</li>
-							<li>Engagement portrait with 11X14</li>
-							<li>Income Tax included</li>
-
-						</ul>
-
-						<div class="price-actions">
-
-							<a href="contato.html" class="btn">Fale Conosco</a>
-
-						</div><!-- /price-actions -->
-
-					</div><!-- /pricing-table -->
-
-				</div><!-- /col-lg-3 -->
+				
 
 			</div><!-- /row -->
 		

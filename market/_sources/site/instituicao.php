@@ -8,6 +8,8 @@ class Instituicao {
 	public function __construct(&$system) {
 		$this->system = $system;
 		$this->system->load->dao('instituicoes');		
+		$this->system->load->dao('sistemas');		
+		$this->system->load->dao('planos');	
 	}
 	// ===============================================================
 	public function autoRun() {
@@ -18,7 +20,10 @@ class Instituicao {
 		}	
 	}
 	// ===============================================================
-	protected function doCatalogoDePlanos() {
+	protected function doCatalogoDePlanos() {		
+		$planos = $this->system->planos->getPlanos($palavra, $this->limit, '', 2);
+
+		$this->system->view->assign('planos', $planos);
 		$this->system->site->topo(4);
 		$this->system->view->display('site/instituicao.tpl');
 		$this->system->site->rodape();
@@ -32,27 +37,36 @@ class Instituicao {
 		$this->system->site->rodape();
 	}
 	// ===============================================================
-	protected function doCadastro() {		
+	protected function doCadastro() {	
 		$cadastrar = $this->system->input['cadastrar'];
+		$id = $this->system->input['parametro'];
+		$plano = $this->system->planos->getPlano($id);
+
 		if($cadastrar){			
 			$msg_error = $this->validarDados();	
 			if ($msg_error) {											
 				$this->system->view->assign('msg_error', $msg_error['msg']);
 				$this->system->view->assign('nome', $this->system->input['nome']);
-				$this->system->view->assign('razaosocial', $this->system->input['razaosocial']);
+				$this->system->view->assign('razao_social', $this->system->input['razaosocial']);
 				$this->system->view->assign('cnpj', $this->system->input['cnpj']);
 				$this->system->view->assign('email', $this->system->input['email']);
 				$this->system->view->assign('senha', $this->system->input['senha']);
 				$this->system->view->assign('termo', $this->system->input['termo']);
 			}else {						
 				$id = $this->system->instituicoes->cadastrarBySite($this->system->input);
-				$this->system->view->assign('msg_sucesso', 'Cadastrado com sucesso!');				
+				$this->system->view->assign('msg_sucesso', 'Cadastrado com sucesso!');								
+				$this->system->view->assign('nome', '');
+				$this->system->view->assign('razao_social', '');
+				$this->system->view->assign('cnpj', '');
+				$this->system->view->assign('email', '');
+				$this->system->view->assign('senha', '');
+				$this->system->view->assign('termo', '');	
 			}				
 
 		}
 		
-
-		$this->system->site->topo(0);
+		$this->system->view->assign('plano', $plano);
+		$this->system->site->topo(4);
 		$this->system->view->display('site/instituicao_cadastrar.tpl');
 		$this->system->site->rodape();
 	}

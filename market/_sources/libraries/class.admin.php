@@ -100,7 +100,8 @@ class Admin {
 		//	$this->system->session->addItem('estatisticas_topo', $estatisticas_topo);
 		//}
 		$this->system->load->dao('sistemas');
-		$sistema = $this->system->sistemas->getSistema($this->sistema_id);		
+		$sistema = $this->system->sistemas->getSistema($this->sistema_id);
+
 		$this->system->view->assign(array(
 			'menu'   				=> $menu,
 			'submenu'  				=> $submenu,

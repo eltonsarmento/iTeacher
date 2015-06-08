@@ -36,6 +36,7 @@ RewriteRule ^/?$													/index.php?categoria=site&module=$1&do=$2&{QUERY_ST
 RewriteRule ^site/?$											    /index.php?categoria=site&module=home&do=site&{QUERY_STRING}
 RewriteRule ^professor/index/?$										/index.php?categoria=site&module=professor&do=index&{QUERY_STRING}
 RewriteRule ^instituicao/index/?$									/index.php?categoria=site&module=instituicao&do=index&{QUERY_STRING}
+RewriteRule ^instituicao/cadastrar/([^/]+)?$						/index.php?categoria=site&module=instituicao&do=cadastrar&parametro=$1{QUERY_STRING}
 RewriteRule ^sobre/index/?$											/index.php?categoria=site&module=sobre&do=index&{QUERY_STRING}
 RewriteRule ^clientes/index/?$										/index.php?categoria=site&module=clientes&do=index&{QUERY_STRING}
 RewriteRule ^blog/index/?$											/index.php?categoria=site&module=blog&do=index&{QUERY_STRING}

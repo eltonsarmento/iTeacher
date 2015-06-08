@@ -5,13 +5,16 @@ class Site {
 	private $module = '';
 	private $categoria = 'site';
 	private $system = null;
+	private $sistema_id = 0;
 	// ===============================================================
 	public function __construct() {
 		$this->system =& getInstancia();
+		$this->sistema_id = $this->system->session->getItem('session_cod_admin');
 		//eval(base64_decode('aWYgKCdkZTYwMjhhYmJlYmNmNDllYjMyMWUxZmViNTllZmIzZDE1MjAxOGQ4JyAhPSBzaGExKGRpcm5hbWUoX19GSUxFX18pKSkge2RpZTt9'));
 	}
 	// ===============================================================
-    public final function Load($module) {    	
+    public final function Load($module) {
+    	$this->BuscaSistemaAdmin();
         $this->module = $this->_name_cleaner($module == '' ? 'home': $module);
 
  		if(file_exists($this->system->getRootPath() . '/_sources/'.$this->categoria.'/' . strtolower($this->module) . '.php'))
@@ -28,6 +31,17 @@ class Site {
 		$modulename = ucfirst($this->module);
 		$class = new $modulename($this->system);
 		$class->autoRun();
+	}
+	// ===============================================================
+	public final function BuscaSistemaAdmin() {		
+		$sistema_id  = $this->system->session->getItem('session_cod_admin');
+		if (empty($sistema_id)) {		
+			$this->system->load->dao('sistemas');
+	    	$dados = $this->system->sistemas->getSistemaAdmin();		
+			if ($dados){				
+				$this->system->session->addItem('session_cod_admin', $dados['id']);			
+			} 														
+		}		
 	}
 	// ===============================================================
     private function _name_cleaner($name) {
@@ -55,6 +69,10 @@ class Site {
 	// ===============================================================
 	public function getCategoria() {
 		return $this->categoria;
+	}
+	// ===============================================================	
+	public function getSistemaID() {
+		return $this->sistema_id;
 	}
 	// ===============================================================
 }

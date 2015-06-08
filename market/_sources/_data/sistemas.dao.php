@@ -49,7 +49,7 @@ class SistemasDAO {
 	// ===============================================================
 	public function getResponsavelSistema($sistemaID) {		
 		$sistema = end($this->system->sql->fetchrowset($this->system->sql->select('*', 'sistemas', 'id = ' . $sistemaID)));			
-		if ($sistema['id']) {
+		if ($sistema['id']) {	
 			if ($sistema['tipo_sistema'] == 1) //professor autonomo
 				return end($this->system->sql->fetchrowset($this->system->sql->select('*', 'usuarios', 'sistema_id = ' . $sistema['id'] . ' and nivel = 3')));
 			else //Instituição
@@ -65,6 +65,10 @@ class SistemasDAO {
 	// ===============================================================
 	public function getSistemaByDominio($dominio) {
 		return end($this->system->sql->fetchrowset($this->system->sql->select('*', 'sistemas', 'dominio = "' . $dominio . '"')));
+	}
+	// ===============================================================
+	public function getSistemaAdmin() {
+		return end($this->system->sql->fetchrowset($this->system->sql->select('*', 'sistemas', 'tipo_sistema = 3')));
 	}
 }
 // ===================================================================
