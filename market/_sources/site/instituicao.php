@@ -10,6 +10,7 @@ class Instituicao {
 		$this->system->load->dao('instituicoes');		
 		$this->system->load->dao('sistemas');		
 		$this->system->load->dao('planos');	
+		$this->system->load->model('email_model');
 	}
 	// ===============================================================
 	public function autoRun() {
@@ -54,6 +55,7 @@ class Instituicao {
 				$this->system->view->assign('termo', $this->system->input['termo']);
 			}else {						
 				$id = $this->system->instituicoes->cadastrarBySite($this->system->input);
+				$this->system->email_model->cadastroBySite('Instituição',$this->system->input['email'], $this->system->input['nome']);
 				$this->system->view->assign('msg_sucesso', 'Cadastrado com sucesso!');								
 				$this->system->view->assign('nome', '');
 				$this->system->view->assign('razao_social', '');
@@ -77,7 +79,7 @@ class Instituicao {
         if ($this->system->input['nome'] == '') 
             $retorno['msg'][] = "O campo Nome está vázio.";
         //RAZAO SOCIAL
-        if ($this->system->input['razaosocial'] == '') 
+        if ($this->system->input['razao_social'] == '') 
             $retorno['msg'][] = "O campo Razao Social está vázio.";
         //CNPJ        
         if ($this->system->input['cnpj'] == '') 

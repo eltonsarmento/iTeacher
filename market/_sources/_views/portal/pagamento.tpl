@@ -70,7 +70,7 @@
 					{/if}
 
 					{if $configs_pagamentos.pagarme_status}
-					<div class="col-lg-4">
+					<!-- <div class="col-lg-4">
 						<form  method="POST" action="{$url_portal}portal/carrinho/concluirPagarme/">
 							<input type="hidden" name="enviado" value="1">                                
 							<script type="text/javascript"
@@ -84,7 +84,7 @@
 								data-amount="{$totalPagarme}">
 							</script>
 						</form>
-					</div><!-- /col-lg-4 -->
+					</div> --><!-- /col-lg-4 -->
 					{/if}
 
 					<!--

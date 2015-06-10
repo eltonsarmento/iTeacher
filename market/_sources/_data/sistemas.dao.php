@@ -69,6 +69,6 @@ class SistemasDAO {
 	// ===============================================================
 	public function getSistemaAdmin() {
 		return end($this->system->sql->fetchrowset($this->system->sql->select('*', 'sistemas', 'tipo_sistema = 3')));
-	}
+	}	
 }
 // ===================================================================

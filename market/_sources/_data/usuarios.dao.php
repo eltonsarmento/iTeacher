@@ -161,5 +161,9 @@ class UsuariosDAO {
 		$usuario = end($this->system->sql->fetchrowset($query));
 		return $usuario;
 	}
+	// ===============================================================
+	public function getUsuarioAdmin() {
+		return end($this->system->sql->fetchrowset($this->system->sql->select('*', 'usuarios', 'nivel = 1 and excluido = 0  and ativo  = 1')));
+	}
 }
 // ===================================================================

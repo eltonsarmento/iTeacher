@@ -64,6 +64,18 @@ class Email_modelMODEL {
 
 	}
 	// ===============================================================
+	public function cadastroBySite($tipo,$email, $nome) {
+		if($tipo == "Professor"){
+			$titulo = "Professor cadastrado pelo iTeacher";			
+		}else{
+			$titulo = "Instituição cadastrada pelo iTeacher";
+		}		
+		$mensagem = "Olá, acabei de me casdastrar no iTeacher.<br>Segue abaixo meus dados.<br>Nome: ".$nome." <br>E-mail: ".$email ." <br>" ;			
+		$responsavel = $this->system->usuarios->getUsuarioAdmin();
+		$this->envio($responsavel['email'], $titulo, $mensagem);
+		//$this->system->notificacoes->notificacaoEmail($responsavel['id'], utf8_decode($titulo), utf8_decode($conteudo), $responsavel['sistema_id']);
+	}
+	// ===============================================================
 	// Administrativo
 	// ===============================================================
 	public function vendaRealizadaAdministrativo($numero = '00000') {
@@ -582,7 +594,7 @@ class Email_modelMODEL {
 	// ===============================================================
 	public function cursoCadastradoParceiro($email, $curso) {
 		$titulo = "Curso cadastrado por Parceiro";
-		$mensagem = html_entity_decode("Olá, acabei de cadastrar um curso. Curso nome: ". $curso['curso'] ." . Espero que o mesmo seja liberado para proseguir com as vendas!");
+		$mensagem = "Olá, acabei de cadastrar um curso. Curso nome: ". $curso['curso'] ." . Espero que o mesmo seja liberado para proseguir com as vendas!";
 
 		$this->envio($email, $titulo, $mensagem);
 		$this->gravarNotificacoes($email, $titulo, $mensagem);

@@ -8,6 +8,7 @@ class Professor {
 	public function __construct(&$system) {
 		$this->system = $system;
 		$this->system->load->dao('professores');
+		$this->system->load->model('email_model');
 	}
 	// ===============================================================
 	public function autoRun() {
@@ -27,9 +28,14 @@ class Professor {
 				$this->system->view->assign('email', $this->system->input['email']);
 				$this->system->view->assign('senha', $this->system->input['senha']);
 				$this->system->view->assign('termo', $this->system->input['termo']);
-			}else {						
+			}else {										
 				$id = $this->system->professores->cadastrarBySite($this->system->input);
+				$this->system->email_model->cadastroBySite('Professor',$this->system->input['email'], $this->system->input['nome']);
 				$this->system->view->assign('msg_sucesso', 'Cadastrado com sucesso!');				
+				$this->system->view->assign('nome', '');							
+				$this->system->view->assign('email', '');
+				$this->system->view->assign('senha', '');
+				$this->system->view->assign('termo', '');
 			}				
 		}
 		
