@@ -132,7 +132,7 @@ class NotificacoesDAO {
 		
 		foreach ($resultado as $key => $notificacao) {
 				
-				/*if($notificacao['remetente_id'] != 0){
+				if($notificacao['remetente_id'] != 0){
 					$query = $this->system->sql->select('nome, avatar', 'usuarios', " id = '" . $notificacao['remetente_id'] . "'");
 					$remetente =  end($this->system->sql->fetchrowset($query));					
 					
@@ -142,16 +142,16 @@ class NotificacoesDAO {
 						$resultado[$key]['data'] = date('d/m/Y H:i', strtotime($resultado[$key]['data_hora']));
 						$notificacoes['resultado'][] = $resultado[$key];
 					}				
-				} */
-				$query = $this->system->sql->select('nome', 'sistemas', " id = '" . $notificacao['sistema_id'] . "'");
-				$remetente =  end($this->system->sql->fetchrowset($query));
+				} 
+				// $query = $this->system->sql->select('nome', 'sistemas', " id = '" . $notificacao['sistema_id'] . "'");
+				// $remetente =  end($this->system->sql->fetchrowset($query));
 
-				if  ($remetente['nome']) {
-					$resultado[$key]['remetente'] = $remetente['nome'];					
-					$resultado[$key]['avatar'] = "avatar_padrao.jpg";
-					$resultado[$key]['data'] = date('d/m/Y H:i', strtotime($resultado[$key]['data_hora']));
-					$notificacoes['resultado'][] = $resultado[$key];
-				}				
+				// if  ($remetente['nome']) {
+				// 	$resultado[$key]['remetente'] = $remetente['nome'];					
+				// 	$resultado[$key]['avatar'] = "avatar_padrao.jpg";
+				// 	$resultado[$key]['data'] = date('d/m/Y H:i', strtotime($resultado[$key]['data_hora']));
+				// 	$notificacoes['resultado'][] = $resultado[$key];
+				// }				
 				
 			
 		}
@@ -180,9 +180,8 @@ class NotificacoesDAO {
 			foreach ($resultadoCursos as $resultadoCurso)
 				$cursosID[] = $resultadoCurso['curso_id'];
 
-			$sql_extra .= " AND ((id IN (SELECT notificacao_id FROM notificacoes_cursos WHERE curso_id IN (" . implode(',', $cursosID) . ") OR curso_id = 0) AND destinatario_nivel = '4') OR destinatario_id = '" . $usuario['id'] . "')";
-		}
-		else 
+			$sql_extra .= " AND ((id IN (SELECT notificacao_id FROM notificacoes_cursos WHERE curso_id IN (" . implode(',', $cursosID) . ") OR curso_id = 0) AND destinatario_nivel = '2') OR destinatario_id = '" . $usuario['id'] . "')";
+		}else 
 			$sql_extra .= " AND (destinatario_nivel = '" . $usuario['nivel'] . "' OR destinatario_id = '" . $id_usuario . "')";
 
 		//echo $sql_extra;die;
@@ -190,7 +189,6 @@ class NotificacoesDAO {
 		$query = $this->system->sql->select('*', 'notificacoes', "excluido ='0' AND sistema_id = '". $this->system->getSistemaID() ."' " . $sql_extra, '', 'data_hora desc');
 		$resultado =  $this->system->sql->fetchrowset($query);
 		
-
 		foreach ($resultado as $key => $notificacao) {
 				$resultado[$key]['conteudo'] = utf8_encode(html_entity_decode($notificacao['conteudo']));
 
@@ -300,6 +298,17 @@ class NotificacoesDAO {
 		$query = $this->system->sql->select('*', 'notificacoes', "excluido='0' and id = '" . $id . "' ");
 		$notificacao = end($this->system->sql->fetchrowset($query));
 		if ($notificacao['id']) {
+
+
+			if($notificacao['remetente_id'] != 0){
+				$query = $this->system->sql->select('nome, avatar', 'usuarios', " id = '" . $notificacao['remetente_id'] . "'");
+				$remetente =  end($this->system->sql->fetchrowset($query));					
+				
+				if  ($remetente['nome']) {
+					$notificacao['remetente'] = $remetente['nome'];					
+					$notificacao['avatar'] = $remetente['avatar'];					
+				}				
+			} 
 			/*$notificacao['conteudo'] = nl2br($notificacao['conteudo']);*/
 
 			$notificacao['cursos'] = array();

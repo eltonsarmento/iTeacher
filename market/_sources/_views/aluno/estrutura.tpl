@@ -82,7 +82,7 @@
                                     <span class="photo"><img alt="avatar" width="35" src="{$url_site}market/uploads/avatar/{$notificacao.avatar}"></span>
                                     
                                     <span class="subject">
-                                        <span class="from"><span class="from">{$notificacao.titulo|truncate:29:"...":true}</span>
+                                        <span class="from"><span class="from">{$notificacao.remetente|truncate:29:"...":true}</span>
                                     </span>                                    
                                     
                                 </a>

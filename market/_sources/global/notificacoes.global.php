@@ -36,7 +36,8 @@ class NotificacoesGlobal {
 			$notificacoes[0]['resumo'] = utf8_decode(substr(strip_tags(html_entity_decode($notificacao['conteudo'])), 0, 200));
 			$notificacoes[0]['conteudo'] = utf8_decode($notificacao['conteudo']);
 			$notificacoes[0]['lida'] = true;
-			$notificacoes[0]['remetente'] = $notificacao['titulo'];			
+			$notificacoes[0]['remetente'] = $notificacao['remetente'];			
+			$notificacoes[0]['avatar'] = $notificacao['avatar'];			
 			$notificacoes[0]['data'] = date('d/m/Y H:i', strtotime($notificacao['data_hora']));
 				
 			$this->system->view->assign('notificacoes', $notificacoes);
@@ -46,8 +47,8 @@ class NotificacoesGlobal {
 			$vIDS = array();
 			$id = $this->system->session->getItem('session_cod_usuario');		
 			//notificacão aberta			
-			if ($id) {				
-				$notificacoes = $this->system->notificacoes->getNotificacoes($id);				
+			if ($id) {								
+				$notificacoes = $this->system->notificacoes->getNotificacoes($id);	
 				if(!empty($notificacoes)){					
 					foreach ($notificacoes as $key => $notificacao) {
 						$vIDS[] = $notificacao->id; 						
@@ -64,7 +65,7 @@ class NotificacoesGlobal {
 							}						
 						}				
 					}
-				}				
+				}			
 				$this->system->view->assign('notificacoes', $notificacoes);
 				$this->system->view->assign('url_site', $this->system->getUrlSite());			
 			}
