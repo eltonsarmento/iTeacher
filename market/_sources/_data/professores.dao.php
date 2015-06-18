@@ -11,15 +11,17 @@ class ProfessoresDAO extends UsuariosDAO{
     }
     // ===============================================================
     public function cadastrarBySite($input) {
-        
-        $this->system->sql->insert('sistemas', array(
+        $this->system->load->dao('sistemas');
+        $input['tipo_sistema'] = 1;
+        $sistemaID = $this->system->sistemas->cadastrar($input);
+        /*$this->system->sql->insert('sistemas', array(
         'nome'              => "Sistema - ". trim($input['nome']),
         'data_cadastro'     => date('Y-m-d H:i:s'),            
         'tipo_sistema'      => 1,
         'dominio'           => trim(str_replace(' ','_',$this->system->func->removeAcentos($input['nome']))),
         'excluido'          => 0
-        ));
-        $sistemaID = $this->system->sql->nextid();
+        ));*/
+        //$sistemaID = $this->system->sql->nextid();
         $nivelProfessor = 3;
 
         $this->system->sql->insert('usuarios', array(
@@ -66,14 +68,20 @@ class ProfessoresDAO extends UsuariosDAO{
     public function cadastrar($input) {
 
         if($this->system->session->getItem('session_nivel_categoria') == 'administrador'){
-            $this->system->sql->insert('sistemas', array(
+
+            $this->system->load->dao('sistemas');
+            $input['tipo_sistema'] = 1;
+            $sistemaID = $this->system->sistemas->cadastrar($input);
+            /*$this->system->sql->insert('sistemas', array(
             'nome'              => "Sistema - ". trim($input['nome']),
             'data_cadastro'     => date('Y-m-d H:i:s'),            
             'tipo_sistema'      => 1,
             'dominio'           => trim(str_replace(' ','_',$this->system->func->removeAcentos($input['dominio']))),
             'excluido'          => 0
             ));
-            $sistemaID = $this->system->sql->nextid();
+            $sistemaID = $this->system->sql->nextid();*/
+
+
             $nivelProfessor = 3;
         }else{
             $sistemaID = $this->system->getSistemaID();

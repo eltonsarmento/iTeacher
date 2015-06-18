@@ -96,11 +96,8 @@ class ConfiguracoesEmailGlobal extends AdminModules{
 					$this->system->configuracoesemail->atualizarImagem($id, $nomearquivo);
 				}
 			}
-		}
-		else {			
-			if ($id) 			    
-				$this->system->view->assign('configuracoes_email', $this->system->configuracoesemail->getConfiguracoesGeraisEmail($id_sistema));	
-		}
+		}		
+		$this->system->view->assign('configuracoes_email', $this->system->configuracoesemail->getConfiguracoesGeraisEmail($id_sistema));	
 		$this->system->admin->topo('configuracoes','configuracoesemails-novo');
 		$this->system->view->display('global/configuracao_geral_email_edicao.tpl');
 		$this->system->admin->rodape();

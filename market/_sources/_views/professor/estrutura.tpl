@@ -165,7 +165,7 @@
                             
                             <li {if $submenu eq 'relatorios-aluno'}class="active"{/if}><a href="{$admin_url}/relatorios/aluno">Alunos</a></li>
                             <li {if $submenu eq 'relatorios-venda'}class="active"{/if}><a href="{$admin_url}/relatorios/venda">Vendas</a></li>
-                            <li><a href="relatorios-assinaturas.html">Assinaturas</a></li>
+                            <li {if $submenu eq 'relatorios-assinaturas'}class="active"{/if}><a href="{$admin_url}/relatorios/assinaturas">Assinaturas</a></li>
                             <li {if $submenu eq 'relatorios-cupons'}class="active"{/if}><a href="{$admin_url}/relatorios/cupons">Cupons</a></li>
                             <li {if $submenu eq 'relatorios-saque'}class="active"{/if}><a href="{$admin_url}/relatorios/saques">Saques</a></li>
                             

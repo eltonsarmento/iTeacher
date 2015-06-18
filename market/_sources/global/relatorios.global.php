@@ -18,6 +18,7 @@ class RelatoriosGlobal extends AdminModules {
 		$this->system->load->dao('parceiros');
 		$this->system->load->dao('professores');
 		$this->system->load->dao('usuarios');
+		$this->system->load->dao('planos');
 
 		$this->system->load->model('email_model');
 	}
@@ -33,6 +34,14 @@ class RelatoriosGlobal extends AdminModules {
     		case 'alunosRelatorioXls': 					$this->doAlunosCadastradosXls(); break;
     		case 'alunosRelatorioGerenciarPdf': 		$this->doAlunosGerenciarPdf(); break;    
     		case 'alunosRelatorioGerenciarXls': 		$this->doAlunosGerenciarXls(); break;        		
+
+    		//Assinaturas
+    		case 'assinaturas':							$this->doRelatorioAssinaturas();	break;  
+    		case 'obterAlunosByPlano':					$this->doObterAlunosByPlano();	break;  
+    		case 'assinaturasRelatorioPdf': 			$this->doAssinaturasCadastradosPdf(); break;
+    		case 'assinaturasRelatorioXls': 			$this->doAssinaturasCadastradosXls(); break;
+    		case 'assinaturasRelatorioGerenciarPdf': 	$this->doAssinaturasGerenciarPdf(); break;    
+    		case 'assinaturasRelatorioGerenciarXls': 	$this->doAssinaturasGerenciarXls(); break;    
     		
     		//Vendas
     		case 'venda':								$this->doRelatorio();	break;
@@ -170,6 +179,28 @@ class RelatoriosGlobal extends AdminModules {
 		}
 		$this->system->func->htmlToPdf($html);
 	}
+	// ====================================================================================	
+	protected function doAssinaturasCadastradosPdf() {
+		$dataDe = $this->system->input['data_de'];
+		$dataAte = $this->system->input['data_ate'];
+		if ($dataAte && $dataDe) {
+			$sqlExtra = " and pa.data_cadastro between '".$dataDe."' and '".$dataAte."'";
+			$dadosAssinaturas = $this->system->planos->getPlanosRelatorio($sqlExtra);
+			$this->system->view->assign('assinaturas',$dadosAssinaturas);
+			$this->system->view->assign('periodo1', $this->system->func->converteDataMysqlParaPhp($dataDe));
+			$this->system->view->assign('periodo2', $this->system->func->converteDataMysqlParaPhp($dataAte));
+			$this->system->view->assign('dir_site', $this->system->getRootPath());
+			$html = $this->system->view->fetch('relatorios/assinaturas_cadastrados_pdf.tpl');
+		}
+		else {
+			$sqlExtra = " and pa.data_cadastro like '".date('Y-m')."%'";
+			$dadosAssinaturas = $this->system->planos->getPlanosRelatorio($sqlExtra);
+			$this->system->view->assign('assinaturas',$dadosAssinaturas);
+			$this->system->view->assign('dir_site', $this->system->getRootPath());
+			$html = $this->system->view->fetch('relatorios/assinaturas_cadastrados_pdf.tpl');	
+		}
+		$this->system->func->htmlToPdf($html);
+	}
 	// ===================================================================================
 	protected function doSaquesEfetuadosPdf() {
 		$dataDe = $this->system->input['data_de'];
@@ -243,6 +274,37 @@ class RelatoriosGlobal extends AdminModules {
 		$html = $this->system->view->fetch('relatorios/alunos_gerenciados_pdf.tpl');
 		$this->system->func->htmlToPdf($html);
 	}	
+
+	// ===============================================================
+	protected function doRelatorioAssinaturas() {
+		$filtrarPorData = $this->system->input['filtrar'];
+
+		if ($filtrarPorData) {
+			$dataDe = $this->system->func->converteData($this->system->input['de']);
+			$dataAte = $this->system->func->converteData($this->system->input['ate']);
+			$sqlExtra = " and pa.data_cadastro between '".$dataDe."' and '".$dataAte."' and sistema_id = ".$this->system->getSistemaID();
+			$dadosAssinaturas = $this->system->planos->getPlanosRelatorio($sqlExtra);			
+			$this->system->view->assign('planos',$dadosAssinaturas);	
+			$this->system->view->assign('data_de', $dataDe);
+			$this->system->view->assign('data_ate', $dataAte);	
+		} 
+		else {
+			$sqlExtra = " and pa.data_cadastro like '".date('Y-m')."%'";
+			$dadosAssinaturas = $this->system->planos->getPlanosRelatorio($sqlExtra);			
+			$this->system->view->assign('planos',$dadosAssinaturas);	
+		}
+		$this->system->admin->topo('relatorios','relatorios-assinaturas');
+		$this->system->view->display('professor/relatorio_assinaturas.tpl');
+		$this->system->admin->rodape();		
+	}
+	// ===============================================================
+	protected function doObterAlunosByPlano() {
+		$plano_id = $this->system->input['plano_id'];
+		if ($plano_id) {
+			$dadosAlunos = $this->system->planos->getUsuariosByPlano($plano_id);						
+			echo json_encode($dadosAlunos);
+		} 				
+	}
 	// =================================================================================
 	protected function doInstituicoesGerenciarPdf() {
 		$palavra = $this->system->input['palavra_busca'];								
@@ -571,6 +633,12 @@ class RelatoriosGlobal extends AdminModules {
 				echo '<script type="text/javascript">window.open("'.$this->system->getUrlSite().'market/'.$this->system->admin->getCategoria().'/relatorios/alunosRelatorioPdf/?data_de='.$dataDe.'&data_ate='.$dataAte.'")</script>';
 			elseif($tipo == 'xls')
 				echo '<script type="text/javascript">window.open("'.$this->system->getUrlSite().'market/'.$this->system->admin->getCategoria().'/relatorios/alunosRelatorioXls/?data_de='.$dataDe.'&data_ate='.$dataAte.'")</script>';	
+		}
+		if ($tipoDados == "assinatura") {
+			if ($tipo == 'pdf')
+				echo '<script type="text/javascript">window.open("'.$this->system->getUrlSite().'market/'.$this->system->admin->getCategoria().'/relatorios/assinaturasRelatorioPdf/?data_de='.$dataDe.'&data_ate='.$dataAte.'")</script>';
+			elseif($tipo == 'xls')
+				echo '<script type="text/javascript">window.open("'.$this->system->getUrlSite().'market/'.$this->system->admin->getCategoria().'/relatorios/assinaturasRelatorioXls/?data_de='.$dataDe.'&data_ate='.$dataAte.'")</script>';	
 		}
 		if ($tipoDados == "alunoGerenciar"){
 			if ($tipo == 'pdf')

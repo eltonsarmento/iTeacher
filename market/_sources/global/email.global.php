@@ -143,7 +143,7 @@ class EmailGlobal extends AdminModules {
 		$texto_id = $this->system->input['texto'];
 		$dados = array();
 		$dados['titulo'] = $this->system->emails->getValorPorId($titulo_id);
-		$dados['texto'] = $this->system->emails->getValorPorId($texto_id);
+		$dados['texto'] = html_entity_decode($this->system->emails->getValorPorId($texto_id));
 		echo json_encode($dados);
 	}
 }

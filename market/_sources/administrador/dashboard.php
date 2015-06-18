@@ -40,11 +40,14 @@ class Dashboard extends AdminModules {
 			$vendasMesCorrente = '0.00';
 		if (!$saldoProfessoresMesCorrente)
 			$saldoProfessoresMesCorrente = '0.00';
+		if (!$valorMesInstituicoes)
+			$valorMesInstituicoes = '0.00';
 		
 		$dadosDashboardUsuarios = array('instituicoes' 			=> $instituicoes,
 										'professores_autonomos' => $professoresAutonomos,
 										'alunos' 				=> $alunos,
 										'vendas_professores'	=> $vendasMesCorrente,
+										'valor_instituicoes'	=> $valorMesInstituicoes,
 										'saldo_professores'		=> $saldoProfessoresMesCorrente,
 										'ranking_curso'			=> $rankingCurso,
 										'ranking_professor'		=> $rankingProfessor,

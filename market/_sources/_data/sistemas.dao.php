@@ -8,25 +8,29 @@ class SistemasDAO {
 		$this->system =& getInstancia();		
 	}
 	// ===============================================================
-	public function cadastrar($input) {
+	public function cadastrar($input) {		
+		$dominio = ($input['dominio'] ? trim(str_replace(' ','_',$this->system->func->removeAcentos($input['dominio']))) : trim(str_replace(' ','_',$this->system->func->removeAcentos($input['nome']))));
 		$this->system->sql->insert('sistemas', array(
-			'nome' 			=> $input['nome'],
+			'nome'              => "Sistema - ". trim($input['nome']),
 			'tipo_sistema'	=> $input['tipo_sistema'],
-			'data_cadastro'     => date('Y-m-d H:i:s'),
+			'dominio'       => $dominio,
+			'data_cadastro' => date('Y-m-d H:i:s'),
+			'excluido'          => 0
 		));
 		$sistemaID = $this->system->sql->nextid();
 
 		//Formas de Pagamento
 		$this->system->sql->insert('configuracoes_api_pagamentos', array(
-			'pagseguro_status' 		=> 0,
+			'pagseguro_status' 		=> 0,			
 			'paypal_status'			=> 0,
 			'sistema_id'			=> $sistemaID
 		));
 
 		//Servidor Padrão
 		$this->system->sql->insert('configuracoes_gerais', array(
-			'servidor_padrao' 		=> 2,
-			'sistema_id'			=> $sistemaID
+			'servidor_padrao' 			=> 2,
+			'certificado_porcentagem' 	=> 0,
+			'sistema_id'				=> $sistemaID
 		));
 
 		//Configurações de Email

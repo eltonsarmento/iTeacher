@@ -47,8 +47,20 @@
                             </section><!-- /list-group -->
                         
                         </section><!-- /panel --> 
+
+                         <section class="panel alert-info">
+                            
+                            <header class="panel-heading alert-info"><strong>Ajuda</strong></header>
+                                                        
+                            <section class="list-group">
+                                <a class="list-group-item" data-toggle="modal" href="#modeloShortcode" >Lista de shortcodes disponíveis </a>
+                            </section><!-- /list-group -->
+                        
+                    </section><!-- /panel --> 
                         
                     </section><!-- /col-lg-4 -->
+
+                    
                     
                     <section class="col-lg-4">
                         
@@ -131,6 +143,87 @@
                             
                         </form>
                     
+                    </section><!-- /modal-body -->
+                    
+                    <section class="modal-footer">
+
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Fechar</button>
+                        
+                    </section><!-- /modal-footer -->
+                    
+                </section><!-- /modal-content -->
+                
+            </section><!-- /modal-dialog -->
+            
+        </section><!-- /modal -->
+
+
+
+        <!-- Modal - Modelo de shortcodes  -->
+        
+        <section class="modal fade modal-primary" id="modeloShortcode" tabindex="-1" role="dialog" aria-labelledby="modeloShortcode" aria-hidden="true">
+            
+            <section class="modal-dialog modal-lg">
+                
+                <section class="modal-content">
+
+                    <section class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Exemplos de Shortcode</h4>
+                    </section><!-- /modal-header -->
+                    
+                    <section class="modal-body">
+                        
+                        <div id="retorno-form"></div>
+
+                                                    
+
+                            <section class="form-group">
+                                <label class="control-label">
+                                    <strong>Shortcode</strong> é uma expressão/argumento geral para ser substituido por algum parâmetro.<br><br>
+                                    Ao mandar um e-mail por exemplo, configura-se para que ele, no modelo de e-mail específico,
+                                    que o <strong>"shortcode"</strong> será substituido pelo parametro desejado e que aquele modelo criado seja genérico.<br><br>
+                                    Na caixa de texto abaixo um exemplo de modelo de e-mail para quando um aluno for cadasrato.
+                                    Não se sabe qual o nome do aluno, então o shortcode <strong>"[[nome_aluno]]"</strong> irá ser substituido pelo nome do aluno.<br><br>
+                                </label>                                
+                            </section><!-- /form-group -->
+                            
+                            <section class="form-group">
+                                <label class="control-label"><strong>Exemplo do uso de um Shortcode</strong></label>
+                                <textarea class="form-control"  disabled="true" rows="10" name="texto" id="texto_modal">
+Olá [[nome_aluno]], eu sou Adriano Gianini, Diretor do Iteacher e quero lhe agradecer por se inscrever em nosso site.
+
+Primeiramente quero lhe avisar que você dispõe de diversos cursos gratuitos, basta se matricular  e em segundos já estará estudando. Simples assim mesmo, sem complicações.
+
+Gostaria de ressaltar que, como toda empresa, temos algumas regras e colocamos ela em um Manual do Aluno para facilitar.
+                                </textarea>
+                            </section><!-- /form-group -->
+                            <br>
+                            <section class="form-group">
+
+                                <h4><strong>Lista de Shortcode:</strong> </h4>
+                                    
+                                    <table class="table table-striped" width="400px">                                    
+                                        <thead></thead>                                    
+                                        <tbody>
+                                            <tr>
+                                                <td>[[data_expiracao]]</td><td>[[data_compra]]</td><td>[[mes]], [[ano]] </td><td>[[email_usuario]]</td>
+                                            </tr>                                            
+                                            <tr>
+                                                <td>[[nome_aluno]]</td><td>[[email_aluno]]</td><td>[[senha_aluno]]</td><td>[[numero_certificado]]</td>
+                                            </tr>                                            
+                                            <tr>
+                                                <td>[[nome_professor]]</td><td>[[email_professor]]</td><td>[[senha_professor]]</td><td>[[titulo_duvida]]</td>
+                                            </tr>                                            
+                                            <tr>
+                                                <td>[[nome_administrativo]]</td><td>[[email_administrativo]]</td><td>[[senha_administrativo]]</td><td>[[mensagem_notificacao]]</td>
+                                            </tr>
+                                            <tr>
+                                                <td>[[nome_curso]]</td><td>[[numero_pedido]]</td><td>[[nome_plano]]</td><td>[[mensagem_duvida]]</td>
+                                            </tr>                                            
+                                        </tbody>
+                                    </table>
+                            </section>
                     </section><!-- /modal-body -->
                     
                     <section class="modal-footer">

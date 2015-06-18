@@ -11,14 +11,19 @@ class InstituicoesDAO extends UsuariosDAO {
     // ===============================================================
     public function cadastrarBySite($input) {
         
-         $this->system->sql->insert('sistemas', array(
+         /*$this->system->sql->insert('sistemas', array(
             'nome'              => "Sistema - ". trim($input['nome']),
             'data_cadastro'     => date('Y-m-d H:i:s'),            
             'tipo_sistema'      => 2,
             'dominio'           => ($input['dominio'] ? trim(str_replace(' ','-',$this->system->func->removeAcentos($input['dominio']))) : trim(str_replace(' ','-',$this->system->func->removeAcentos($input['nome'])))),
             'excluido'          => 0
         ));
-        $sistemaID = $this->system->sql->nextid();        
+        $sistemaID = $this->system->sql->nextid();  */      
+
+
+        $this->system->load->dao('sistemas');
+        $input['tipo_sistema'] = 2;
+        $sistemaID = $this->system->sistemas->cadastrar($input);
         
         $this->system->sql->insert('usuarios', array(
             'sistema_id'        => $sistemaID,
@@ -63,14 +68,19 @@ class InstituicoesDAO extends UsuariosDAO {
     // ===============================================================
     public function cadastrar($input) {
         if($this->system->session->getItem('session_nivel_categoria') == 'administrador'){
-             $this->system->sql->insert('sistemas', array(
+             /*$this->system->sql->insert('sistemas', array(
                 'nome'              => "Sistema - ". trim($input['nome']),
                 'data_cadastro'     => date('Y-m-d H:i:s'),            
                 'tipo_sistema'      => 1,
                 'dominio'           => trim(str_replace(' ','_',$this->system->func->removeAcentos($input['nome']))),
                 'excluido'          => 0
             ));
-            $sistemaID = $this->system->sql->nextid();
+            $sistemaID = $this->system->sql->nextid();*/
+
+
+            $this->system->load->dao('sistemas');
+            $input['tipo_sistema'] = 2;
+            $sistemaID = $this->system->sistemas->cadastrar($input);
         }else{
             $sistemaID = $this->system->getSistemaID();
         }

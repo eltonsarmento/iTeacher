@@ -191,7 +191,7 @@
         
         <section class="modal fade modal-primary" id="modeloShortcode" tabindex="-1" role="dialog" aria-labelledby="modeloShortcode" aria-hidden="true">
             
-            <section class="modal-dialog">
+            <section class="modal-dialog modal-lg">
                 
                 <section class="modal-content">
 

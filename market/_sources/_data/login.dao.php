@@ -15,8 +15,9 @@ class LoginDAO {
 		
 		if($usuario && $senha) {
 				$resultUserEmail = $this->system->sql->select('count(1)', 'usuarios u, usuarios_dados ud', "ud.email_secundario = '" . $usuario . "' and u.nivel in (7, 5) and u.id = ud.usuario_id");		
-				$emailSecundario = end($this->system->sql->fetchrowset($resultUserEmail));				
-				if ($emailSecundario) {					
+				$emailSecundario = end($this->system->sql->fetchrowset($resultUserEmail));
+				
+				if ($emailSecundario[0]) {					
 					$result = $this->system->sql->select('id, sistema_id, nome, email, senha, avatar, nivel', 'usuarios u, usuarios_dados ud', ($sqlExtra ? $sqlExtra : " ") . "u.id = ud.usuario_id and (ud.email_secundario = '" . $usuario . "' or u.email = '" . $usuario . "') and excluido = 0 and ativo = 1");
     				$setinfo = $this->system->sql->fetchobject($result);
 				}
@@ -24,6 +25,7 @@ class LoginDAO {
 					$result = $this->system->sql->select('id, sistema_id, nome, email, senha, avatar, nivel', 'usuarios', "email='".$usuario."' and excluido = 0 and ativo = 1");
     				$setinfo = $this->system->sql->fetchobject($result);    			
 				}
+				
 			$numrows = $this->system->sql->numrows($result);
 	    	if(trim($numrows) != '' && trim($setinfo->senha) != '') {
 	    		if($setinfo->senha != $this->system->func->criptografar($senha)){

@@ -48,7 +48,12 @@
                                             <tr>
                                                 <td>
                                                     <img alt="" src="{$url_site}market/common/market/img/file-search/zip.png">
-                                                    <strong>{$material.material}</strong>
+                                                    <strong>
+                                                        <a href="{$material.link}" target="_blank"  data-original-title="Download" data-placement="bottom">
+                                                            {$material.material}
+                                                        </a>
+                                                        
+                                                    </strong>
                                                 </td>
                                                 <td class="hidden-xs">{$material.data_cadastro|date_format:"%d/%m/%Y"}</td>
                                                 <td class="hidden-xs">{$material.data_modificacao|date_format:"%d/%m/%Y"}</td>

@@ -51,7 +51,7 @@ class AlunosDAO extends UsuariosDAO {
 		"id='" . $input['id'] . "' and sistema_id = '".$this->system->getSistemaID()."'");
 		
 		if ($input['senha']) 
-			$this->system->sql->update('usuarios', array('senha' => trim($input['senha'])), "id='" . $input['id'] . "' and sistema_id = '".$this->system->getSistemaID()."'");
+			$this->system->sql->update('usuarios', array('senha' => $this->system->func->criptografar(trim($input['senha']))), "id='" . $input['id'] . "' and sistema_id = '".$this->system->getSistemaID()."'");
 
 		$this->system->sql->update('usuarios_dados', array(
         	'cep'          	=> trim($input['cep']),

@@ -74,7 +74,7 @@
                                                 <input type="hidden" id="estado_{$k}" value="{$aluno.estado}"/>
                                                 <!-- FIM DADOS MODAL -->
                                         <tr>
-                                            <td>{$aluno.nome}</td>
+                                            <td><a href="{$admin_url}/alunos/visualizar/{$aluno.id}">{$aluno.nome}</a></td>
                                             <td>{$aluno.email}</td>
                                             <td class="hidden-xs">{$aluno.cep}</td>
                                             <td class="hidden-xs">{$aluno.cpf}</td>

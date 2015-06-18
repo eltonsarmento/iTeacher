@@ -9,7 +9,7 @@
                         <ul class="breadcrumb">
                             
                             <li><a href="{$admin_url}/dashboard/home"><i class="fa fa-home"></i> Dashboard</a></li>
-                            <li class="active">Relatórios de Alunos</li>
+                            <li class="active">Relatórios de Assinaturas</li>
                             
                         </ul>
                         

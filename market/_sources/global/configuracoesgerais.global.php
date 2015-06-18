@@ -87,10 +87,10 @@ class ConfiguracoesGeraisGlobal extends AdminModules {
 		if ($editar) {
 			$this->system->configuracoesgerais->atualizarTokenDePagamento($this->system->input);
 			$this->system->view->assign('msg_alert', 'Token de pagamento atualizado com sucesso!');
-			$this->system->view->assign('pagamento', $this->system->configuracoesgerais->getConfiguracaoDePagamento());
+			//$this->system->view->assign('pagamento', $this->system->configuracoesgerais->getConfiguracaoDePagamento());
 		} 
 		else {
-			$this->system->view->assign('pagamento', $this->system->configuracoesgerais->getConfiguracaoDePagamento());
+			//$this->system->view->assign('pagamento', $this->system->configuracoesgerais->getConfiguracaoDePagamento());
 		} 
 		$this->system->admin->topo('configuracoes','configuracoesgerais-pagamentos');
 		$this->system->view->display('professor/configuracoes_pagamentos.tpl');

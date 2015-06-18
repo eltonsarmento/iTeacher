@@ -36,7 +36,6 @@
                                 <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(92, 94);">Instituição se cadastrar</a>
                                 <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(95, 96);">Instituição publicar um curso</a>
                                 <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(97, 98);">Instituição enviar documentos</a>
-                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(99, 100);">Material de Marketing for publicado (Professor e Instituição)</a>
                                                                 
                             </section><!-- /list-group -->
                         
@@ -52,9 +51,14 @@
                             
                             <section class="list-group">
                                 
-                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(101, 102);">Professor solicitar um saque</a>
-                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(103, 104);">Solicitação de saque alterar status</a>
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(99, 100);">Professor se cadastrar</a>
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(101, 102);">Professor publicar um curso</a>
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(103, 104);">Professor enviar documentos</a>
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(105, 106);">Material Marketing for Publicado</a>
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(107, 108);">Professor solicitar um saque</a>
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(109, 110);">Solicitação de saque alterar status</a>
                                 
+
                             </section><!-- /list-group -->
                         
                         </section><!-- /panel --> 
@@ -69,12 +73,20 @@
                             
                             <section class="list-group">
                                 
-                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(105, 106);">Instituição vencer a mensalidade (10 dias)</a>
-                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(106, 107);">Instituição vencer a mensalidade (5 dias)</a>
-                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(108, 109);">Instituição vencer a mensalidade (1 dia)</a>
-                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(110, 111);">Instituição vencer a mensalidade (2 dias depois)</a>
-                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(112, 113);">Instituição vencer a mensalidade (10 dias depois)</a>
-                                
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(111, 112);">Instituição se cadastrar</a>
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(113, 114);">Instituição publicar um curso</a>
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(115, 116);">Instituição enviar documentos</a>
+
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(117, 118);">Material Marketing for Publicado</a>
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(119, 120);">Pagamento de mensalidade for gerado/enviado</a>
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(121, 122);">Pagamento de mensalidade for confirmado</a>
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(123, 124);">Limite de alunos matriculados se aproximando</a>
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(125, 126);">Troca de plano efetuada</a>
+
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(127, 128);">Instituição vencer a mensalidade (1 dia)</a>
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(129, 130);">Instituição vencer a mensalidade (2 dias depois)</a>
+                                <a class="list-group-item" data-toggle="modal" href="#modeloEmail" onclick="buscarValores(131, 132);">Instituição vencer a mensalidade (10 dias depois)</a>
+
                             </section><!-- /list-group -->
                         
                         </section><!-- /panel --> 

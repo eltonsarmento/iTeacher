@@ -47,7 +47,7 @@
 
 							<div class="price-actions">
 
-								<a href="{$url_site}/instituicao/cadastrar/{$plano.id}" class="btn">Assinar Agora</a>
+								<a href="{$url_site}instituicao/cadastrar/{$plano.id}" class="btn">Assinar Agora</a>
 
 							</div><!-- /price-actions -->
 
