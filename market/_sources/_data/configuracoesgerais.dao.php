@@ -94,6 +94,22 @@ class ConfiguracoesgeraisDAO {
 		$query = $this->system->sql->select('*', 'configuracoes_api_pagamentos', 'sistema_id=' . $sistema_id);	
 		return end($this->system->sql->fetchrowset($query));
 	}
+	// ===============================================================
+	public function getConfiguracoesPagamentosProfessor($sqlExtra = '') {
+		$query = $this->system->sql->select('*', 'configuracoes_pagamentos_professor', 'sistema_id=' . $this->system->getSistemaID() . ($sqlExtra ? $sqlExtra : ''));	
+		return end($this->system->sql->fetchrowset($query));
+	}
+	// ===============================================================
+	public function atualizaConfiguracoesPagamentosProfessor($input) {
+		$fields = array();
+		$fields['sistema_id'] = $this->system->getSistemaID();
+		if (isset($input['pagamento_pagseguro'])) $fields['pagseguro_status'] = $input['pagamento_pagseguro'];
+		if (isset($input['pagamento_pagarme'])) $fields['pagarme_status'] = $input['pagamento_pagarme'];
+		if (isset($input['pagamento_paypal'])) $fields['paypal_status'] = $input['pagamento_paypal'];
+
+		//print_r($fields);die();
+		$this->system->sql->update('configuracoes_pagamentos_professor', $fields);
+	}
 	// Imagens
 	// ===============================================================
 	public function atualizarImagens($input) {

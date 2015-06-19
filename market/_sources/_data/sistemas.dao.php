@@ -46,6 +46,10 @@ class SistemasDAO {
 				'receber'				=> 0,
 				'bloqueado'				=> 0,
 			));
+
+			$this->system->sql->insert('configuracoes_pagamentos_professor', array(
+				'sistema_id'			=> $sistemaID
+			));
 		}
 
 		return $sistemaID;

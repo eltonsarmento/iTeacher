@@ -11,6 +11,7 @@ class ConfiguracoesGeraisGlobal extends AdminModules {
 		switch($this->system->input['do']) {
 			case 'pagamentos'				:$this->doEdicaoPagamentos(); break;
 			case 'listarPagamentos'			:$this->doEdicaoTokensDePagamentos(); break;
+			case 'opcaoPagamentos'			:$this->doListaOpcaoDePagamentos(); break;
 			case 'pagamentosMudarStatus'	:$this->doAlterarStatusPagamento(); break;
 			case 'certificados'				:$this->doEdicaoCertificados(); break;
 			case 'servidores'				:$this->doEdicaoServidores(); break;
@@ -92,6 +93,20 @@ class ConfiguracoesGeraisGlobal extends AdminModules {
 		else {
 			//$this->system->view->assign('pagamento', $this->system->configuracoesgerais->getConfiguracaoDePagamento());
 		} 
+		$this->system->admin->topo('configuracoes','configuracoesgerais-pagamentos');
+		$this->system->view->display('professor/configuracoes_pagamentos.tpl');
+		$this->system->admin->rodape();
+	}
+
+	protected function doListaOpcaoDePagamentos() {		
+		$editar = $this->system->input['editar'];
+		if ($editar) {
+			$this->system->configuracoesgerais->atualizaConfiguracoesPagamentosProfessor($this->system->input);
+		}
+
+		$configuracoesPagamento = $this->system->configuracoesgerais->getConfiguracoesPagamentosProfessor();
+		
+		$this->system->view->assign('pagamento', $configuracoesPagamento);
 		$this->system->admin->topo('configuracoes','configuracoesgerais-pagamentos');
 		$this->system->view->display('professor/configuracoes_pagamentos.tpl');
 		$this->system->admin->rodape();

@@ -39,9 +39,7 @@ class RelatoriosGlobal extends AdminModules {
     		case 'assinaturas':							$this->doRelatorioAssinaturas();	break;  
     		case 'obterAlunosByPlano':					$this->doObterAlunosByPlano();	break;  
     		case 'assinaturasRelatorioPdf': 			$this->doAssinaturasCadastradosPdf(); break;
-    		case 'assinaturasRelatorioXls': 			$this->doAssinaturasCadastradosXls(); break;
-    		case 'assinaturasRelatorioGerenciarPdf': 	$this->doAssinaturasGerenciarPdf(); break;    
-    		case 'assinaturasRelatorioGerenciarXls': 	$this->doAssinaturasGerenciarXls(); break;    
+    		case 'assinaturasRelatorioXls': 			$this->doAssinaturasCadastradosXls(); break;    		
     		
     		//Vendas
     		case 'venda':								$this->doRelatorio();	break;
@@ -282,7 +280,7 @@ class RelatoriosGlobal extends AdminModules {
 		if ($filtrarPorData) {
 			$dataDe = $this->system->func->converteData($this->system->input['de']);
 			$dataAte = $this->system->func->converteData($this->system->input['ate']);
-			$sqlExtra = " and pa.data_cadastro between '".$dataDe."' and '".$dataAte."' and sistema_id = ".$this->system->getSistemaID();
+			$sqlExtra = " and pa.data_cadastro between '".$dataDe."' and '".$dataAte."'";
 			$dadosAssinaturas = $this->system->planos->getPlanosRelatorio($sqlExtra);			
 			$this->system->view->assign('planos',$dadosAssinaturas);	
 			$this->system->view->assign('data_de', $dataDe);
@@ -293,6 +291,7 @@ class RelatoriosGlobal extends AdminModules {
 			$dadosAssinaturas = $this->system->planos->getPlanosRelatorio($sqlExtra);			
 			$this->system->view->assign('planos',$dadosAssinaturas);	
 		}
+		$this->system->view->assign('dataAtual', date('d/m/Y'));
 		$this->system->admin->topo('relatorios','relatorios-assinaturas');
 		$this->system->view->display('professor/relatorio_assinaturas.tpl');
 		$this->system->admin->rodape();		
@@ -443,6 +442,31 @@ class RelatoriosGlobal extends AdminModules {
 		header("Content-Disposition: attachment; filename=relatorioAlunosCadastradoPorData.xls");
 		echo $html;
 	}
+	protected function doAssinaturasCadastradosXls() {
+		$dataDe = $this->system->input['data_de'];
+		$dataAte = $this->system->input['data_ate'];
+		if ($dataAte && $dataDe) {
+			$sqlExtra = " and pa.data_cadastro between '".$dataDe."' and '".$dataAte."'";
+			$dadosAssinaturas = $this->system->planos->getPlanosRelatorio($sqlExtra);		
+			$this->system->view->assign('planos',$dadosAssinaturas);
+			$this->system->view->assign('periodo1', $this->system->func->converteDataMysqlParaPhp($dataDe));
+			$this->system->view->assign('periodo2', $this->system->func->converteDataMysqlParaPhp($dataAte));
+			$this->system->view->assign('dir_site', $this->system->getRootPath());
+			$html = $this->system->view->fetch('relatorios/assinaturas_cadastrados_xls.tpl');
+		}
+		else {
+			$sqlExtra = " and pa.data_cadastro like '".date('Y-m')."%'";
+			$dadosAssinaturas = $this->system->planos->getPlanosRelatorio($sqlExtra);	
+			$this->system->view->assign('planos',$dadosAssinaturas);
+			$this->system->view->assign('data_atual', date(strtotime('d/m/Y')));
+			$this->system->view->assign('dir_site', $this->system->getRootPath());
+			$html = $this->system->view->fetch('relatorios/assinaturas_cadastrados_xls.tpl');
+		}
+		header("Content-type: application/msexcel; charset=ISO-8859-1");
+		header("Content-Disposition: attachment; filename=relatorioAssinaturasCadastradoPorData.xls");
+		echo $html;
+	}
+	
 	// =================================================================================
 	protected function doAlunosGerenciarXls() {
 		$palavra = $this->system->input['palavra_busca'];

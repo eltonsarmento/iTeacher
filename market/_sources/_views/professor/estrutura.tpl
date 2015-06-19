@@ -265,7 +265,7 @@
                             {/if}
                             <li class="divider"></li>
                             <li {if $submenu eq 'configuracoesemails-novo'}class="active"{/if}><a href="{$admin_url}/configuracoesemail/novo">Config. de E-mail</a></li>
-                            <li {if $submenu eq 'configuracoesgerais-pagamentos'}class="active"{/if}><a href="{$admin_url}/configuracoesgerais/listarPagamentos">Config. de Pagamento</a></li>
+                            <li {if $submenu eq 'configuracoesgerais-pagamentos'}class="active"{/if}><a href="{$admin_url}/configuracoesgerais/opcaoPagamentos">Config. de Pagamento</a></li>
                             <li {if $submenu eq 'configuracoesgerais-servidores'}class="active"{/if}><a href="{$admin_url}/configuracoesgerais/servidores">Config. de Servidor</a></li>
                             
                         </ul>

@@ -88,7 +88,7 @@
                                                 
                                                 <td>{$plano.plano}</td>
                                                 <td class="hidden-xs">{$plano.quantidade}</td>
-                                                <td>R$ {$plano.total}</td>
+                                                <td>R$ {$plano.total|string_format:"%.2f"}</td>
                                                 <td>
                                                     
                                                     <a data-toggle="modal" href="#listarAlunos" onclick="obterUsuariosByPlano('{$plano.id}')"class="btn btn-info btn-xs tooltips" data-original-title="Alunos" data-placement="bottom"><i class="fa fa-users"></i></a>
@@ -245,13 +245,13 @@
                     
                             <section class="form-group">
                                 
-                                <label class="control-label col-lg-2">De</label>
+                                <label class="control-label col-lg-2">De </label>
                                 
                                 <section class="col-lg-9">
         
-                                    <section data-date-format="dd/mm/yyyy" data-date="18/03/2014" class="input-append date dpYears">
+                                    <section data-date-format="dd/mm/yyyy" data-date="{$dataAtual}" class="input-append date dpYears">
                                     
-                                        <input type="text" readonly="" name="de" value="18/03/2014" size="16" class="form-control">
+                                        <input type="text" readonly="" name="de" value="{$dataAtual}" size="16" class="form-control">
                                         
                                         <span class="input-group-btn add-on">
                                             
@@ -271,9 +271,9 @@
                                 
                                 <section class="col-lg-9">
         
-                                    <section data-date-format="dd/mm/yyyy" data-date="18/03/2014" class="input-append date dpYears">
+                                    <section data-date-format="dd/mm/yyyy" data-date="{$dataAtual}" class="input-append date dpYears">
                                     
-                                        <input type="text" readonly="" name="ate" value="18/03/2014" size="16" class="form-control">
+                                        <input type="text" readonly="" name="ate" value="{$dataAtual}" size="16" class="form-control">
                                         
                                         <span class="input-group-btn add-on">
                                             
