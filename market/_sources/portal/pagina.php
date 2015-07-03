@@ -19,12 +19,12 @@ class Pagina {
 	}
 	// ===============================================================
 	protected function doIndex() {
+		print_r($this->system->input);
 		$titulo = str_replace('-',' ',$this->system->input['parametro']);
 		
 		if ($titulo == "Assinaturas") $layout = "portal/planos.tpl";
-		else{
-			
-		} $layout = "portal/pagina.tpl";
+		
+		$layout = "portal/pagina.tpl";
 
 		$pagina = $this->system->paginas->getPaginaByName($titulo);
 		$pagina['conteudo'] = nl2br($pagina['conteudo']);

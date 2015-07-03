@@ -1,4 +1,5 @@
 <?php
+
 // ===================================================================
 //session_name('session_system');
 //session_save_path(dirname(__FILE__).'/lms/_sources/libraries/session/');
@@ -9,7 +10,7 @@ session_start();
 if (!$_GET['categoria']) $_GET['categoria'] = 'site';
 if (!$_GET['module']) {
 	$_GET['module'] = 'home';	
-	$_GET['do'] = 'index';
+	$_GET['do'] = 'indexPre';
 }
 
 require(dirname(__FILE__) . '/market/_sources/libraries/class.system.php');

@@ -36,7 +36,7 @@ RewriteRule ^/?$													/index.php?categoria=site&module=home&do=indexPre&{
 RewriteRule ^site/?$											    /index.php?categoria=site&module=home&do=index&{QUERY_STRING}
 RewriteRule ^professor/index/?$										/index.php?categoria=site&module=professor&do=index&{QUERY_STRING}
 RewriteRule ^instituicao/index/?$									/index.php?categoria=site&module=instituicao&do=index&{QUERY_STRING}
-RewriteRule ^instituicao/cadastrar/([0-9]+)?$						/index.php?categoria=site&module=instituicao&do=cadastrar&parametro=$1&{QUERY_STRING}
+RewriteRule ^instituicao/cadastrar/([^/]+)?$						/index.php?categoria=site&module=instituicao&do=cadastrar&parametro=$1{QUERY_STRING}
 RewriteRule ^sobre/index/?$											/index.php?categoria=site&module=sobre&do=index&{QUERY_STRING}
 RewriteRule ^clientes/index/?$										/index.php?categoria=site&module=clientes&do=index&{QUERY_STRING}
 RewriteRule ^blog/index/?$											/index.php?categoria=site&module=blog&do=index&{QUERY_STRING}
@@ -45,8 +45,6 @@ RewriteRule ^contato/index/?$										/index.php?categoria=site&module=contato&
 
 #Portal
 RewriteRule ^([^/]+)/?$												/index.php?cliente=$1&categoria=portal&module=home&do=index&{QUERY_STRING}
-RewriteRule ^portal/conta/lembrarSenha/?$							/index.php?categoria=portal&module=conta&do=lembrarSenha&{QUERY_STRING}
-RewriteRule ^portal/conta/redefinirSenha/([^/]+)/?$					/index.php?categoria=portal&module=conta&do=redefinirSenha&id=$1&{QUERY_STRING}
 RewriteRule ^([^/]+)/portal/?$										/index.php?cliente=$1&categoria=portal&module=home&do=index&{QUERY_STRING}
 RewriteRule ^([^/]+)/portal/([^/]+)/?$								/index.php?cliente=$1&categoria=portal&module=$2&{QUERY_STRING}
 RewriteRule ^([^/]+)/portal/([^/]+)/([^/]+)/?$						/index.php?cliente=$1&categoria=portal&module=$2&do=$3&{QUERY_STRING}

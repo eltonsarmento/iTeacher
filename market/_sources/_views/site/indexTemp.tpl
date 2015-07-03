@@ -33,7 +33,7 @@
 
                         <a href="">
 
-                            <img class="img img-responsive" src="{$url_site}market/common/siteTemp/imgs/logo-iteacher.png" >
+                            <img class="img img-responsive" src="{$url_site}market/common/site/img/logo.png" >
 
                         </a>
                    

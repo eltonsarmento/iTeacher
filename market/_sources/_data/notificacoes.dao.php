@@ -176,11 +176,14 @@ class NotificacoesDAO {
 
 			$queryCursos = $this->system->sql->select('curso_id', 'cursos_alunos', "usuario_id = '" . $usuario['id'] . "' and excluido = 0 and expira >= '" . date('Y-m-d H:i:s') . "'");
 			$resultadoCursos =  $this->system->sql->fetchrowset($queryCursos);
-			$cursosID = array(0);
+			$cursosID = "";
 			foreach ($resultadoCursos as $resultadoCurso)
 				$cursosID[] = $resultadoCurso['curso_id'];
-
-			$sql_extra .= " AND ((id IN (SELECT notificacao_id FROM notificacoes_cursos WHERE curso_id IN (" . implode(',', $cursosID) . ") OR curso_id = 0) AND destinatario_nivel = '2') OR destinatario_id = '" . $usuario['id'] . "')";
+			if (!empty($cursosID)) {
+				$sql_extra .= " AND ((id IN (SELECT notificacao_id FROM notificacoes_cursos WHERE curso_id IN (" . implode(',', $cursosID) . ") OR curso_id = 0) AND destinatario_nivel = '2') OR destinatario_id = '" . $usuario['id'] . "')";	
+			}else{
+				$sql_extra .= "  AND (destinatario_nivel = '2' OR destinatario_id = '" . $usuario['id'] . "')";	
+			}						
 		}else 
 			$sql_extra .= " AND (destinatario_nivel = '" . $usuario['nivel'] . "' OR destinatario_id = '" . $id_usuario . "')";
 

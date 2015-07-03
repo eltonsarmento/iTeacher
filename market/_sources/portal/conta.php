@@ -135,25 +135,28 @@ class Conta {
 	}
 	// ===============================================================
 	protected function doLembrarSenha() {
+		
 		$enviar = $this->system->input['enviar'];
 		$email = $this->system->input['email'];
 		
 		if ($enviar) {
 			if (!$this->system->func->checkEmail($this->system->input['email']))
         		echo '<span class="alert alert-error" style="width:450px;">O campo E-mail é inválido</span>';
-        	elseif(!$this->system->usuarios->checkEmailCadastrado(0, $this->system->input['email']))
+        	elseif(!$this->system->usuarios->checkEmailCadastrado(0, $this->system->input['email'],0))
         		echo '<span class="alert alert-error" style="width:450px;">Esse email não consta em nossa base</span>';
         	else {
-        		$usuario = $this->system->usuarios->getUsuarioByEmail($email);
-        		$this->system->email_model->lembrarSenha($usuario['nome'], $usuario['email'], $usuario['id_md5']);
-        		echo '<span class="alert alert-success" style="width:450px;"> Foi enviado um e-mail informando os passos a seguir para redefinir a senha</span>';
+        		$usuario = $this->system->usuarios->getUsuarioByEmail($email);        		
+        		$this->system->email_model->lembrarSenha($usuario['nome'], $usuario['email'], $usuario['reference']);
+        		echo '<span class="alert alert-success" style="width:450px;"> Foi enviado um e-mail informando os passos para redefinir a senha</span>';
         	}
 		}
 	}
 	// ===============================================================
 	protected function doRedefinirSenha() {
-		$idMD5 = $this->system->input['id'];
-		$usuario = $this->system->usuarios->getUsuarioByIdMd5($idMD5);
+		
+		$reference = $this->system->input['id'];
+
+		$usuario = $this->system->usuarios->getUsuarioByReference($reference);
 		$editar = $this->system->input['editar'];
 		$id = $this->system->input['usuario_id'];
 		
@@ -171,18 +174,18 @@ class Conta {
 				$erro[] = 'A nova senha não corresponde a senha repetida';
 
 			if (count($erro) > 0) {
-				$this->system->view->assign('msgErro', implode('<br/>', $erro));		
-			} else {
+				$this->system->view->assign('mensagem_erro', implode('<br/>', $erro));		
+			} else {				
 				$this->system->usuarios->atualizarSenha($id, $senhaNova);
-				$this->system->view->assign('msgSucesso', 'Senha alterada com sucesso');		
+				$this->system->view->assign('mensagem_sucesso', 'Senha alterada com sucesso');		
 			}
 		}
 		
 		//exibir
-		$this->system->view->assign('usuario', $usuario);
-		$this->system->site->topo();
-		$this->system->view->display('site/redefinir_senha.tpl');
-		$this->system->site->rodape();	
+		$this->system->view->assign('usuario', $usuario);		
+		$this->system->view->assign('url_site',$this->system->getUrlSite());		
+		$this->system->view->display('portal/redefinir_senha.tpl');				
+		die;
 	}
 	// ===============================================================
 	protected function pagina404() {

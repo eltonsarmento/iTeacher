@@ -106,12 +106,12 @@
 					<nav class="menu" role="navigation">
 
 						<a href="{$url_portal}portal/planos/" class="btn">Assinaturas</a>
-						<a href="{$url_portal}portal/pagina/index/Quem-Somos" class="btn">Quem Sou</a>
-						<a href="{$url_portal}portal/pagina/index/Termos-e-Condições" class="btn">Termos e Condições</a>
-						<a href="{$url_portal}portal/pagina/index/10-Razões-para-estudar" class="btn">10 Razões para estudar</a>
-						<a href="{$url_portal}portal/pagina/index/Guia-de-Carreira" class="btn">Guia de Carreira</a>
-						<a href="{$url_portal}portal/pagina/index/Cursos-Online" class="btn">Cursos Online</a>
-						<a href="{$url_portal}portal/pagina/index/Suporte" class="btn">Suporte</a>
+						<a href="{$url_portal}portal/pagina/Quem-Somos" class="btn">Quem Somos</a>
+						<a href="{$url_portal}portal/pagina/Termos-e-Condições" class="btn">Termos e Condições</a>
+						<a href="{$url_portal}portal/pagina/10-Razões-para-estudar" class="btn">10 Razões para estudar</a>
+						<a href="{$url_portal}portal/pagina/Guia-de-Carreira" class="btn">Guia de Carreira</a>
+						<a href="{$url_portal}portal/pagina/Cursos-Online" class="btn">Cursos Online</a>
+						<a href="{$url_portal}portal/pagina/Suporte" class="btn">Suporte</a>
 
 					</nav>
 
@@ -144,7 +144,7 @@
 
 		        <ul class="nav navbar-nav">
 		        	{foreach item=categoria from=$categorias}
-		        		<li><a href="{$url_portal}portal/categorias/index/{$categoria.id}">{$categoria.area}</a></li>
+		        		<li><a href="{$url_portal}portal/categorias/{$categoria.url}/{$categoria.id}">{$categoria.area}</a></li>
 		        	{/foreach}
 		        </ul>
 			        

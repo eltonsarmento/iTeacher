@@ -90,8 +90,8 @@ class UsuariosDAO {
 		$this->system->sql->update('usuarios', array('excluido' => 1), "id='" . $id . "' and sistema_id = '".$this->system->getSistemaID()."'");
 	}
 	// ===============================================================
-	public function atualizarSenha($id, $senha) {
-		$this->system->sql->update('usuarios', array('senha' => $this->system->func->criptografar(trim($senha))), "id='" . $id . "' and sistema_id = '".$this->system->getSistemaID()."'");
+	public function atualizarSenha($id, $senha) {				
+		$this->system->sql->update('usuarios', array('senha' => $this->system->func->criptografar(trim($senha))), "id='" . $id . "'" . ($this->system->getSistemaID() ? " and sistema_id = '".$this->system->getSistemaID()."'" : "") );
 	}
 	// ===============================================================
 	public function getValorExtra($id, $campo) {
@@ -130,6 +130,13 @@ class UsuariosDAO {
 	// ===============================================================
 	public function getUsuarioByIdMd5($idMD5) {
 		$query = $this->system->sql->select('*', 'usuarios', "excluido='0' and id_md5 = '" . $idMD5 . "'");
+		$usuario = end($this->system->sql->fetchrowset($query));
+		if ($usuario['id']) 
+			return $usuario;
+	}
+	// ===============================================================
+	public function getUsuarioByReference($reference) {
+		$query = $this->system->sql->select('*', 'usuarios', "excluido='0' and reference = '" . $reference . "'");
 		$usuario = end($this->system->sql->fetchrowset($query));
 		if ($usuario['id']) 
 			return $usuario;

@@ -14,13 +14,14 @@ class Categorias {
 	// ===============================================================
 	public function autoRun() {
 		switch($this->system->input['do']) {
-			//case 'index': 	$this->doIndex(); break;
-			//default: 		$this->pagina404(); break;			
+			case 'index': 	$this->doIndex(); break;
+			//default: 		''$this->pagina404(); break;			
 			default: 		$this->doIndex(); break;
 		}	
 	}
 	// ===============================================================
 	protected function doIndex() {
+		
 		$area_id = $this->system->input['parametro'];
 		$limit   = 12;
 		

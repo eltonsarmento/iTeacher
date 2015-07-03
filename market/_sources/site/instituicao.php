@@ -88,7 +88,10 @@ class Instituicao {
         if ($this->system->input['email'] == '')
         	$retorno['msg'][] = "O campo E-mail esta vázio";
         elseif(!$this->system->func->checkEmail($this->system->input['email']))
-        	$retorno['msg'][] = "O campo E-mail  é inválido";        
+        	$retorno['msg'][] = "O campo E-mail  é inválido";    
+        elseif($this->system->instituicoes->checkEmailCadastrado(0, $this->system->input['email'], 0))        	
+        		$retorno['msg'][] = "Já existe um usuário cadastrado com esse e-mail";  
+          
         //Senha        
 	    if ($this->system->input['senha'] == '')
 	        $retorno['msg'][] = "O campo Senha esta vázio";

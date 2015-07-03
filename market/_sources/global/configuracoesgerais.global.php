@@ -98,7 +98,7 @@ class ConfiguracoesGeraisGlobal extends AdminModules {
 		$this->system->admin->rodape();
 	}
 
-	protected function doListaOpcaoDePagamentos() {		
+	protected function doListaOpcaoDePagamentos() {	
 		$editar = $this->system->input['editar'];
 		if ($editar) {
 			$this->system->configuracoesgerais->atualizaConfiguracoesPagamentosProfessor($this->system->input);

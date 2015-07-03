@@ -1,4 +1,5 @@
 <?php
+
 // ===================================================================
 //session_name('sessionsystem');
 //session_save_path(dirname(__FILE__).'/_sources/libraries/session/');

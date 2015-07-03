@@ -14,6 +14,7 @@ class Site {
 	}
 	// ===============================================================
     public final function Load($module) {
+    	
     	$this->BuscaSistemaAdmin();
         $this->module = $this->_name_cleaner($module == '' ? 'home': $module);
 

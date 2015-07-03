@@ -65,6 +65,12 @@ class Portal {
 		$this->system->load->dao('configuracoesgerais');
 		
 		$areas =  $this->system->areas->getAreas($palavra, 12);	
+		foreach ($areas as $key => $area) {
+			$area_url = str_replace(' ','-',$area['area']);
+			$areas[$key]['url'] = $area_url;
+		}
+		
+
 		$vCursos  = $this->system->session->getItem('carrinho_cursos');
 		$cliente  = $this->system->usuarios->getUsuarioBySistemaID();
 		$instituicao = $this->system->instituicoes->getInstituicaoBySistemaID($this->sistema_id, true);

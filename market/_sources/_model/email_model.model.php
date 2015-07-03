@@ -617,7 +617,7 @@ class Email_modelMODEL {
 	public function envioNotificacoes($titulo, $conteudo, $usuarioNivel, $cursos) {
 		$usuarios = $this->system->usuarios->getUsuariosByNivel($usuarioNivel);
 
-		if ($usuarioNivel == 2) { //Coordenadores
+		if ($usuarioNivel == 6) { //Coordenadores
 			$titulo = $this->system->emails->getValorPorId(3);
 			$mensagem = html_entity_decode($this->system->emails->getValorPorId(4));
 		}
@@ -627,7 +627,7 @@ class Email_modelMODEL {
 			$mensagem = html_entity_decode($this->system->emails->getValorPorId(40));
 		}
 
-		if ($usuarioNivel == 4) { //Aluno
+		if ($usuarioNivel == 2) { //Aluno
 			$this->system->load->dao('curso');
 		
 			$titulo = $this->system->emails->getValorPorId(54);
@@ -640,12 +640,12 @@ class Email_modelMODEL {
 				
 		}
 
-		if ($usuarioNivel == 5) { //Parceiros
+		if ($usuarioNivel == 7) { //Parceiros
 			$titulo = $this->system->emails->getValorPorId(89);
 			$mensagem = html_entity_decode($this->system->emails->getValorPorId(90));
 		}
 
-		if ($usuarioNivel == 6) { //Administrativo
+		if ($usuarioNivel == 4) { //Administrativo
 			$titulo = $this->system->emails->getValorPorId(13);
 			$mensagem = html_entity_decode($this->system->emails->getValorPorId(14));
 		}
@@ -803,9 +803,9 @@ class Email_modelMODEL {
 		$this->system->func->sendMail($to, $titulo, $mensagem, $nome, $email, $configuracoesEmail);	
 	}
 	// ===============================================================
-	public function lembrarSenha($nome, $email, $id_md5) {
+	public function lembrarSenha($nome, $email, $reference) {
 		$to = $email;
-		$link = $this->system->getUrlSite() . 'conta/redefinirSenha/' . $id_md5;
+		$link = $this->system->getUrlSite() . 'portal/conta/redefinirSenha/' . $reference;
 		$titulo = 'Lembrar Senha - Cursos iTeacher';
 		$mensagem = 'Olá <strong>' . $nome . '</strong><br/><br/>';
 		$mensagem .= 'Você solicitou que sua senha fosse alterada. Para dá continuidade acesse o link abaixo: <br/><br/>';
@@ -825,7 +825,7 @@ class Email_modelMODEL {
 
 		$mensagem = $this->system->view->fetch('global/modelo_email.tpl');
 		
-		$this->system->func->sendMail($to, $titulo, $mensagem, $configuracoesEmail);
+		$this->system->func->sendMail($to, $titulo, $mensagem, $nome, $email, $configuracoesEmail);
 	}
 
 }

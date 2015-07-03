@@ -12,14 +12,16 @@ class Home {
 	// ===============================================================
 	public function autoRun() {
 		switch($this->system->input['do']) {
-			case 'index': 	$this->doIndex(); break;
-			default: 		$this->pagina404(); break;
+			case 'indexPre': 	$this->doIndexPre(); break;
+			case 'index': 		$this->doIndex(); break;			
+			default: 			$this->pagina404(); break;
 		}	
 	}
 	// ===============================================================
-	protected function doIndex() {
-
-		/*$enviar = $this->system->input['enviar'];		
+	protected function doIndexPre() {
+		
+		
+		$enviar = $this->system->input['enviar'];		
 		if($enviar){
 			
 			$erro_msg = $this->validarDados();				
@@ -50,10 +52,11 @@ class Home {
 			'url_site'			=> $this->system->getUrlSite(),
 			'tituloPagina'		=> $tituloPagina
 		));        
-		$this->system->view->display('site/indexTemp.tpl');*/
-
-
-
+		$this->system->view->display('site/indexTemp.tpl');
+		
+	}
+	// ===============================================================
+	protected function doIndex() {		
 
 		$this->system->site->topo();
 		$this->system->view->display('site/index.tpl');

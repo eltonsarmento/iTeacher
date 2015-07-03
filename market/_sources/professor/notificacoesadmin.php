@@ -25,7 +25,7 @@ class Notificacoesadmin extends NotificacoesadminGlobal{
 				else {
 					$id = $this->system->notificacoes->cadastrar($this->system->input, 2);
 					$this->system->view->assign('msg_alert', 'Notificação cadastrada com sucesso!');
-					$this->system->email_model->envioNotificacoes($this->system->input['titulo'], $this->system->input['conteudo'], $this->system->input['destinatario_nivel'], $this->system->input['cursos']);
+					//$this->system->email_model->envioNotificacoes($this->system->input['titulo'], $this->system->input['conteudo'], $this->system->input['destinatario_nivel'], $this->system->input['cursos']);
 				}
 				if ($this->system->input['nova']) 
 					$this->system->func->redirecionar('/notificacoesadmin/nova/');

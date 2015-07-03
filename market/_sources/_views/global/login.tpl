@@ -78,20 +78,23 @@
                           <h4 class="modal-title">Esqueceu a senha?</h4>
                           
                       </section><!-- /modal-header -->
-                      
+                                                        
                       <section class="modal-body">
                           
                           <p>Digite abaixo seu endereço de e-mail para redefinir sua senha.</p>
-                          <input type="text" name="email" placeholder="E-mail" autocomplete="off" class="form-control placeholder-no-fix">
+                          <br>
+                          <div id="retornoModalEsqueceuSenha"></div>
+                          <br>
+                          <input type="text" id="email" name="email" placeholder="E-mail" autocomplete="off" class="form-control placeholder-no-fix">
 
                       </section><!-- /modal-body -->
                       
                       <section class="modal-footer">
                           <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
-                          <button class="btn btn-success" type="button">Enviar</button>
+                          <button class="btn btn-success" onclick="enviarModalLembrarSenha(); return false;">Enviar</button>
                           
                       </section><!-- /modal-footer -->
-                      
+
                   </section><!-- /modal-content -->
                   
               </section><!-- /modal-dialog -->
@@ -107,5 +110,18 @@
 <script src="{$url_site}market/common/market/js/jquery.js"></script>
 <script src="{$url_site}market/common/market/js/bootstrap.min.js"></script>
 
+
+{literal}
+
+<script type="text/javascript">
+//Esqueceu senha
+function enviarModalLembrarSenha() {  
+    $.post('/portal/conta/lembrarSenha/', {enviar: 1, email : $('#email').val()}, function html(html) { 
+
+      $('#retornoModalEsqueceuSenha').html('<p>'+html+'</p>');
+    });
+}
+</script>
+{/literal}
 </body>
 </html>
