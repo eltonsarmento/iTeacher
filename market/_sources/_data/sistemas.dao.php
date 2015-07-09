@@ -8,7 +8,8 @@ class SistemasDAO {
 		$this->system =& getInstancia();		
 	}
 	// ===============================================================
-	public function cadastrar($input) {		
+	public function cadastrar($input) {	
+
 		$dominio = ($input['dominio'] ? trim(str_replace(' ','_',$this->system->func->removeAcentos($input['dominio']))) : trim(str_replace(' ','_',$this->system->func->removeAcentos($input['nome']))));
 		$this->system->sql->insert('sistemas', array(
 			'nome'              => "Sistema - ". trim($input['nome']),
@@ -37,9 +38,10 @@ class SistemasDAO {
 		$this->system->sql->insert('configuracoes_gerais_email', array(
 			'sistema_id'			=> $sistemaID
 		));
-	
+		
+
 		//Professor
-		if ($input['tipo_sistema']) {
+		if ($input['tipo_sistema'] == 1) {
 			$this->system->sql->insert('professor_saldo', array(
 				'sistema_id'			=> $sistemaID,
 				'disponivel'			=> 0,
@@ -50,6 +52,13 @@ class SistemasDAO {
 			$this->system->sql->insert('configuracoes_pagamentos_professor', array(
 				'sistema_id'			=> $sistemaID
 			));
+		}elseif ($input['tipo_sistema'] == 2) {
+			$this->system->sql->insert('instituicoes_pagamentos', array(
+	            'sistema_id'        => $sistemaID,
+	            'data_pagamento'    => date('Y-m-d', strtotime('+30 days', strtotime(date('Y-m-d')))),
+	            'status'            => 5,
+	            'excluido'          => 0
+        	));
 		}
 
 		return $sistemaID;

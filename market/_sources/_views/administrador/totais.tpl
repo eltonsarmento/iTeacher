@@ -85,7 +85,7 @@
                                 
                                 <span class="tools pull-right">
 
-                                    <a href="todas-instituicoes-receber.html"><i class="fa fa-plus"></i> Ver todas</a>
+                                    <a href="{$admin_url}/financeiro/totais-receber"><i class="fa fa-plus"></i> Ver todas</a>
 
                                 </span>
                                 
@@ -108,22 +108,32 @@
                                     </thead>
                                     
                                     <tbody>
+                                        {foreach from=$faturasReceber item=fatura}
+                                            <tr>
+                                                
+                                                <td>{$fatura.nome}</td>
+                                                <td><strong>{$fatura.data_pagamento|date_format:"%d/%m/%Y"}</strong></td>
+                                                <td>
+                                                    {if $fatura.status eq 2}
+                                                        <span class="label label-primary">Vencimento Próximo</span>
+                                                    {elseif $fatura.status eq 3}
+                                                        <span class="label label-warning">Vencida</span>
+                                                    {elseif $fatura.status eq 4}
+                                                        <span class="label label-danger">Bloqueada</span>
+                                                    {/if}
+                                                
+                                                </td>
+                                                
+                                            </tr>
+                                        {/foreach}
                                         
-                                        <tr>
-                                            
-                                            <td>Cursos IAG</td>
-                                            <td><strong>01/04/2014</strong></td>
-                                            <td><span class="label label-danger">Inativa</span></td>
-                                            
-                                        </tr>
-                                        
-                                        <tr>
+                                        <!-- <tr>
                                             
                                             <td>Cursos IAG</td>
                                             <td><strong>01/04/2014</strong></td>
                                             <td><button class="btn btn-warning btn-xs">Em Atraso</button></td>
                                             
-                                        </tr>
+                                        </tr> -->
                                         
                                     </tbody>
                                     
@@ -145,7 +155,7 @@
                                 
                                 <span class="tools pull-right">
 
-                                    <a href="todas-instituicoes-pagas.html"><i class="fa fa-plus"></i> Ver todas</a>
+                                    <a href="{$admin_url}/financeiro/totais-pagas"><i class="fa fa-plus"></i> Ver todas</a>
 
                                 </span>
                             
@@ -168,15 +178,15 @@
                                     </thead>
                                     
                                     <tbody>
-                                        
-                                        <tr>
-                                            
-                                            <td>Cursos IAG</td>
-                                            <td><strong>01/04/2014</strong></td>
-                                            <td class="hidden-xs"><span class="label label-success">Ativa</span></td>
-                                            
-                                        </tr>
-                                        
+                                        {foreach from=$faturasPagas item=fatura}
+                                            <tr>
+                                                
+                                                <td>{$fatura.nome}</td>
+                                                <td><strong>{$fatura.data_pagamento|date_format:"%d/%m/%Y"}</strong></td>
+                                                <td><span class="label label-success">Paga</span></td>
+                                                
+                                            </tr>
+                                        {/foreach}                                        
                                     </tbody>
                                     
                                 </table>

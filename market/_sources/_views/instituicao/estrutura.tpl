@@ -230,7 +230,7 @@
                         
                     </li>
                     {if $visao_adm eq false}
-                        <li><a href="#"><i class="fa fa-laptop"></i> <span>Ger. Temas</span></a></li>
+                        <li><a {if $menu eq 'configuracoestemas'}class="active"{/if}  href="{$admin_url}/temas/gerenciar-temas"><i class="fa fa-laptop"></i> <span>Ger. Temas</span></a></li>
                     
                         <li ><a {if $menu eq 'paginas'}class="active"{/if} href="{$admin_url}/paginas/listar"><i class="fa fa-file"></i> <span>Ger. Páginas</span></a></li>
                     {/if}

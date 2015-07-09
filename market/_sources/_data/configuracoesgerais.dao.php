@@ -217,5 +217,38 @@ class ConfiguracoesgeraisDAO {
 		return end($this->system->sql->fetchrow($query));
 	}
 	// ===============================================================
+	// Temas
+	// ===============================================================	
+	public function cadastrarConfiguracoesTemas() {
+		$this->system->sql->insert('configuracoes_temas', array(
+			'sistema_id' => $this->system->getSistemaID()			
+		));
+	}
+	// ===============================================================		
+	public function atualizarConfiguracoesTemas($input) {
+		$fields = array();
+		if (isset($input['logo'])) $fields['logo'] = $input['logo'];		
+		if (isset($input['cor_primaria'])) $fields['cor_primaria'] = $input['cor_primaria'];		
+		if (isset($input['cor_secundaria'])) $fields['cor_secundaria'] = $input['cor_secundaria'];		
+		if (isset($input['rascunho'])) $fields['rascunho'] = $input['rascunho'];		
+
+		if (isset($input['facebook'])) $fields['facebook'] = $input['facebook'];		
+		if (isset($input['twitter'])) $fields['twitter'] = $input['twitter'];		
+		if (isset($input['youtube'])) $fields['youtube'] = $input['youtube'];		
+		if (isset($input['instagram'])) $fields['instagram'] = $input['instagram'];		
+		if (isset($input['google_analytics'])) $fields['google_analytics'] = $input['google_analytics'];		
+
+
+		$this->system->sql->update('configuracoes_temas', $fields,"id='" . $input['id'] . "' and sistema_id = '".$this->system->getSistemaID()."'");
+	}
+	// ===============================================================
+	public function atualizarLogotipoTema($id, $imagem) {
+		$this->system->sql->update('configuracoes_temas', array('logo' => $imagem), "id='" . $id . "' and sistema_id = '".$this->system->getSistemaID()."'");
+	}
+	// ===============================================================
+	public function getConfiguracoesTemas() {
+		$query = $this->system->sql->select('*', 'configuracoes_temas'," sistema_id='".$this->system->getSistemaID()."'");
+		return $this->system->sql->fetchrow($query);
+	}
 }
 // ===================================================================

@@ -10,12 +10,13 @@ class Financeiro extends FinanceiroGlobal {
 	public function autoRun() {
 		switch($this->system->input['do']) {
 			case 'totais': 				$this->doTotais(); break;
+			case 'totais-receber': 		$this->doTotaisReceber(); break;
+			case 'totais-pagas': 		$this->doTotaisPagas(); break;
 			case 'saques':				$this->doSaques(); break;
 			case 'get-dados':			$this->doDetalhesSaque(); break;
 			case 'get-dados-nf':		$this->doDetalhesNF(); break;
 			case 'alterar-status':		$this->doMudarStatus(); break;
-			case 'atualiza-comprovante':$this->doAtualizaComprovante(); break;
-			case 'totais':				$this->doTotais(); break;
+			case 'atualiza-comprovante':$this->doAtualizaComprovante(); break;			
 			case 'detalhes':			$this->doDetalhes(); break;
 			default: 					$this->pagina404(); break;
 		}
@@ -121,10 +122,39 @@ class Financeiro extends FinanceiroGlobal {
 	// ===============================================================
 	protected function doTotais(){
 		$totais = $this->system->financeiro->getTotais();
+		$faturasPagas 	= $this->system->financeiro->getFaturasPainel("PAGAS");
+		$faturasReceber = $this->system->financeiro->getFaturasPainel("RECEBER");
+
 		$this->system->view->assign('totais', $totais);
+		$this->system->view->assign('faturasPagas', $faturasPagas);
+		$this->system->view->assign('faturasReceber', $faturasReceber);
 		$this->system->admin->topo('financeiro', 'totais');
 		$this->system->view->display('administrador/totais.tpl');
 		$this->system->admin->rodape();
 	}
+	// ===============================================================
+	protected function doTotaisReceber(){
+		$this->system->load->dao('instituicoes');
+		$instituicoes 	= $this->system->instituicoes->getInstituicoes($palavra, $metodo_busca, $limit,'nome',false);
+		$faturasReceber = $this->system->financeiro->getFaturasPainel("RECEBER");
+		
+		$this->system->view->assign('faturasReceber', $faturasReceber);
+		$this->system->view->assign('instituicoes', $instituicoes);
+		$this->system->view->assign('dataAtual', date('d/m/Y'));
+		$this->system->admin->topo('financeiro', 'totais');
+		$this->system->view->display('administrador/totais_receber.tpl');
+		$this->system->admin->rodape();
+	}
+	// ===============================================================
+	protected function doTotaisPagas(){
+		$palavra = $this->system->input['palavra_chave'];
+		$faturasPagas 	= $this->system->financeiro->getFaturasPainel("PAGAS",$palavra);
+		
+		$this->system->view->assign('faturasPagas', $faturasPagas);		
+		$this->system->admin->topo('financeiro', 'totais');
+		$this->system->view->display('administrador/totais_pagas.tpl');
+		$this->system->admin->rodape();
+	}
+	
 }
 // ===================================================================

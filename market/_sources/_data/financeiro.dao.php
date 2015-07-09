@@ -158,5 +158,48 @@ class FinanceiroDAO {
         $soma_valor = end($this->system->sql->fetchrowset($query));
         return $soma_valor['soma_valor'];
     }
+    // ===============================================================
+    public function getInstituicoesTrias() {
+        $query = $this->system->sql->select("*", "instituicoes_pagamentos", "excluido = '0' and  status ='5  ' ");
+        $registro = $this->system->sql->fetchrowset($query);
+        return $registro;
+    }
+    // ===============================================================
+    public function getInstituicoesNormais() {
+        $query = $this->system->sql->select("*", "instituicoes_pagamentos", "excluido = '0'");
+        $registro = $this->system->sql->fetchrowset($query);
+        return $registro;
+    }
+    // ===============================================================
+    public function getFaturasPainel($tipo, $palavra = '') {
+
+        if($tipo == "PAGAS"){
+            $sqlExtra = "and i.status = '1'";
+        }elseif($tipo == "RECEBER"){
+            $sqlExtra = "and i.status  IN (0,2,3,4)";
+        }
+        if($palavra != '') $sqlExtra .= " and s.nome like '%".$palavra."%'";
+        $query = $this->system->sql->select("i.id, s.nome, i.data_pagamento, i.status", "instituicoes_pagamentos i INNER JOIN sistemas s ON (i.sistema_id = s.id)",
+         "i.excluido = '0' and i.status != 5 ".$sqlExtra);
+        $faturas = $this->system->sql->fetchrowset($query);
+        return $faturas;
+    }
+    // ===============================================================
+    public function cadastraNovaFatura($sistema_id,$data_pagamento,$status,$excluido) {    
+        $this->system->sql->insert('instituicoes_pagamentos', array(
+            'sistema_id'        => $sistema_id,
+            'data_pagamento'    => $data_pagamento,
+            'status'            => $status,
+            'excluido'          => $excluido
+        ));
+
+        $query = $this->system->sql->select("*", "instituicoes_pagamentos", "excluido = '0' and  status ='5  ' ");
+        $registro = $this->system->sql->fetchrowset($query);
+        return $registro;
+    }
+    // ===============================================================
+    public function atualizaFatura($id,$campos) {            
+        $this->system->sql->update('instituicoes_pagamentos', $campos, "id = '" . $id . "'");
+    }
 }
 // ===================================================================

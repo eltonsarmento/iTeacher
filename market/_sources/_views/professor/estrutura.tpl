@@ -106,7 +106,7 @@
                     {else}<li><a href="{$admin_url}/dashboard/mudarAdministrador" class="dashboard-temp"><i class="fa fa-user"></i> Acessar Administrador</a></li>
                     {/if}
                     
-                    <li><a href="#" target="_blank" class="dashboard-temp hidden-xs"><i class="fa fa-home"></i> Visualizar Site</a></li>
+                    <li><a href="{$site}" target="_blank" class="dashboard-temp hidden-xs"><i class="fa fa-home"></i> Visualizar Site</a></li>
                     
                     <li class="dropdown">
                         
@@ -191,7 +191,7 @@
                     </li>
                     
                     {if $visao_adm eq false}
-                        <li><a {if $menu eq 'temas'}class="active"{/if} href="#"><i class="fa fa-laptop"></i> <span>Ger. Temas</span></a></li>
+                        <li><a {if $menu eq 'configuracoestemas'}class="active"{/if} href="{$admin_url}/temas/gerenciar-temas"><i class="fa fa-laptop"></i> <span>Ger. Temas</span></a></li>
                     
                         <li><a {if $menu eq 'paginas'}class="active"{/if} href="{$admin_url}/paginas/listar"><i class="fa fa-file"></i> <span>Ger. Páginas</span></a></li>                    
                     {/if}

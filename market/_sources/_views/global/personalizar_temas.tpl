@@ -1,0 +1,210 @@
+<section id="main-content">
+          
+            <section class="wrapper">
+                
+                <section class="row">
+                    
+                    <section class="col-lg-12">
+                        
+                        <ul class="breadcrumb">
+                            
+                            <li><a href="{$admin_url}/dashboard/home"><i class="fa fa-home"></i> Dashboard</a></li>
+                            <li><a href="{$admin_url}/temas/gerenciar-temas">Gerenciar Temas</a></li>
+                            <li class="active">Personalizar Tema</li>
+                            
+                        </ul>
+                        
+                    </section><!-- /col-lg-12 -->
+                
+                </section><!-- /row -->
+                
+                <section class="row">
+                    
+                    <section class="col-lg-3">
+                        
+                        <section class="panel">
+                         
+                          <header class="panel-heading">Menu</header>
+                          
+                          <section class="list-group">
+                             
+                              <a class="list-group-item active" href="{$admin_url}/temas/personalizar-temas">
+                                 
+                                  <h4 class="list-group-item-heading">Aparência</h4>
+                                  <p class="list-group-item-text"><i>Aqui é possível alterar logo e cores do seu tema.</i></p>
+                                  
+                              </a>
+                              
+                              <a class="list-group-item" href="{$admin_url}/temas/configuracoes-temas">
+                                 
+                                  <h4 class="list-group-item-heading">Configurações Gerais</h4>
+                                  <p class="list-group-item-text">Aqui é possível adicionar os links de suas redes sociais e configurar seu Google Analytics.</p>
+                                  
+                              </a>
+                              
+                          </section><!-- /list-group -->
+                          
+                      </section><!-- /panel -->
+                        
+                    </section><!-- /col-lg-3 -->
+                    
+                    <section class="col-lg-9">
+
+                        <form class="form-horizontal tasi-form" role="form" method="post"  enctype="multipart/form-data">
+                            <input type="hidden" value="0" name="rascunho" id="rascunho" />
+                            <input type="hidden" value="1" name="editar"/>
+                            <input type="hidden" value="{$configuracoestemas.id}" name="id"/>
+
+                            <section class="panel">
+                                
+                                <header class="panel-heading"><strong>Aparência - Tema Light</strong></header>
+                                
+                                <section class="panel-body">
+                                    
+                                        {if $msg_sucesso}
+                                            <div class="alert alert-success">{$msg_sucesso}</div>
+                                        {/if}
+
+                                        <section class="form-group">
+                                            
+                                            <label class="control-label col-lg-2">Logo</label>
+                                            
+                                            <section class="controls col-lg-10">
+                                                
+                                                <section class="fileupload fileupload-new" data-provides="fileupload">
+                                                    
+                                                    <span class="btn btn-white btn-file">
+                                                        
+                                                        <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Selecione a imagem</span>
+                                                        <span class="fileupload-exists"><i class="fa fa-undo"></i> Alterar</span>
+                                                        <input type="file" name="logo_tema" class="default" />
+                                                        
+                                                    </span>
+                                                    
+                                                    <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                                    
+                                                    <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                                    
+                                                    - <a data-toggle="modal" href="#visualizarLogo">Visualizar Logo</a>
+                                                    
+                                                </section><!-- /fileupload -->
+                                                
+                                            </section><!-- /controls -->
+                                            
+                                        </section><!-- /form-group -->
+                                        
+                                        <section class="form-group">
+                                            
+                                            <label class="control-label col-lg-2">Cor Primária</label>
+                                            
+                                            <section class="col-lg-2">
+                                                 
+                                                <section data-color-format="rgb" data-color="rgb(226, 81, 67)" class="input-append colorpicker-default color">
+                                                   
+                                                    <input type="text" readonly="" name="cor_primaria" value="{$configuracoestemas.cor_primaria}" class="form-control">
+                                                    
+                                                    <span class="input-group-btn add-on">
+                                                    
+                                                        <button class="btn btn-white" type="button" style="padding: 8px">
+                                                        <i style="background-color: rgb(226, 81, 67);"></i>
+                                                        </button>
+                                                    
+                                                    </span>
+                                                    
+                                                </section><!-- /input-append -->
+                                                  
+                                            </section><!-- /col-lg-10 --> 
+                                            
+                                        </section><!-- /form-group -->
+                                        
+                                        <section class="form-group">
+                                            
+                                            <label class="control-label col-lg-2">Cor Secundária</label>
+                                            
+                                            <section class="col-lg-2">
+                                                  
+                                                <section data-color-format="rgb" data-color="rgb(0, 0, 0)" class="input-append colorpicker-default color">
+                                                   
+                                                    <input type="text" readonly="" name="cor_secundaria" value="{$configuracoestemas.cor_secundaria}" class="form-control">
+                                                    
+                                                    <span class="input-group-btn add-on">
+                                                    
+                                                        <button class="btn btn-white" type="button" style="padding: 8px">
+                                                        <i style="background-color: rgb(0, 0, 0);"></i>
+                                                        </button>
+                                                    
+                                                    </span>
+                                                    
+                                                </section><!-- /input-append -->
+                                                  
+                                            </section><!-- /col-lg-10 --> 
+                                            
+                                        </section><!-- /form-group -->
+                                        
+                                    
+                                    
+                                </section><!-- /panel-body -->
+                                
+                            </section><!-- /panel -->
+                        
+                           <button class="btn btn-success" type="submit"><i class="fa fa-check-circle"></i> Salvar </button>
+                            <button class="btn btn-default" onclick="$('#rascunho').val(1)" type="submit"><i class="fa fa-plus-circle"></i> Salvar como rascunho</button>
+                        
+                        </form>
+                    </section><!-- /col-lg-9 -->
+
+
+                
+                </section><!-- /row -->
+
+            </section><!-- /wrapper -->
+
+            <br><br><br>
+            
+            <!-- Modal Visualizar Instituição -->
+        
+            <section class="modal fade modal-primary" id="visualizarLogo" tabindex="-1" role="dialog" aria-labelledby="visualizarLogo" aria-hidden="true">
+                
+                <section class="modal-dialog">
+                    
+                    <section class="modal-content">
+                        
+                        <section class="modal-header">
+                            
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Visualizar Logo</h4>
+                            
+                        </section><!-- /modal-header -->
+                        
+                        <section class="modal-body">
+                            
+                            <section class="row">
+                                
+                                <section class="col-lg-12">
+                                    
+                                    <figure class="text-center"><img src="/market/uploads/logos_temas/{$configuracoestemas.logo}" class="img-resposive" height="67"></figure>
+                                
+                                </section><!-- /row -->
+
+                            </section><!-- /row -->
+                        
+                    </section><!-- /modal-content -->
+                    
+                </section><!-- /modal-dialog -->
+                
+            </section><!-- /modal -->
+
+            <!-- FIM Modal Visualizar Instituição -->
+
+            
+        </section><!-- /main-content -->
+
+
+        
+
+
+<link rel="stylesheet" type="text/css" href="/market/common/market/assets/bootstrap-colorpicker/css/colorpicker.css" />
+<script src="/market/common/market/js/advanced-form-components.js"></script>
+<script type="text/javascript" src="/market/common/market/assets/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="/market/common/market/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+<script type="text/javascript" src="/market/common/market/assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
