@@ -76,6 +76,9 @@ class Portal {
 		$instituicao = $this->system->instituicoes->getInstituicaoBySistemaID($this->sistema_id, true);
 		$config_pagamentos = $this->system->configuracoesgerais->getConfiguracoesPagamentos($this->sistema_id);
 
+		$this->system->load->dao('configuracoesgerais');
+		$configuracoesTema = $this->system->configuracoesgerais->getConfiguracoesTemas();
+
 		$this->system->view->assign(array(
 			'usuario_id'			=> $this->system->session->getItem('session_cod_usuario'),
 			'usuario_nome'			=> $this->system->session->getItem('session_nome'),
@@ -88,6 +91,8 @@ class Portal {
 			'categorias'			=> $areas,
 			'cliente'		    	=> $cliente,
 			'configs_pagamentos'	=> $config_pagamentos,
+			'logo_tema'			    => $configuracoesTema['logo'],
+			'configuracoesTema'		=> $configuracoesTema,
 			'total_carrinho'		=> ($vCursos['total_carrinho'] ? $vCursos['total_carrinho'] : '0'),
 		));
         echo $this->system->view->fetch($this->categoria.'/estrutura.tpl');

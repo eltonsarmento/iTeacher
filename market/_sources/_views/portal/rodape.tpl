@@ -27,17 +27,17 @@
 						<b>Siga-nos!</b> 
 
 						<span class="pull-right">
-							{if $cliente.facebook}
-								<a href="{$cliente.facebook}" target="_blank" class="btn btn-dark tooltips" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a>
+							{if $configuracoesTema.facebook}
+								<a href="{$configuracoesTema.facebook}" target="_blank" class="btn btn-dark tooltips" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a>
 							{/if}	
-							{if $cliente.twitter}	
-								<a href="{$cliente.twitter}" target="_blank" class="btn btn-dark tooltips" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a>
+							{if $configuracoesTema.twitter}	
+								<a href="{$configuracoesTema.twitter}" target="_blank" class="btn btn-dark tooltips" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a>
 							{/if}
-							{if $cliente.instagram}	
-							<a href="{$cliente.instagram}" target="_blank" class="btn btn-dark tooltips" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram"></i></a>							
+							{if $configuracoesTema.instagram}	
+							<a href="{$configuracoesTema.instagram}" target="_blank" class="btn btn-dark tooltips" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram"></i></a>							
 							{/if}
-							{if $cliente.youtube}	
-							<a href="{$cliente.youtube}" target="_blank" class="btn btn-dark tooltips" data-toggle="tooltip" data-placement="top" title="Youtube"><i class="fa fa-youtube-play"></i></a>
+							{if $configuracoesTema.youtube}	
+							<a href="{$configuracoesTema.youtube}" target="_blank" class="btn btn-dark tooltips" data-toggle="tooltip" data-placement="top" title="Youtube"><i class="fa fa-youtube-play"></i></a>
 							{/if}
 
 						</span>

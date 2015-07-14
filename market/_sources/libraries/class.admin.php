@@ -102,6 +102,11 @@ class Admin {
 		$this->system->load->dao('sistemas');
 		$sistema = $this->system->sistemas->getSistema($this->sistema_id);
 
+		$this->system->load->dao('configuracoesgerais');
+		$configuracoesTema = $this->system->configuracoesgerais->getConfiguracoesTemas();
+
+		
+
 		$this->system->view->assign(array(
 			'menu'   				=> $menu,
 			'submenu'  				=> $submenu,
@@ -117,6 +122,7 @@ class Admin {
 			'notificacoes_topo'		=> $notificacoes,
 			'duvidas_topo'			=> $duvidas_topo,
 			'solicitacoes_saque'    => $saquesSolicitados,
+			'logo_tema'			    => $configuracoesTema['logo'],
 			'site'    				=> $this->system->getUrlSite().$sistema['dominio']
 		));
 		switch($this->system->session->getItem('estrutura'))  {

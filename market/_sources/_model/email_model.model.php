@@ -708,7 +708,8 @@ class Email_modelMODEL {
 			$this->setarValor('email_usuario', $email);
 			$this->setarValor('senha_usuario', $this->system->func->descriptografar($usuario['senha']));	
 
-			$conteudo = str_replace(array_keys($this->shortcode), array_values($this->shortcode), $conteudo);			
+			$conteudo = str_replace(array_keys($this->shortcode), array_values($this->shortcode), $conteudo);		
+			$remetenteID = $this->system->session->getItem('session_cod_usuario');	
 			$this->system->notificacoes->notificacaoEmail($usuario['id'], utf8_decode($titulo), utf8_decode($conteudo), $remetenteID);
 		}
 	}

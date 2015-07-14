@@ -59,8 +59,17 @@ class SistemasDAO {
 	            'status'            => 5,
 	            'excluido'          => 0
         	));
-		}
 
+			$sistemaAdmin = $this->getSistemaAdmin();
+			$this->system->sql->insert('planos_instituicoes', array(
+	            'sistema_id'        	=> $sistemaAdmin['id'],
+	            'sistema_instituicao'   => $sistemaID,
+	            'data_cadastro'         => date('Y-m-d'),
+	            'plano_id' 	            => $input['plano'],
+	            'excluido'          	=> 0
+        	));
+
+		}
 		return $sistemaID;
 	}
 	// ===============================================================

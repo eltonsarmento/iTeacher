@@ -22,7 +22,7 @@ class Instituicao {
 	}
 	// ===============================================================
 	protected function doCatalogoDePlanos() {		
-		$planos = $this->system->planos->getPlanos($palavra, $this->limit, '', 2);
+		$planos = $this->system->planos->getPlanos($palavra, $this->limit, '');
 
 		$this->system->view->assign('planos', $planos);
 		$this->system->site->topo(4);
@@ -53,7 +53,8 @@ class Instituicao {
 				$this->system->view->assign('email', $this->system->input['email']);
 				$this->system->view->assign('senha', $this->system->input['senha']);
 				$this->system->view->assign('termo', $this->system->input['termo']);
-			}else {						
+			}else {					
+					
 				$id = $this->system->instituicoes->cadastrarBySite($this->system->input);
 				$this->system->email_model->cadastroBySite('Instituição',$this->system->input['email'], $this->system->input['nome']);
 				$this->system->view->assign('msg_sucesso', 'Cadastrado com sucesso!');								

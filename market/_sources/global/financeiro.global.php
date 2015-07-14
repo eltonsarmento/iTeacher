@@ -14,7 +14,7 @@ class FinanceiroGlobal extends AdminModules {
 	public function autoRun() {
 		switch($this->system->input['do']) {
 			case 'gerenciar': 				$this->doGerenciar(); break;
-			case 'detalhes':				$this->doDetalhes(); break;
+			case 'detalhes':				$this->doDetalhes(); break;			
 			case 'pagamentos':				$this->doPagamentosProfessorInstituicao(); break;			
 			default: 						$this->pagina404(); break;
 		}

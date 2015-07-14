@@ -116,6 +116,47 @@ class Saldo_modelMODEL {
 			}	
 		}
 	}
-	
+	// ===================================================================
+	public function verificaAlunoPorPlano($sistema_instituicao, $cursos) {		
+		$this->system->load->dao('planos');
+		$this->system->load->dao('cursos');		
+		
+
+		/* Busca o dados de plano_instituicao */
+		$plano_instituicao 	= $this->system->planos->getPlanoInstituicao($sistema_instituicao);
+		
+		$plano_id 	= $plano_instituicao['plano_id'];		
+
+
+		/* Busca o configuração do plano atual da instituição para saber qual o limite de alunos do plano*/
+		$plano 		    = $this->system->planos->getPlano($plano_id);
+		$qtd_max_plano  = $plano['qtd_alunos'];
+		$sistema_admin  = $plano_instituicao['sistema_id'];
+
+		/* Busca a quantidade de alunos cadastrados no curso escolhido*/
+		foreach ($cursos as $key => $curso) {
+
+			 $quantidade = $this->system->cursos->getQuantidadeAlunosByCurso($curso['id']);
+			 echo "Curso ID :".$curso['id'] . "<br>";
+			 echo "Quantidade de alunos matriculados = ".$quantidade . " no curso acima<br>";
+			 echo "limite do seu plano = ".$qtd_max_plano . " alunos por curso<br> ";
+			 if($quantidade == $qtd_max_plano){ // se a quantidade for igual a do limite do plano, buscar  proximo e atualizar na fatura da instituição			 	
+			 	$proximo_plano = $this->system->planos->getProximoPlanoByQuantidade($sistema_admin,$qtd_max_plano);
+			 	echo "sera automaticamente atualizado para o proximo plano. <br> Detalhes : <br> Nome: ".$proximo_plano['plano'] . " <br> Limite 	: ".$proximo_plano['qtd_alunos'] ." alunos por curso";
+			 	
+			 	/* cancela plano anterior da instituição*/
+			 	$this->system->planos->trancaPlanoInstituicao($plano_instituicao['id']);
+			 	/* cria um novo plano para a instituição com um plano maio de capacidade de aluno*/
+			 	$this->system->planos->cadastrarNovoPlanoInstituicao($plano_instituicao['sistema_id'], $plano_instituicao['sistema_instituicao'], $proximo_plano['id']);			 
+			 	break;
+			 }elseif($quantidade > $qtd_max_plano){ // se a quantidade for maio a do limite do maior plano, entao acrescenta mais 1 no campo aluno_excente
+			 	$qtd_alunos_exedentes = $plano_instituicao['alunos_excedentes'] + 1;
+			 	$this->system->planos->adicionaAlunoExedente($qtd_alunos_exedentes,$plano_instituicao['id']);
+			 	echo "Aluno Exede a quantidade de alunos por curso do plano! Incrementado mais 1.";
+			 	break;
+			 }
+		}
+
+	}
 }
 // ===================================================================

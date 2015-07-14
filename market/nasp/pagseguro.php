@@ -89,6 +89,17 @@ if ($_POST['notificationCode'] && $_POST['notificationType'] == 'transaction' &&
 				$system->email_model->vendaAprovadaAluno($venda['aluno_id'], $venda['numero'], date('d/m/Y', strtotime($dataExpiracao)));
 				$system->email_model->assinaturaContratadaAluno($venda['aluno_id'], $plano['plano']);
 
+				
+				/*===========================================================================================*/
+				/* avaliar em cada curso se o limite de alunos por curso altrapassará do plano da instituição*/
+				/*===========================================================================================*/
+				$cursos = $system->vendas->getCursosVenda($venda['id']);
+				$this->system->load->model("saldo_model");				
+				$this->system->saldo_model->verificaAlunoPorPlano($this->system->getSistemaID(),$cursos);
+				/*===========================================================================================*/
+				/* FIM */
+				/*===========================================================================================*/
+
 			}
 			//Renova
 			elseif ($transacao['ultima_atualizacao'] != $fields['ultima_atualizacao']) {
@@ -131,6 +142,16 @@ if ($_POST['notificationCode'] && $_POST['notificationType'] == 'transaction' &&
 			//Adicionar curso
 			$cursos = $system->vendas->getCursosVenda($venda['id']);
 			$dataExpiracao = date('Y-m-d H:i:s', mktime(23, 59, 59, (date('m') + $system->configuracoesgerais->getPeriodoAcesso()), date('d'), (date('Y'))));
+
+
+			/*===========================================================================================*/
+			/* avaliar em cada curso se o limite de alunos por curso altrapassará do plano da instituição*/
+			/*===========================================================================================*/
+			$this->system->load->model("saldo_model");				
+			$this->system->saldo_model->verificaAlunoPorPlano($this->system->getSistemaID(),$cursos);
+			/*===========================================================================================*/
+			/* FIM */
+			/*===========================================================================================*/
 
 			$system->cursos->cadastrarCursosAluno($cursos, $sistema_id, $venda['aluno_id'], $dataExpiracao);
 			$system->vendas->atualizar($venda['id'], array('data_expiracao' => $dataExpiracao));

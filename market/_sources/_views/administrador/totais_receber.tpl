@@ -28,13 +28,15 @@
                     
                     <section class="col-lg-4">
                         
-                        <section class="input-group m-bot15">
-                                
-                            <input type="text" class="form-control">
-                                
-                            <span class="input-group-btn"><button type="submit" class="btn btn-white"><i class="fa fa-search"></i></button></span>
-                                
-                        </section><!-- /input-group -->
+                        <form method="post">
+                            <section class="input-group m-bot15">
+                                    
+                                <input type="text" name="palavra_chave"class="form-control">
+                                    
+                                <span class="input-group-btn"><button type="submit" class="btn btn-white"><i class="fa fa-search"></i></button></span>
+                                    
+                            </section><!-- /input-group -->
+                        </form>
                         
                     </section><!-- /col-lg-4 -->
                     
@@ -85,7 +87,7 @@
 
                                                 <td>
                                                 
-                                                    <a data-toggle="modal" href="#alterarStatus" class="btn btn-success btn-xs tooltips" data-original-title="Status" data-placement="bottom"><i class="fa fa-refresh"></i></a>
+                                                    <a data-toggle="modal" href="#alterarStatus" onclick='$("#fatura_id").val({$fatura.id});' class="btn btn-success btn-xs tooltips" data-original-title="Status" data-placement="bottom"><i class="fa fa-refresh"></i></a>
                                                     <a href="#" class="btn btn-warning btn-xs tooltips" data-original-title="Comprovante" data-placement="bottom"><i class="fa fa-download"></i></a>
                                                     
                                                 </td>
@@ -130,22 +132,24 @@
                     
                     <section class="modal-body">
                     
-                        <form class="form-horizontal tasi-form">
-                            
-                            <section class="form-group">
+                        <form class="form-horizontal tasi-form" id="formStatus" >
+
+                            <input type="hidden" id="fatura_id" name="fatura_id" value="">
+                            <div id="msg_retorno">
                                 
+                            </div>
+                            <section class="form-group">
+                                    
                                 <label class="control-label col-lg-2">Status</label>
                                 
                                 <section class="col-lg-10">
                                 
-                                    <select class="form-control">
+                                    <select class="form-control" id="comboStatus" name="comboStatus">
                                         
                                         <option value="" selected>Selecione</option>
-                                        <option value="">Ativa</option>
-                                        <option value="">Em Atraso</option>
-                                        <option value="">Cancelada</option>
-                                        <option value="">Congelada por falta de pagamento</option>
-                                        <option value="">Boleto emitido, aguardando pagamento</option>
+                                        <option value="1">Paga</option>                                        
+                                        <option value="0">Cancelar</option>
+                                        <option value="4">Bloquear por falta de pagamento</option>                                        
                                     
                                     </select>                            
                                 
@@ -157,7 +161,7 @@
                                 
                                 <section class="col-lg-offset-2 col-lg-10">
                                 
-                                    <button class="btn btn-success"><i class="fa fa-check-circle"></i> Salvar</button>                       
+                                    <button class="btn btn-success" ><i class="fa fa-check-circle"></i> Salvar</button>                       
                                 
                                 </section><!-- input-group -->
                             
@@ -196,8 +200,8 @@
                     
                     <section class="modal-body">
                         
-                        <form action="#" class="form-horizontal tasi-form">
-                           
+                        <form action="{$admin_url}/financeiro/totais-receber" class="form-horizontal tasi-form" method="post">
+                            <input name="filtro" value="1" type="hidden">
                             <section class="form-group">
                                 
                                 <label class="control-label col-lg-2">Vencimento</label>
@@ -206,7 +210,7 @@
         
                                     <section data-date-format="dd/mm/yyyy" data-date="{$dataAtual}" class="input-append date dpYears">
                                     
-                                        <input type="text" readonly="" value="{$dataAtual}" size="16" class="form-control">
+                                        <input type="text" readonly="" name="dataFiltro" value="" size="16" class="form-control">
                                         
                                         <span class="input-group-btn add-on">
                                             
@@ -226,11 +230,11 @@
                                                         
                                 <section class="col-lg-10">
 
-                                    <select class="selectize" placeholder="Selecione o Curso">
+                                    <select class="selectize" placeholder="Selecione o Curso" name="instituicaoFiltro">
 
                                         <option value="">Instituição</option>
                                         {foreach from=$instituicoes item=instituicao}
-                                            <option value="{$instituicao.id}">{$instituicao.nome}</option>
+                                            <option value="{$instituicao.sistema_id}">{$instituicao.nome}</option>
                                         {/foreach}
                                         <!-- <option value="Cursos IAG - Formação a distância">Cursos IAG - Formação a distância</option>
                                         <option value="Google EAD">Google EAD</option>
@@ -248,12 +252,13 @@
                                 
                                 <section class="col-lg-10">
         
-                                    <select class="form-control">
+                                    <select class="form-control" name="planoFiltro">
                                         
                                         <option value="" selected>Plano</option>
-                                        <option value="">Plano 1</option>
-                                        <option value="">Plano 2</option>
-                                        <option value="">Plano 3</option>
+
+                                        {foreach from=$planos item=plano}
+                                            <option value="{$plano.id}">{$plano.plano}</option>
+                                        {/foreach}
                                     
                                     </select>
                                         
@@ -261,7 +266,7 @@
                                 
                             </section><!-- /form-group -->
                             
-                            <section class="form-group">
+                            <!-- <section class="form-group">
                                 
                                 <label class="control-label col-lg-2">Forma de Pagamento</label>
                                 
@@ -275,10 +280,9 @@
                                     
                                     </select>
                                         
-                                </section><!-- /col-lg-9 -->
+                                </section
                                 
-                            </section><!-- /form-group -->
-                            
+                            </section>-->                            
                             <section class="form-group">
                                 
                                 <section class="col-lg-offset-2 col-lg-10">
@@ -312,5 +316,38 @@
 {literal}
 <script>
     $('.selectize').selectize();
+   
+/*function alteraStatus(){
+      $('#formStatus').
+      var id     = $('#fatura_id').val();
+      var status = $('#comboStatus').val();
+      alert('id = '+id + " status = "+status);
+      /*$.post("{/literal}{$admin_url}{literal}/financeiro/alterar-status-fatura", {suggest: txt}, function(result){
+        $("span").html(result);
+    });
+
+}*/
+$('#formStatus').submit(function (e) {
+      e.preventDefault();
+      var id     = $('#fatura_id').val();
+      var status = $('#comboStatus').val();
+    $.ajax({
+           type: "POST",
+           url: "{/literal}{$admin_url}{literal}/financeiro/alterar-status-fatura",
+           data: {id:id,status:status}, // serializes the form's elements.
+           success: function(data)
+           {               
+                $('#msg_retorno').html(data);
+           }
+         });
+
+    return false; // avoid to execute the actual submit of the form.
+});
+ 
+
+ $('#alterarStatus').on('hide.bs.modal', function () {
+    // faça algo
+    location.reload();
+});
 </script>
 {/literal}

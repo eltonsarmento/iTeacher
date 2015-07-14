@@ -168,7 +168,7 @@ class PlanosGlobal extends AdminModules{
 	// ===============================================================
 	private function listagem() {
 		$palavra = $this->system->input['palavra_busca'];
-		$planos = $this->system->planos->getPlanos($palavra, $this->limit, '', 1);
+		$planos = $this->system->planos->getPlanos($palavra, $this->limit, '');
 		$this->system->view->assign('planos', $planos);
 		$this->system->view->assign('url_site', $this->system->getUrlSite());
 	}
@@ -182,7 +182,8 @@ class PlanosGlobal extends AdminModules{
 	// ===============================================================
 	private function listagemPlanosInstituicoes() {
 		$palavra = $this->system->input['palavra_busca'];
-		$planos = $this->system->planos->getPlanos($palavra, $this->limit, '', 2);
+		$planos = $this->system->planos->getPlanos($palavra, $this->limit, '');
+
 		$this->system->view->assign('planos', $planos);
 		$this->system->view->assign('url_site', $this->system->getUrlSite());
 	}

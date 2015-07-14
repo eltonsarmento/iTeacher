@@ -3,22 +3,24 @@ require(dirname(__FILE__).'/../global/financeiro.global.php');
 // ===================================================================
 class Financeiro extends FinanceiroGlobal {
 
-	public function __construct() {
+	public function __construct() {		
 		parent::__construct();
+		$this->system->load->dao('planos');
+		$this->system->load->dao('instituicoes');
 	}
 	// ===============================================================
 	public function autoRun() {
 		switch($this->system->input['do']) {
-			case 'totais': 				$this->doTotais(); break;
-			case 'totais-receber': 		$this->doTotaisReceber(); break;
-			case 'totais-pagas': 		$this->doTotaisPagas(); break;
-			case 'saques':				$this->doSaques(); break;
-			case 'get-dados':			$this->doDetalhesSaque(); break;
-			case 'get-dados-nf':		$this->doDetalhesNF(); break;
-			case 'alterar-status':		$this->doMudarStatus(); break;
-			case 'atualiza-comprovante':$this->doAtualizaComprovante(); break;			
-			case 'detalhes':			$this->doDetalhes(); break;
-			default: 					$this->pagina404(); break;
+			case 'totais': 					$this->doTotais(); break;
+			case 'totais-receber': 			$this->doTotaisReceber(); break;
+			case 'totais-pagas': 			$this->doTotaisPagas(); break;
+			case 'saques':					$this->doSaques(); break;
+			case 'get-dados':				$this->doDetalhesSaque(); break;
+			case 'get-dados-nf':		  	$this->doDetalhesNF(); break;
+			case 'alterar-status-fatura':	$this->doAlteraStatusFatura(); break;
+			case 'atualiza-comprovante':	$this->doAtualizaComprovante(); break;			
+			case 'detalhes':				$this->doDetalhes(); break;
+			default: 						$this->pagina404(); break;
 		}
 	}
 	// ===============================================================
@@ -134,12 +136,25 @@ class Financeiro extends FinanceiroGlobal {
 	}
 	// ===============================================================
 	protected function doTotaisReceber(){
-		$this->system->load->dao('instituicoes');
-		$instituicoes 	= $this->system->instituicoes->getInstituicoes($palavra, $metodo_busca, $limit,'nome',false);
-		$faturasReceber = $this->system->financeiro->getFaturasPainel("RECEBER");
+		$palavra = $this->system->input['palavra_chave'];
 		
+		if($this->system->input['filtro']){
+
+			$dataFiltro		   	= date("Y-d-m", strtotime($this->system->input['dataFiltro']));
+			$sistema_intituicao = $this->system->input['instituicaoFiltro'];
+			$planoFiltro 	    = $this->system->input['planoFiltro'];	
+			$faturasReceber 	= $this->system->financeiro->getFaturasPainel("RECEBER", $palavra,$dataFiltro, $sistema_intituicao);
+
+		}else{			
+			$faturasReceber = $this->system->financeiro->getFaturasPainel("RECEBER",$palavra);	
+		}
+		
+		
+		$instituicoes 	= $this->system->instituicoes->getInstituicoes($palavra, $metodo_busca, $limit,'nome',false);
+		$planos =  $this->system->planos->getPlanos();
 		$this->system->view->assign('faturasReceber', $faturasReceber);
 		$this->system->view->assign('instituicoes', $instituicoes);
+		$this->system->view->assign('planos', $planos);
 		$this->system->view->assign('dataAtual', date('d/m/Y'));
 		$this->system->admin->topo('financeiro', 'totais');
 		$this->system->view->display('administrador/totais_receber.tpl');
@@ -155,6 +170,23 @@ class Financeiro extends FinanceiroGlobal {
 		$this->system->view->display('administrador/totais_pagas.tpl');
 		$this->system->admin->rodape();
 	}
+	// ===============================================================
+	protected function doAlteraStatusFatura(){
+		$id 	= $this->system->input['id'];
+		$status = $this->system->input['status'];
+		$campos =  array('status' => $status);
+		$this->system->financeiro->atualizaFatura($id,$campos);
+
+
+		$faturaAlterada = $this->system->financeiro->getFaturaInstituicao($id);
+		if($faturaAlterada['status'] == $status){
+			echo '<p class="alert alert-success" style="text-align: center;">Fatura alterada com sucesso!</p>.';
+		}else{
+			echo '<p class="alert alert-danger" style="text-align: center;">Não foi possível alterar o status!</p>.';
+		}
+		die();
+	}
+	
 	
 }
 // ===================================================================

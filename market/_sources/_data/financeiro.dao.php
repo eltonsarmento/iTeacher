@@ -159,6 +159,8 @@ class FinanceiroDAO {
         return $soma_valor['soma_valor'];
     }
     // ===============================================================
+    // FATURAS INSTITUIÇÕES
+    // ===============================================================
     public function getInstituicoesTrias() {
         $query = $this->system->sql->select("*", "instituicoes_pagamentos", "excluido = '0' and  status ='5  ' ");
         $registro = $this->system->sql->fetchrowset($query);
@@ -171,13 +173,38 @@ class FinanceiroDAO {
         return $registro;
     }
     // ===============================================================
-    public function getFaturasPainel($tipo, $palavra = '') {
+    public function getFaturasInstituicao($sistema_id) {
 
-        if($tipo == "PAGAS"){
-            $sqlExtra = "and i.status = '1'";
-        }elseif($tipo == "RECEBER"){
-            $sqlExtra = "and i.status  IN (0,2,3,4)";
+        if(empty($sistema_id)){
+            $sistema_id  = $this->system->getSistemaID();
         }
+        $query = $this->system->sql->select("i.id, s.nome, i.data_pagamento,i.status", 
+            "instituicoes_pagamentos i INNER JOIN sistemas s ON (i.sistema_id = s.id)",
+            "i.sistema_id = '".$sistema_id."'",0,"i.data_pagamento desc");
+        $faturas = $this->system->sql->fetchrowset($query);
+        return $faturas;
+    }
+    // ===============================================================
+    public function getFaturaInstituicao($id) {
+
+        $query = $this->system->sql->select("i.id, s.nome, i.data_pagamento, i.status", 
+            "instituicoes_pagamentos i INNER JOIN sistemas s ON (i.sistema_id = s.id)",
+            "i.id = ".$id);
+        $fatura = end($this->system->sql->fetchrowset($query));
+        return $fatura;
+    }
+    // ===============================================================
+    public function getFaturasPainel($tipo, $palavra = '',$data = '', $sistema_id = '') {
+        $sqlExtra = "";
+        if($tipo == "PAGAS"){
+            $sqlExtra .= "and i.status = '1'";
+        }elseif($tipo == "RECEBER"){
+            $sqlExtra .= "and i.status  IN (0,2,3,4)";
+        }
+
+        if($data != "") $sqlExtra .= " and data_pagamento = '".$data."'";
+        if($sistema_id != "") $sqlExtra .= " aand sistema_id = '".$sistema_id."'";
+
         if($palavra != '') $sqlExtra .= " and s.nome like '%".$palavra."%'";
         $query = $this->system->sql->select("i.id, s.nome, i.data_pagamento, i.status", "instituicoes_pagamentos i INNER JOIN sistemas s ON (i.sistema_id = s.id)",
          "i.excluido = '0' and i.status != 5 ".$sqlExtra);

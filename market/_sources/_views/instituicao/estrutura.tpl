@@ -50,7 +50,11 @@
           
             <section class="sidebar-toggle-box"><section data-original-title="Menu" data-placement="right" class="fa fa-bars tooltips"></section></section>
 
-            <a href="{$admin_url}/dashboard/home" class="logo"><img src="{$url_site}{$admin_dir}common/market/img/logo-iteacher.png" style="width: 100px;"></a>
+            {if $logo_tema}
+                <a href="{$admin_url}/dashboard/home" class="logo"><img src="{$url_site}{$admin_dir}uploads/logos_temas/{$logo_tema}" style="width: 100px;"></a>
+            {else}
+                <a href="{$admin_url}/dashboard/home" class="logo"><img src="{$url_site}{$admin_dir}common/market/img/logo-iteacher.png" style="width: 100px;"></a>
+            {/if}
             
             <section class="nav notify-row" id="top_menu">
                 
@@ -229,6 +233,9 @@
                         </ul>
                         
                     </li>
+
+                    <li><a {if $menu eq 'financeiro'}class="active"{/if}  href="{$admin_url}/financeiro/gerenciar-financeiro"><i class="fa fa-money"></i> <span>Ger. Financeiro</span></a></li>
+                    
                     {if $visao_adm eq false}
                         <li><a {if $menu eq 'configuracoestemas'}class="active"{/if}  href="{$admin_url}/temas/gerenciar-temas"><i class="fa fa-laptop"></i> <span>Ger. Temas</span></a></li>
                     

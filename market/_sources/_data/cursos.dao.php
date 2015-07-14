@@ -480,6 +480,12 @@ class CursosDAO {
 		$categoriaCarreira =  end($this->system->sql->fetchrowset($query));
 		return $categoriaCarreira;
 	}
-
+	// ===============================================================
+	public function getQuantidadeAlunosByCurso($id) {
+		$query = $this->system->sql->select('count(1) quantidade', 'cursos_alunos ca INNER JOIN usuarios u ON (ca.usuario_id = u.id)',
+		 "ca.curso_id='" . $id . "' and ca.excluido = 0");
+		$quantidade =  end($this->system->sql->fetchrowset($query));
+		return $quantidade[0];
+	}
 }
 // ===================================================================

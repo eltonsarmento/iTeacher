@@ -73,7 +73,7 @@ class VendasGlobal extends AdminModules {
 				foreach($this->system->input['cursos'] as $curso_id) {
 					$curso = array();
 					$curso['id'] = $curso_id;
-					$dadosCurso = $this->system->cursos->getCurso($curso_id);
+					$dadosCurso = $this->system->cursos->getCurso($curso_id);					
 					$curso['preco_total'] = 0;
 					//Preco do curso puro
 					if (!$dadosCurso['gratuito'] && $dadosCurso['valor'] != '0.00') 
@@ -90,7 +90,19 @@ class VendasGlobal extends AdminModules {
 
 					$cursos[] = $curso;
 				}
-				$this->system->input['cursos'] = $cursos;
+				$this->system->input['cursos'] = $cursos;	
+
+
+				/*===========================================================================================*/
+				/* avaliar em cada curso se o limite de alunos por curso ultrapassou do  plano da instituição*/
+				/*===========================================================================================*/
+				$this->system->load->model("saldo_model");				
+				$this->system->saldo_model->verificaAlunoPorPlano($this->system->getSistemaID(),$cursos);
+				/*===========================================================================================*/
+				/* FIM */
+				/*===========================================================================================*/
+							
+
 				$vendaID = $this->system->vendas->cadastrar($this->system->input);
 				$this->system->cursos->cadastrarCursosAluno($cursos, $this->system->admin->getSistemaID(), $this->system->input['aluno_id'], $this->system->input['data_expiracao'] . ' 23:59:59');
 				$this->system->view->assign('msg_suc', 'Ação realizada com sucesso!');
@@ -99,6 +111,9 @@ class VendasGlobal extends AdminModules {
 				//Email Venda 
 				$venda = $this->system->vendas->getVenda($vendaID);
 				$numero = $venda['numero'];
+
+
+
 				// foreach ($this->system->input['cursos'] as $curso)
 				// 	$this->system->email_model->vendaCursoProfessor($curso['id'], $numero);
 				// //

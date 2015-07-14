@@ -92,8 +92,12 @@
 					<section >
 
 						<a href="{$url_portal}" title="{$nomeInstituicao}">
-						
-							<figure><img src="{$url_site}market/common/portal/assets/img/logo-default.png" class="img-responsive" alt="{$nomeInstituicao}" title="{$nomeInstituicao}"></figure>
+							{if $logo_tema}
+								<figure><img src="{$url_site}market/uploads/logos_temas/{$logo_tema}" class="img-responsive" alt="{$nomeInstituicao}" title="{$nomeInstituicao}"></figure>
+							{else}
+								<figure><img src="/market/common/market/img/logo-iteacher.png" class="img-responsive" alt="{$nomeInstituicao}" title="{$nomeInstituicao}"></figure>
+							{/if}
+
 						
 						</a>
 

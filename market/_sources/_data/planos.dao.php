@@ -41,6 +41,7 @@ class PlanosDAO {
 	}
 	// ===============================================================
 	public function getPlanos($palavra = '', $limit = '', $order = 'plano') {
+
 		$query = $this->system->sql->select('*', 'planos', "excluido='0' and sistema_id = '".$this->system->getSistemaID()."' " . ($palavra ? " and plano like '%" . $palavra . "%'" : ''), $limit, $order);
 		$planos =  $this->system->sql->fetchrowset($query);
 		return $planos;
@@ -175,6 +176,39 @@ class PlanosDAO {
 	public function getCodePagarme($assinaturaID) {
 		$venda = end($this->system->sql->fetchrowset($this->system->sql->select('codePagarme', 'vendas', "id IN (SELECT assinatura_id FROM planos_alunos WHERE id = '" . $assinaturaID . "')")));	
 		return ($venda['codePagarme'] ? $venda['codePagarme'] : null);
+	}
+	// ===============================================================
+	public function getProximoPlanoByQuantidade($sistema_id,$quantidade) {
+		$planos = $this->system->sql->fetchrowset($this->system->sql->select('*', 'planos', "sistema_id = '".$sistema_id."'  AND qtd_alunos > '".$quantidade."'",0," qtd_alunos"));	
+		return $planos[0];
+	}
+	// ===============================================================
+	public function getPlanoInstituicao($sistema_id) {
+		$plano = end($this->system->sql->fetchrowset($this->system->sql->select('*', 'planos_instituicoes', "sistema_instituicao = '".$sistema_id."'")));	
+		return $plano;
+	}
+	// ===============================================================
+	public function cadastrarNovoPlanoInstituicao($sistema_id, $sistema_instituicao, $plano_id) {
+		$this->system->sql->insert('planos_instituicoes', array(
+				'sistema_id' 		  => $sistema_id,
+				'sistema_instituicao' => $sistema_instituicao,
+				'plano_id'		      => $plano_id,				
+				'data_cadastro'	      => date('Y-m-d'),				
+				'excluido' 			  => 0
+		));
+	}
+	// ===============================================================
+	public function trancaPlanoInstituicao($id) {
+		$this->system->sql->update('planos_instituicoes', array(
+				'data_termino'	      => date('Y-m-d'),				
+				'excluido' 			  => 1),
+		"id='" . $id . "'");
+	}
+	// ===============================================================
+	public function adicionaAlunoExedente($quantidade,$id) {
+		$this->system->sql->update('planos_instituicoes', array(
+				'alunos_excedentes'	=> $quantidade),							
+		"id='" . $id . "'");
 	}
 }
 // ===================================================================
