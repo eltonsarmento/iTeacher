@@ -88,7 +88,9 @@
                                                 <td>
                                                 
                                                     <a data-toggle="modal" href="#alterarStatus" onclick='$("#fatura_id").val({$fatura.id});' class="btn btn-success btn-xs tooltips" data-original-title="Status" data-placement="bottom"><i class="fa fa-refresh"></i></a>
-                                                    <a href="#" class="btn btn-warning btn-xs tooltips" data-original-title="Comprovante" data-placement="bottom"><i class="fa fa-download"></i></a>
+                                                     {if $fatura.comprovante}
+                                                        <a href="{$admin_url}/financeiro/baixar-comprovante?id={$fatura.id}" class="btn btn-warning btn-xs tooltips" data-original-title="Comprovante" data-placement="bottom"><i class="fa fa-download"></i></a>
+                                                    {/if}
                                                     
                                                 </td>
                                                 

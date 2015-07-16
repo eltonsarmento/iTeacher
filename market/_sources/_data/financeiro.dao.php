@@ -147,6 +147,12 @@ class FinanceiroDAO {
         return $vendas;
     }
     // ===============================================================
+    public function getTotaisInstituicoes() {
+        $query = $this->system->sql->select('SUM(valor_total) total', "vendas v INNER JOIN sistemas s ON (v.sistema_id = s.id)","s.tipo_sistema = 2 and s.excluido =  0");
+        $vendas = end($this->system->sql->fetchrowset($query));
+        return $vendas;
+    }
+    // ===============================================================
     public function getTotalByProfessor($id, $nivel) {
         $query = $this->system->sql->select('SUM(vc.preco_desconto) total_professor', "vendas_cursos vc, usuarios u", "u.id = vc.professor_id AND u.nivel = ".$nivel." AND vc.professor_id = ".$id."");
         $total_professor = end($this->system->sql->fetchrowset($query));
@@ -187,7 +193,7 @@ class FinanceiroDAO {
     // ===============================================================
     public function getFaturaInstituicao($id) {
 
-        $query = $this->system->sql->select("i.id, s.nome, i.data_pagamento, i.status", 
+        $query = $this->system->sql->select("i.id, s.nome, i.data_pagamento, i.comprovante, i.status", 
             "instituicoes_pagamentos i INNER JOIN sistemas s ON (i.sistema_id = s.id)",
             "i.id = ".$id);
         $fatura = end($this->system->sql->fetchrowset($query));
@@ -206,7 +212,7 @@ class FinanceiroDAO {
         if($sistema_id != "") $sqlExtra .= " aand sistema_id = '".$sistema_id."'";
 
         if($palavra != '') $sqlExtra .= " and s.nome like '%".$palavra."%'";
-        $query = $this->system->sql->select("i.id, s.nome, i.data_pagamento, i.status", "instituicoes_pagamentos i INNER JOIN sistemas s ON (i.sistema_id = s.id)",
+        $query = $this->system->sql->select("i.id, s.nome, i.comprovante, i.data_pagamento, i.status", "instituicoes_pagamentos i INNER JOIN sistemas s ON (i.sistema_id = s.id)",
          "i.excluido = '0' and i.status != 5 ".$sqlExtra);
         $faturas = $this->system->sql->fetchrowset($query);
         return $faturas;

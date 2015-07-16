@@ -163,7 +163,7 @@ class InstituicoesDAO extends UsuariosDAO {
         $this->system->sql->update('sistemas', array('dominio' => trim(str_replace(' ','-',$input['nome']))), "id='" . $usuario['sistema_id'] . "'");
     }
     // ===============================================================
-    public function getInstituicoes($palavra = '', $metodo_busca = '', $limit, $order = 'nome', $apenas_total = false) {
+    public function getInstituicoes($palavra = '', $metodo_busca = '', $limit = '', $order = 'nome', $apenas_total = false) {
         //$sql_extra = ' and sistema_id = ' . $this->system->getSistemaID();
         if ($palavra != '') {
             //email

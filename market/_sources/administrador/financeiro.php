@@ -18,6 +18,7 @@ class Financeiro extends FinanceiroGlobal {
 			case 'get-dados':				$this->doDetalhesSaque(); break;
 			case 'get-dados-nf':		  	$this->doDetalhesNF(); break;
 			case 'alterar-status-fatura':	$this->doAlteraStatusFatura(); break;
+			case 'baixar-comprovante':		$this->doBaixarComprovantte(); break;			
 			case 'atualiza-comprovante':	$this->doAtualizaComprovante(); break;			
 			case 'detalhes':				$this->doDetalhes(); break;
 			default: 						$this->pagina404(); break;
@@ -124,10 +125,12 @@ class Financeiro extends FinanceiroGlobal {
 	// ===============================================================
 	protected function doTotais(){
 		$totais = $this->system->financeiro->getTotais();
+		$totalInstituicoes = $this->system->financeiro->getTotaisInstituicoes();
 		$faturasPagas 	= $this->system->financeiro->getFaturasPainel("PAGAS");
 		$faturasReceber = $this->system->financeiro->getFaturasPainel("RECEBER");
 
 		$this->system->view->assign('totais', $totais);
+		$this->system->view->assign('totalInstituicoes', $totalInstituicoes);
 		$this->system->view->assign('faturasPagas', $faturasPagas);
 		$this->system->view->assign('faturasReceber', $faturasReceber);
 		$this->system->admin->topo('financeiro', 'totais');
@@ -149,9 +152,9 @@ class Financeiro extends FinanceiroGlobal {
 			$faturasReceber = $this->system->financeiro->getFaturasPainel("RECEBER",$palavra);	
 		}
 		
-		
 		$instituicoes 	= $this->system->instituicoes->getInstituicoes($palavra, $metodo_busca, $limit,'nome',false);
 		$planos =  $this->system->planos->getPlanos();
+
 		$this->system->view->assign('faturasReceber', $faturasReceber);
 		$this->system->view->assign('instituicoes', $instituicoes);
 		$this->system->view->assign('planos', $planos);
@@ -185,6 +188,27 @@ class Financeiro extends FinanceiroGlobal {
 			echo '<p class="alert alert-danger" style="text-align: center;">Não foi possível alterar o status!</p>.';
 		}
 		die();
+	}
+	// ===============================================================
+	protected function doBaixarComprovantte(){
+		$id 	= $this->system->input['id'];
+		$fatura = $this->system->financeiro->getFaturaInstituicao($id);		
+		
+
+    	    
+		$arquivo = $this->system->getUploadPath() . "/comprovantes_pagamentos/".$fatura['comprovante'];
+
+		
+	    if (!file_exists($arquivo))
+	        exit('Operação não permitida.');
+	 
+	    
+	 
+	    header('Content-type: octet/stream');
+	    header('Content-disposition: attachment; filename="'.basename($arquivo).'";');
+	    header('Content-Length: '.filesize($arquivo));
+	    readfile($arquivo);
+	    exit;
 	}
 	
 	

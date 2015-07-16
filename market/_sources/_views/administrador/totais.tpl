@@ -28,8 +28,8 @@
                             
                             <section class="value">
                                 
-                                <h1 class="count">R$ 800,00</h1>
-                                <p>Total de Instituições</p>
+                                <h1 class="count">R$ {$totalInstituicoes.total}</h1>
+                                <p>Total de Instituições</p>                                
                                 
                             </section><!-- /value -->
                             
@@ -46,7 +46,7 @@
                             <section class="value">
                                 
                                 <h1 class="count">R$ {$totais.total}</h1>
-                                <p>Vendas</p>
+                                <p>Total professor</p>
                                 
                             </section><!-- /value -->
                             
@@ -63,7 +63,7 @@
                             <section class="value">
                                 
                                 <h1 class="count">R$ {$totais.liquido}</h1>
-                                <p>Líquido</p>
+                                <p>Total professor Líquido</p>
                                 
                             </section><!-- /value -->
                             
