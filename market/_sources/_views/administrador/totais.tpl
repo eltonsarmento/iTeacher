@@ -28,7 +28,7 @@
                             
                             <section class="value">
                                 
-                                <h1 class="count">R$ {$totalInstituicoes.total}</h1>
+                                <h1 class="count">R$ {$valor_instituicoes.total_planos}</h1>
                                 <p>Total de Instituições</p>                                
                                 
                             </section><!-- /value -->
@@ -45,8 +45,8 @@
                             
                             <section class="value">
                                 
-                                <h1 class="count">R$ {$totais.total}</h1>
-                                <p>Total professor</p>
+                                <h1 class="count">R$ {$vendasMesProfessor}</h1>
+                                <p>Vendas professor (Bruto)</p>
                                 
                             </section><!-- /value -->
                             
@@ -62,8 +62,8 @@
                             
                             <section class="value">
                                 
-                                <h1 class="count">R$ {$totais.liquido}</h1>
-                                <p>Total professor Líquido</p>
+                                <h1 class="count">R$ {$liquidoMesProfessor}</h1>
+                                <p>vendas professor (Líquido)s</p>
                                 
                             </section><!-- /value -->
                             

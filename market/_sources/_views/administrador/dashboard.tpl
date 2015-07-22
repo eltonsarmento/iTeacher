@@ -75,7 +75,7 @@
                             
                             <section class="value">
                                 
-                                <h1 class="count">R$ {$valor_instituicoes}</h1>
+                                <h1 class="count">R$ {$valor_instituicoes.total_planos}</h1>
                                 <p>Valores do mês - Instituições</p>
                                 
                             </section><!-- /value -->

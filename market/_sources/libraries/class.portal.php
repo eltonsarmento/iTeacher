@@ -79,6 +79,8 @@ class Portal {
 		$this->system->load->dao('configuracoesgerais');
 		$configuracoesTema = $this->system->configuracoesgerais->getConfiguracoesTemas();
 
+
+
 		$this->system->view->assign(array(
 			'usuario_id'			=> $this->system->session->getItem('session_cod_usuario'),
 			'usuario_nome'			=> $this->system->session->getItem('session_nome'),
@@ -92,6 +94,8 @@ class Portal {
 			'cliente'		    	=> $cliente,
 			'configs_pagamentos'	=> $config_pagamentos,
 			'logo_tema'			    => $configuracoesTema['logo'],
+			'tema_cor_primaria'		=> $configuracoesTema['cor_primaria'],
+			'tema_cor_secundaria'	=> $configuracoesTema['cor_secundaria'],
 			'configuracoesTema'		=> $configuracoesTema,
 			'total_carrinho'		=> ($vCursos['total_carrinho'] ? $vCursos['total_carrinho'] : '0'),
 		));

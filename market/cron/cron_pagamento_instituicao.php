@@ -1,4 +1,6 @@
 <?php
+
+
 /*
 STATUS 
 0 - CANCELADA
@@ -18,17 +20,22 @@ $dataAtual = new DateTime(date("Y-m-d"));
 /*1° FASE (BUSCAR TODAS TRIAL ONDE EXCLUIDO = 0)*/
 /*======================================================================================================================================================================*/
 $registrosTRIAL = $system->financeiro->getInstituicoesTrias();
-if(!empty($$registrosTRIAL)){
-	foreach ($$registrosTRIAL as $key => $itemPagamento) {
+
+if(!empty($registrosTRIAL)){
+	foreach ($registrosTRIAL as $key => $itemPagamento) {
 		$dataPagamento = new DateTime($itemPagamento['data_pagamento']);
 		$intervalo = $dataAtual->diff($dataPagamento);	
 		
+		echo "REGISTRO TRIAL ID: ".$itemPagamento['id'] ."<BR>";
+		echo "INTERVALO  =  ".$intervalo->days ." dias<BR>";
+
 		if($intervalo->days <= 5){ // verifica se faltam 5 dias para lança a fatura  
-			echo "REGISTRO TRIAL ID: ".$itemPagamento['id'] ."\n";
-			echo "cadastraNovaFatura E atualizaFatura anterior \n\n\n";
-			$dataProximoPagamento =  date('Y-m-d', strtotime('+30 days', strtotime($itemPagamento['data_pagamento']))); // soma 1 mês a antiga data de pagamento.
-			$system->financeiro->cadastraNovaFatura($itemPagamento['sistema_id'],$dataProximoPagamento,2,0); // lança novo vencimento com status vencimento próximo
-			$system->financeiro->atualizaFatura($itemPagamento['id'],array('excluido' => 1));
+			//echo "REGISTRO TRIAL ID: ".$itemPagamento['id'] ."<BR>";
+			echo "atualizaFatura trial para vencimento proximo.  <BR><BR><BR>";
+			//echo "cadastraNovaFatura E atualizaFatura anterior <BR><BR><BR>";
+			//$dataProximoPagamento =  date('Y-m-d', strtotime('+30 days', strtotime($itemPagamento['data_pagamento']))); // soma 1 mês a antiga data de pagamento.
+			//$system->financeiro->cadastraNovaFatura($itemPagamento['sistema_id'],$dataProximoPagamento,2,0); // lança novo vencimento com status vencimento próximo
+			$system->financeiro->atualizaFatura($itemPagamento['id'],array('status' => 2));
 		}		
 	}
 }
@@ -49,8 +56,8 @@ if(!empty($registrosNormal)){
 		$intervalo = $dataAtual->diff($dataPagamento);	
 		
 
-		echo "REGISTRO NORMAL ID: ".$itemPagamento['id'] ."\n";
-		echo "INTERVALO  =  ".$intervalo->days ." dias\n";
+		echo "REGISTRO NORMAL ID: ".$itemPagamento['id'] ."<BR>";
+		echo "INTERVALO  =  ".$intervalo->days ." dias<BR>";
 
 		if($itemPagamento['status'] == 2){ // STATUS IGUAL A VENCIMENTO PROXIMO
 			if(date("Y-m-d") >  date($itemPagamento['data_pagamento'])){		
@@ -64,12 +71,14 @@ if(!empty($registrosNormal)){
 			if($intervalo->days > 20){				
 				$system->financeiro->atualizaFatura($itemPagamento['id'],array('status' => 0, 'excluido' => 1));
 			}								 
-		}elseif ($itemPagamento['status'] == 1) { // STATUS IGUAL A PAGO
-			if($intervalo->days <= 5){
+		}elseif ($itemPagamento['status'] == 1 && $itemPagamento['excluido'] == 0) { // STATUS IGUAL A PAGO
+			
+
+			//if($intervalo->days <= 5){
 				$dataProximoPagamento =  date('Y-m-d', strtotime('+30 days', strtotime($itemPagamento['data_pagamento']))); // soma 1 mês a antiga data de pagamento.			
 				$system->financeiro->cadastraNovaFatura($itemPagamento['sistema_id'],$dataProximoPagamento,2,0); // lança novo vencimento com status vencimento próximo
 				$system->financeiro->atualizaFatura($itemPagamento['id'],array('excluido' => 1));
-			}
+			//}
 			
 		}
 	}

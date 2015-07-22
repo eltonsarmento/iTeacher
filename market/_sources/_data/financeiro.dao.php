@@ -174,8 +174,15 @@ class FinanceiroDAO {
     }
     // ===============================================================
     public function getInstituicoesNormais() {
-        $query = $this->system->sql->select("*", "instituicoes_pagamentos", "excluido = '0'");
+        $query = $this->system->sql->select("*", "instituicoes_pagamentos", "excluido = '0' and status  != 5");
         $registro = $this->system->sql->fetchrowset($query);
+        return $registro;
+    }
+    public function getTotalFaturasPagas() {
+        $query = $this->system->sql->select("SUM(p.valor) AS total_planos", "instituicoes_pagamentos i 
+            INNER JOIN planos_instituicoes p_i ON (i.sistema_id =  p_i.sistema_instituicao)
+            INNER JOIN planos p ON (p.id = p_i.plano_id)", "p_i.excluido = 0 AND i.status = 1 AND i.data_pagamento BETWEEN '".date('Y-m'.'-01')."' AND '".date('Y-m-t') . "'");
+        $registro = end($this->system->sql->fetchrowset($query));
         return $registro;
     }
     // ===============================================================

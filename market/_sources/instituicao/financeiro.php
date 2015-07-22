@@ -23,6 +23,16 @@ class Financeiro  extends FinanceiroGlobal{
 	// ===============================================================
 	protected function doGerenciarFinanceiro(){
 		$faturas 	= $this->system->financeiro->getFaturasInstituicao($sistema_id);		
+		foreach ($faturas as $key => $fatura) {
+			if($fatura['status'] == 2){
+				$dataPagamento = new DateTime($fatura['data_pagamento']);
+				$dataAtual = new DateTime(date("Y-m-d"));
+				$intervalo = $dataAtual->diff($dataPagamento);				
+				if($intervalo->days > 5){
+					unset($faturas[$key]);
+				}
+			}
+		}
 		
 		$this->system->view->assign('faturas', $faturas);		
 		$this->system->admin->topo('financeiro', 'instituicao');

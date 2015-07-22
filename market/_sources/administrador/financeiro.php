@@ -124,13 +124,19 @@ class Financeiro extends FinanceiroGlobal {
 	}
 	// ===============================================================
 	protected function doTotais(){
-		$totais = $this->system->financeiro->getTotais();
-		$totalInstituicoes = $this->system->financeiro->getTotaisInstituicoes();
 		$faturasPagas 	= $this->system->financeiro->getFaturasPainel("PAGAS");
 		$faturasReceber = $this->system->financeiro->getFaturasPainel("RECEBER");
-
-		$this->system->view->assign('totais', $totais);
-		$this->system->view->assign('totalInstituicoes', $totalInstituicoes);
+		$valor_instituicoes = $this->system->financeiro->getTotalFaturasPagas();	
+		$vendasMesProfessor  = $this->system->vendas->getVendasMesCorrente();
+		if($vendasMesProfessor == ""){
+			$vendasMesProfessor = "0,00";
+			$liquidoMesProfessor = "0,00";
+		}else{
+			$liquidoMesProfessor =  ($vendasMesProfessor * '0,3');	
+		}
+		$this->system->view->assign('vendasMesProfessor', $vendasMesProfessor);
+		$this->system->view->assign('liquidoMesProfessor', $liquidoMesProfessor);
+		$this->system->view->assign('valor_instituicoes', $valor_instituicoes);
 		$this->system->view->assign('faturasPagas', $faturasPagas);
 		$this->system->view->assign('faturasReceber', $faturasReceber);
 		$this->system->admin->topo('financeiro', 'totais');

@@ -6,6 +6,7 @@ class Dashboard extends AdminModules {
 		parent::__construct();
 		$this->system->load->dao('usuarios');
 		$this->system->load->dao('vendas');
+		$this->system->load->dao('financeiro');
 		$this->system->load->dao('instituicoes');
 		$this->system->load->dao('professores');
 		$this->system->load->dao('materialmarketing');
@@ -26,6 +27,7 @@ class Dashboard extends AdminModules {
 			exit();
 		}
 		$limit = 5;
+		$valor_instituicoes = $this->system->financeiro->getTotalFaturasPagas();		
 		$instituicoes = $this->system->usuarios->countUsuariosByNivel(5);
 		$professoresAutonomos = $this->system->usuarios->countUsuariosByNivel(3);
 		$alunos = $this->system->usuarios->countUsuariosByNivel(2);
@@ -52,7 +54,8 @@ class Dashboard extends AdminModules {
 										'ranking_curso'			=> $rankingCurso,
 										'ranking_professor'		=> $rankingProfessor,
 										'ranking_aluno'			=> $rankingAlunos,
-										'ranking_instituicao'	=> $rankingInstituicoes
+										'ranking_instituicao'	=> $rankingInstituicoes,
+										'valor_instituicoes'    => $valor_instituicoes
 										);
 
 		$this->system->view->assign($dadosDashboardUsuarios);

@@ -25,8 +25,55 @@
 	<link rel="stylesheet" type="text/css" href="{$url_site}market/common/portal/assets/css/style.css">
 
 
-	<!-- ========== CSS novo ========== -->
-	
+	<!-- ========== CSS tema ========== -->
+	{if $tema_cor_primaria}
+		<style TYPE="text/css">
+			.btn-dark {
+			  color: {$tema_cor_primaria}!important ;  
+			  background-color: #222222;
+			  box-shadow: 0 2px 0 #080808;
+			}
+			.navbar-menu {
+			  background-color: {$tema_cor_primaria};
+			  border: 0;
+			  border-top-left-radius: 0;
+			  border-top-right-radius: 0;
+			  border-bottom-left-radius: 0;
+			  border-bottom-right-radius: 0;
+			  margin-bottom: 0;
+			}
+			.form-control {
+			  box-shadow: none !important;
+			  border: 2px solid #cccccc;
+			  color: {$tema_cor_primaria} !important ;  
+			}
+			/**/
+		</style>
+	{/if}
+	{if $tema_cor_secundaria}
+		<style TYPE="text/css">
+			.btn-dark {
+			  color: {$tema_cor_primaria}!important ;  
+			  background-color: #222222;
+			  box-shadow: 0 2px 0 #080808;
+			}
+			.navbar-menu {
+			  background-color: {$tema_cor_primaria};
+			  border: 0;
+			  border-top-left-radius: 0;
+			  border-top-right-radius: 0;
+			  border-bottom-left-radius: 0;
+			  border-bottom-right-radius: 0;
+			  margin-bottom: 0;
+			}			
+			.form-control {
+			  box-shadow: none !important;
+			  border: 2px solid #cccccc;
+			  color: {$tema_cor_primaria} !important ;  
+			}
+			/**/
+		</style>
+	{/if}
 
 	<!-- ========== jQuery ========== -->
 	<script src="{$url_site}market/common/portal/assets/js/jquery-1.11.1.min.js"></script>

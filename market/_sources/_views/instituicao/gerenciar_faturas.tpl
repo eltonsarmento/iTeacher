@@ -49,7 +49,9 @@
                                                 
                                                 <td><strong>{$fatura.data_pagamento|date_format:"%d/%m/%Y"}</strong></td>
                                                 <td>
-                                                    {if $fatura.status eq 2}
+                                                    {if $fatura.status eq 1}
+                                                        <span class="label label-success">Paga</span>
+                                                    {elseif $fatura.status eq 2}
                                                         <span class="label label-primary">Vencimento Próximo</span>
                                                     {elseif $fatura.status eq 3}
                                                         <span class="label label-warning">Vencida</span>
