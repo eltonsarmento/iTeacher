@@ -230,8 +230,12 @@ class ConfiguracoesgeraisDAO {
 		if (isset($input['logo'])) $fields['logo'] = $input['logo'];		
 		if (isset($input['cor_primaria'])) $fields['cor_primaria'] = $input['cor_primaria'];		
 		if (isset($input['cor_secundaria'])) $fields['cor_secundaria'] = $input['cor_secundaria'];		
-		if (isset($input['rascunho'])) $fields['rascunho'] = $input['rascunho'];		
-
+		if (isset($input['cor_btn_compra'])) $fields['cor_btn_compra'] = $input['cor_btn_compra'];	
+		if (isset($input['cor_hover_btn_compra'])) $fields['cor_hover_btn_compra'] = $input['cor_hover_btn_compra'];	
+		if (isset($input['cor_borda_btn_compra'])) $fields['cor_borda_btn_compra'] = $input['cor_borda_btn_compra'];	
+		if (isset($input['cor_hover_linkmenu'])) $fields['cor_hover_linkmenu'] = $input['cor_hover_linkmenu'];	
+		if (isset($input['rascunho'])) $fields['rascunho'] = $input['rascunho'];	
+	
 		if (isset($input['facebook'])) $fields['facebook'] = $input['facebook'];		
 		if (isset($input['twitter'])) $fields['twitter'] = $input['twitter'];		
 		if (isset($input['youtube'])) $fields['youtube'] = $input['youtube'];		

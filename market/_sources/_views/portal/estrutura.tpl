@@ -26,54 +26,68 @@
 
 
 	<!-- ========== CSS tema ========== -->
-	{if $tema_cor_primaria}
-		<style TYPE="text/css">
-			.btn-dark {
-			  color: {$tema_cor_primaria}!important ;  
-			  background-color: #222222;
-			  box-shadow: 0 2px 0 #080808;
+	{if $configuracoesTema.cor_primaria}
+		<style TYPE="text/css">			
+			.btn-dark {			  
+			  background-color: {$configuracoesTema.cor_primaria};
+			  box-shadow: 0 2px 0 {$configuracoesTema.cor_primaria};
 			}
 			.navbar-menu {
-			  background-color: {$tema_cor_primaria};
-			  border: 0;
-			  border-top-left-radius: 0;
-			  border-top-right-radius: 0;
-			  border-bottom-left-radius: 0;
-			  border-bottom-right-radius: 0;
-			  margin-bottom: 0;
+			  background-color: {$configuracoesTema.cor_primaria};
 			}
-			.form-control {
-			  box-shadow: none !important;
-			  border: 2px solid #cccccc;
-			  color: {$tema_cor_primaria} !important ;  
-			}
+			.footer-secundary{ background-color:{$configuracoesTema.cor_primaria};}
+			.form-control { border-color {$configuracoesTema.cor_primaria};}			  
 			/**/
 		</style>
 	{/if}
-	{if $tema_cor_secundaria}
+	{if $configuracoesTema.cor_secundaria}
 		<style TYPE="text/css">
-			.btn-dark {
-			  color: {$tema_cor_primaria}!important ;  
-			  background-color: #222222;
-			  box-shadow: 0 2px 0 #080808;
-			}
-			.navbar-menu {
-			  background-color: {$tema_cor_primaria};
-			  border: 0;
-			  border-top-left-radius: 0;
-			  border-top-right-radius: 0;
-			  border-bottom-left-radius: 0;
-			  border-bottom-right-radius: 0;
-			  margin-bottom: 0;
-			}			
-			.form-control {
-			  box-shadow: none !important;
-			  border: 2px solid #cccccc;
-			  color: {$tema_cor_primaria} !important ;  
-			}
+			.bar-top { background-color:{$configuracoesTema.cor_secundaria};}
+			.bar-search-cart { background-color:{$configuracoesTema.cor_secundaria};}
+			.caption { background-color:{$configuracoesTema.cor_secundaria};}
+			.footer-primary { background-color:{$configuracoesTema.cor_secundaria};}			
 			/**/
 		</style>
 	{/if}
+	<!-- CTA -->
+	{if $configuracoesTema.cor_btn_compra}
+		<style TYPE="text/css">
+			.btn-success { background-color:{$configuracoesTema.cor_btn_compra};}
+			.price { background-color:{$configuracoesTema.cor_btn_compra};}
+			/**/
+		</style>
+	{/if}
+	<!-- FIMCTA -->
+	<!-- HOVER-CTA -->
+	{if $configuracoesTema.cor_hover_btn_compra}
+		<style TYPE="text/css">
+			.btn-success:hover,
+			 .btn-success:focus,
+			 .btn-success:active,
+			 .btn-success.active,
+			 .open .dropdown-toggle.btn-success { background-color:{$configuracoesTema.cor_hover_btn_compra};}
+			/**/
+		</style>
+	{/if}
+	<!-- FIM HOVER-CTA -->
+
+	<!-- BORDA-CTA -->
+	{if $configuracoesTema.cor_borda_btn_compra}
+		<style TYPE="text/css">
+			.btn-success { box-shadow: 0 2px 0 {$configuracoesTema.cor_borda_btn_compra};}
+			/**/
+		</style>
+	{/if}
+	<!-- FIM BORDA-CTA -->
+
+	<!-- HOVER-NAVBAR-MENU (HOVER NOS LINKS) -->
+	{if $configuracoesTema.cor_hover_linkmenu}
+		<style TYPE="text/css">
+			.navbar-menu li:hover a { background-color:{$configuracoesTema.cor_hover_linkmenu};}
+			/**/
+		</style>
+	{/if}
+	<!-- FIM HOVER-NAVBAR-MENU (HOVER NOS LINKS) -->
 
 	<!-- ========== jQuery ========== -->
 	<script src="{$url_site}market/common/portal/assets/js/jquery-1.11.1.min.js"></script>
@@ -139,8 +153,8 @@
 					<section >
 
 						<a href="{$url_portal}" title="{$nomeInstituicao}">
-							{if $logo_tema}
-								<figure><img src="{$url_site}market/uploads/logos_temas/{$logo_tema}" class="img-responsive" alt="{$nomeInstituicao}" title="{$nomeInstituicao}"></figure>
+							{if $configuracoesTema.logo}
+								<figure><img src="{$url_site}market/uploads/logos_temas/{$configuracoesTema.logo}" class="img-responsive" alt="{$nomeInstituicao}" title="{$nomeInstituicao}"></figure>
 							{else}
 								<figure><img src="/market/common/market/img/logo-iteacher.png" class="img-responsive" alt="{$nomeInstituicao}" title="{$nomeInstituicao}"></figure>
 							{/if}

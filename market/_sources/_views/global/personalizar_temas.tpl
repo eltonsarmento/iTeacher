@@ -99,9 +99,9 @@
                                             
                                             <section class="col-lg-2">
                                                  
-                                                <section data-color-format="rgb" data-color="rgb(226, 81, 67)" class="input-append colorpicker-default color">
+                                                <section data-color-format="rgb" id="cor_primaria_colorpicker" data-color="{$configuracoestemas.cor_primaria}" class="input-append colorpicker-default color">
                                                    
-                                                    <input type="text" readonly="" name="cor_primaria" value="{$configuracoestemas.cor_primaria}" class="form-control">
+                                                    <input type="text" readonly="" id="cor_primaria" name="cor_primaria" value="{$configuracoestemas.cor_primaria}" class="form-control">
                                                     
                                                     <span class="input-group-btn add-on">
                                                     
@@ -123,9 +123,9 @@
                                             
                                             <section class="col-lg-2">
                                                   
-                                                <section data-color-format="rgb" data-color="rgb(0, 0, 0)" class="input-append colorpicker-default color">
+                                                <section data-color-format="rgb" data-color="{$configuracoestemas.cor_secundaria}" class="input-append colorpicker-default color">
                                                    
-                                                    <input type="text" readonly="" name="cor_secundaria" value="{$configuracoestemas.cor_secundaria}" class="form-control">
+                                                    <input type="text" readonly="" id="cor_secundaria" name="cor_secundaria" value="{$configuracoestemas.cor_secundaria}" class="form-control">
                                                     
                                                     <span class="input-group-btn add-on">
                                                     
@@ -140,6 +140,102 @@
                                             </section><!-- /col-lg-10 --> 
                                             
                                         </section><!-- /form-group -->
+
+                                        <section class="form-group">
+                                        
+                                        <label class="control-label col-lg-2">Cor do Botão de Compra</label>
+                                        
+                                        <section class="col-lg-2">
+                                              
+                                            <section data-color-format="rgb" data-color="{$configuracoestemas.cor_btn_compra}" class="input-append colorpicker-default color">
+                                               
+                                                <input type="text" readonly="" id="cor_btn_compra" value="{$configuracoestemas.cor_btn_compra}" name="cor_btn_compra" class="form-control">
+                                                
+                                                <span class="input-group-btn add-on">
+                                                
+                                                    <button class="btn btn-white" type="button" style="padding: 8px">
+                                                    <i style="background-color: #84c135;"></i>
+                                                    </button>
+                                                
+                                                </span>
+                                                
+                                            </section><!-- /input-append -->
+                                              
+                                        </section><!-- /col-lg-10 --> 
+                                        
+                                    </section><!-- /form-group -->
+                                    
+                                    <section class="form-group">
+                                        
+                                        <label class="control-label col-lg-2">Cor do hover <br>(Botão de Compra)</label>
+                                        
+                                        <section class="col-lg-2">
+                                              
+                                            <section data-color-format="rgb" data-color="{$configuracoestemas.cor_hover_btn_compra}" class="input-append colorpicker-default color">
+                                               
+                                                <input type="text" readonly="" id="cor_hover_btn_compra" value="{$configuracoestemas.cor_hover_btn_compra}" name="cor_hover_btn_compra" class="form-control">
+                                                
+                                                <span class="input-group-btn add-on">
+                                                
+                                                    <button class="btn btn-white" type="button" style="padding: 8px">
+                                                    <i style="background-color: #6ea12c"></i>
+                                                    </button>
+                                                
+                                                </span>
+                                                
+                                            </section><!-- /input-append -->
+                                              
+                                        </section><!-- /col-lg-10 --> 
+                                        
+                                    </section><!-- /form-group -->
+                                       
+                                    <section class="form-group">
+                                        
+                                        <label class="control-label col-lg-2">Cor da Borda Inferior <br>(Botão de Compra)</label>
+                                        
+                                        <section class="col-lg-2">
+                                              
+                                            <section data-color-format="rgb" data-color="{$configuracoestemas.cor_borda_btn_compra}" class="input-append colorpicker-default color">
+                                               
+                                                <input type="text" readonly="" id="cor_borda_btn_compra" value="{$configuracoestemas.cor_borda_btn_compra}" name="cor_borda_btn_compra" class="form-control">
+                                                
+                                                <span class="input-group-btn add-on">
+                                                
+                                                    <button class="btn btn-white" type="button" style="padding: 8px">
+                                                    <i style="background-color: #76ad30;"></i>
+                                                    </button>
+                                                
+                                                </span>
+                                                
+                                            </section><!-- /input-append -->
+                                              
+                                        </section><!-- /col-lg-10 --> 
+                                        
+                                    </section><!-- /form-group -->
+                                       
+                                    <section class="form-group">
+                                        
+                                        <label class="control-label col-lg-2">Cor do hover <br>(Links do Menu Principal)</label>
+                                        
+                                        <section class="col-lg-2">
+                                              
+                                            <section data-color-format="rgb" data-color="{$configuracoestemas.cor_hover_linkmenu}" class="input-append colorpicker-default color">
+                                               
+                                                <input type="text" readonly="" id="cor_hover_linkmenu" value="{$configuracoestemas.cor_hover_linkmenu}"  name="cor_hover_linkmenu"  class="form-control">
+                                                
+                                                <span class="input-group-btn add-on">
+                                                
+                                                    <button class="btn btn-white" type="button" style="padding: 8px">
+                                                    <i style="background-color: #080808"></i>
+                                                    </button>
+                                                
+                                                </span>
+                                                
+                                            </section><!-- /input-append -->
+                                              
+                                        </section><!-- /col-lg-10 --> 
+                                        
+                                    </section><!-- /form-group -->
                                         
                                     
                                     
@@ -149,6 +245,7 @@
                         
                            <button class="btn btn-success" type="submit"><i class="fa fa-check-circle"></i> Salvar </button>
                             <button class="btn btn-default" onclick="$('#rascunho').val(1)" type="submit"><i class="fa fa-plus-circle"></i> Salvar como rascunho</button>
+                            <button class="btn btn-primary" type="button" id="btnConfiguracaoPadra"><i class="fa fa-check-circle"></i> Configuração Padrão </button>
                         
                         </form>
                     </section><!-- /col-lg-9 -->
@@ -208,3 +305,23 @@
 <script type="text/javascript" src="/market/common/market/assets/bootstrap-daterangepicker/daterangepicker.js"></script>
 <script type="text/javascript" src="/market/common/market/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
 <script type="text/javascript" src="/market/common/market/assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+<script type="text/javascript">
+    $('#btnConfiguracaoPadra').click(function(e){
+        
+        $('#cor_primaria').val('');        
+        $('#cor_secundaria').val('');
+        $('#cor_btn_compra').val('');
+        $('#cor_borda_btn_compra').val('');
+        $('#cor_hover_btn_compra').val('');
+        $('#cor_hover_linkmenu').val('');
+
+        $('.color').colorpicker('destroy');
+        //window.document.getElementById("cor_primaria_colorpicker").style.data-color= '#000000';
+        
+        //$('#cor_primaria_colorpicker').attr('data-color', '');
+        
+
+        
+    });
+
+</script>
