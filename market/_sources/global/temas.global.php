@@ -52,6 +52,7 @@ class TemasGlobal extends AdminModules {
 		$editar = $this->system->input['editar'];
 		if ($editar) {
 
+			
 			if ($id) {
 				$this->system->input['cor_primaria'] = str_replace("%", "#",$this->system->input['cor_primaria']);
 				$this->system->input['cor_secundaria'] = str_replace("%", "#",$this->system->input['cor_secundaria']);

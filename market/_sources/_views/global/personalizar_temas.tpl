@@ -101,7 +101,7 @@
                                                  
                                                 <section data-color-format="rgb" id="cor_primaria_colorpicker" data-color="{$configuracoestemas.cor_primaria}" class="input-append colorpicker-default color">
                                                    
-                                                    <input type="text" readonly="" id="cor_primaria" name="cor_primaria" value="{$configuracoestemas.cor_primaria}" class="form-control">
+                                                    <input type="text" readonlys="" id="cor_primaria" name="cor_primaria" value="{$configuracoestemas.cor_primaria}" class="form-control">
                                                     
                                                     <span class="input-group-btn add-on">
                                                     
@@ -125,7 +125,7 @@
                                                   
                                                 <section data-color-format="rgb" data-color="{$configuracoestemas.cor_secundaria}" class="input-append colorpicker-default color">
                                                    
-                                                    <input type="text" readonly="" id="cor_secundaria" name="cor_secundaria" value="{$configuracoestemas.cor_secundaria}" class="form-control">
+                                                    <input type="text" readonlys="" id="cor_secundaria" name="cor_secundaria" value="{$configuracoestemas.cor_secundaria}" class="form-control">
                                                     
                                                     <span class="input-group-btn add-on">
                                                     
@@ -149,7 +149,7 @@
                                               
                                             <section data-color-format="rgb" data-color="{$configuracoestemas.cor_btn_compra}" class="input-append colorpicker-default color">
                                                
-                                                <input type="text" readonly="" id="cor_btn_compra" value="{$configuracoestemas.cor_btn_compra}" name="cor_btn_compra" class="form-control">
+                                                <input type="text" readonlys="" id="cor_btn_compra" value="{$configuracoestemas.cor_btn_compra}" name="cor_btn_compra" class="form-control">
                                                 
                                                 <span class="input-group-btn add-on">
                                                 
@@ -173,7 +173,7 @@
                                               
                                             <section data-color-format="rgb" data-color="{$configuracoestemas.cor_hover_btn_compra}" class="input-append colorpicker-default color">
                                                
-                                                <input type="text" readonly="" id="cor_hover_btn_compra" value="{$configuracoestemas.cor_hover_btn_compra}" name="cor_hover_btn_compra" class="form-control">
+                                                <input type="text" readonlys="" id="cor_hover_btn_compra" value="{$configuracoestemas.cor_hover_btn_compra}" name="cor_hover_btn_compra" class="form-control">
                                                 
                                                 <span class="input-group-btn add-on">
                                                 
@@ -197,12 +197,36 @@
                                               
                                             <section data-color-format="rgb" data-color="{$configuracoestemas.cor_borda_btn_compra}" class="input-append colorpicker-default color">
                                                
-                                                <input type="text" readonly="" id="cor_borda_btn_compra" value="{$configuracoestemas.cor_borda_btn_compra}" name="cor_borda_btn_compra" class="form-control">
+                                                <input type="text" readonlys="" id="cor_borda_btn_compra" value="{$configuracoestemas.cor_borda_btn_compra}" name="cor_borda_btn_compra" class="form-control">
                                                 
                                                 <span class="input-group-btn add-on">
                                                 
                                                     <button class="btn btn-white" type="button" style="padding: 8px">
                                                     <i style="background-color: #76ad30;"></i>
+                                                    </button>
+                                                
+                                                </span>
+                                                
+                                            </section><!-- /input-append -->
+                                              
+                                        </section><!-- /col-lg-10 --> 
+                                        
+                                    </section><!-- /form-group -->
+
+                                    <section class="form-group">
+                                        
+                                        <label class="control-label col-lg-2">Cor do hover <br>(Botões - Geral)</label>
+                                        
+                                        <section class="col-lg-2">
+                                              
+                                            <section data-color-format="rgb" data-color="{$configuracoestemas.cor_hover_btn_geral}" class="input-append colorpicker-default color">
+                                               
+                                                <input type="text" readonlys="" name="cor_hover_btn_geral" id="cor_hover_btn_geral" value="{$configuracoestemas.cor_hover_btn_geral}" class="form-control">
+                                                
+                                                <span class="input-group-btn add-on">
+                                                
+                                                    <button class="btn btn-white" type="button" style="padding: 8px">
+                                                    <i style="background-color: #6ea12c"></i>
                                                     </button>
                                                 
                                                 </span>
@@ -221,7 +245,7 @@
                                               
                                             <section data-color-format="rgb" data-color="{$configuracoestemas.cor_hover_linkmenu}" class="input-append colorpicker-default color">
                                                
-                                                <input type="text" readonly="" id="cor_hover_linkmenu" value="{$configuracoestemas.cor_hover_linkmenu}"  name="cor_hover_linkmenu"  class="form-control">
+                                                <input type="text" readonlys="" id="cor_hover_linkmenu" value="{$configuracoestemas.cor_hover_linkmenu}"  name="cor_hover_linkmenu"  class="form-control">
                                                 
                                                 <span class="input-group-btn add-on">
                                                 
@@ -236,8 +260,102 @@
                                         </section><!-- /col-lg-10 --> 
                                         
                                     </section><!-- /form-group -->
+
+                                    <section class="form-group">
                                         
+                                        <label class="control-label col-lg-2">Cor da fonte <br> (Primária)</label>
+                                        
+                                        <section class="col-lg-2">
+                                              
+                                            <section data-color-format="rgb" data-color="{$configuracoestemas.cor_fonte_primaria}" class="input-append colorpicker-default color">
+                                               
+                                                <input type="text" readonlys="" id="cor_fonte_primaria" name="cor_fonte_primaria" value="{$configuracoestemas.cor_fonte_primaria}" class="form-control">
+                                                
+                                                <span class="input-group-btn add-on">
+                                                
+                                                    <button class="btn btn-white" type="button" style="padding: 8px">
+                                                    <i style="background-color: #f0f0f0"></i>
+                                                    </button>
+                                                
+                                                </span>
+                                                
+                                            </section><!-- /input-append -->
+                                              
+                                        </section><!-- /col-lg-10 --> 
+                                        
+                                    </section><!-- /form-group -->
                                     
+                                    <section class="form-group">
+                                        
+                                        <label class="control-label col-lg-2">Cor da fonte <br>(Secundária)</label>
+                                        
+                                        <section class="col-lg-2">
+                                              
+                                            <section data-color-format="rgb" data-color="{$configuracoestemas.cor_fonte_secundaria}" class="input-append colorpicker-default color">
+                                               
+                                                <input type="text" readonlys="" id="cor_fonte_secundaria" name="cor_fonte_secundaria" value="{$configuracoestemas.cor_fonte_secundaria}" class="form-control">
+                                                
+                                                <span class="input-group-btn add-on">
+                                                
+                                                    <button class="btn btn-white" type="button" style="padding: 8px">
+                                                    <i style="background-color: #f0f0f0"></i>
+                                                    </button>
+                                                
+                                                </span>
+                                                
+                                            </section><!-- /input-append -->
+                                              
+                                        </section><!-- /col-lg-10 --> 
+                                        
+                                    </section><!-- /form-group -->
+                                    
+                                    <section class="form-group">
+                                        
+                                        <label class="control-label col-lg-2">Cor da fonte <br>(Botão de compra)</label>
+                                        
+                                        <section class="col-lg-2">
+                                              
+                                            <section data-color-format="rgb" data-color="{$configuracoestemas.cor_fonte_botao}" class="input-append colorpicker-default color">
+                                               
+                                                <input type="text" readonlys="" id="cor_fonte_botao" name="cor_fonte_botao" value="{$configuracoestemas.cor_fonte_botao}" class="form-control">
+                                                
+                                                <span class="input-group-btn add-on">
+                                                
+                                                    <button class="btn btn-white" type="button" style="padding: 8px">
+                                                    <i style="background-color: #f0f0f0"></i>
+                                                    </button>
+                                                
+                                                </span>
+                                                
+                                            </section><!-- /input-append -->
+                                              
+                                        </section><!-- /col-lg-10 --> 
+                                        
+                                    </section><!-- /form-group -->
+
+                                    <section class="form-group">
+                                        
+                                        <label class="control-label col-lg-2">Fonte</label>
+                                        
+                                        <section class="col-lg-2">
+                                              
+                                            <select class="form-control" name="fonte" id="fonte">
+
+                                              <option label="Arial" value="Arial" style="font-family:Arial;"></option>
+                                              <option label="Helvetica" value="Helvetica" style="font-family:Helvetica;"></option>
+                                              <option label="Verdana" value="Verdana" style="font-family:Verdana;"></option>
+                                              <option label="Hind" value="Hind" style="font-family: 'Hind', sans-serif;"></option>
+                                              <option label="Roboto" value="Roboto" style="font-family: 'Roboto', sans-serif;"></option>
+                                              <option label="Roboto Slab" value="Roboto+Slab" style="font-family: 'Roboto Slab', serif;"></option>
+                                              <option label="Source Sans Pro" value="Source+Sans+Pro" style="font-family: 'Source Sans Pro', sans-serif;"></option>        
+                                              <option label="Ubuntu" value="Ubuntu" style="font-family: 'Ubuntu', sans-serif;"></option>
+                                              <option label="Rajdhani" value="Rajdhani" style="font-family: 'Rajdhani', sans-serif;"></option>
+                                              <option label="Quicksand" value="Quicksand" style="font-family: 'Quicksand', sans-serif;"></option>
+
+                                            </select>
+                                              
+                                        </section><!-- /col-lg-2 -->
+                                    </section><!-- /col-lg-2 -->
                                     
                                 </section><!-- /panel-body -->
                                 
@@ -299,29 +417,39 @@
 
         
 
-
+<link rel="stylesheet" type="text/css" href="/market/common/portal/assets/css/import-fonts.css" />
 <link rel="stylesheet" type="text/css" href="/market/common/market/assets/bootstrap-colorpicker/css/colorpicker.css" />
 <script src="/market/common/market/js/advanced-form-components.js"></script>
 <script type="text/javascript" src="/market/common/market/assets/bootstrap-daterangepicker/daterangepicker.js"></script>
 <script type="text/javascript" src="/market/common/market/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
 <script type="text/javascript" src="/market/common/market/assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+
 <script type="text/javascript">
-    $('#btnConfiguracaoPadra').click(function(e){
-        
-        $('#cor_primaria').val('');        
-        $('#cor_secundaria').val('');
-        $('#cor_btn_compra').val('');
-        $('#cor_borda_btn_compra').val('');
-        $('#cor_hover_btn_compra').val('');
-        $('#cor_hover_linkmenu').val('');
+    {literal}
+        $('#btnConfiguracaoPadra').click(function(e){
+            
+            $('#cor_primaria').val('');        
+            $('#cor_secundaria').val('');
+            $('#cor_btn_compra').val('');
+            $('#cor_borda_btn_compra').val('');
+            $('#cor_hover_btn_compra').val('');
+            $('#cor_hover_btn_geral').val('');
+            $('#cor_hover_linkmenu').val('');
+            $('#cor_fonte_primaria').val(''); 
+            $('#cor_fonte_secundaria').val(''); 
+            $('#cor_fonte_botao').val(''); 
+            $('#fonte').val('Arial');                       
 
-        $('.color').colorpicker('destroy');
-        //window.document.getElementById("cor_primaria_colorpicker").style.data-color= '#000000';
-        
-        //$('#cor_primaria_colorpicker').attr('data-color', '');
-        
+            $('.color').colorpicker('destroy');
+            //window.document.getElementById("cor_primaria_colorpicker").style.data-color= '#000000';
+            
+            //$('#cor_primaria_colorpicker').attr('data-color', '');
+            
 
-        
-    });
+            
+        });
+    {/literal}
+
+    $('#fonte').val('{$configuracoestemas.fonte}');
 
 </script>

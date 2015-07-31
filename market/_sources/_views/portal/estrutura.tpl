@@ -36,16 +36,17 @@
 			  background-color: {$configuracoesTema.cor_primaria};
 			}
 			.footer-secundary{ background-color:{$configuracoesTema.cor_primaria};}
-			.form-control { border-color {$configuracoesTema.cor_primaria};}			  
+			.form-control:focus{ border-color:{$configuracoesTema.cor_primaria};}			
+			.panel-default>.panel-heading, .page .panel-heading, .panel-dark > .panel-heading { background-color:{$configuracoesTema.cor_primaria};}
+
 			/**/
 		</style>
 	{/if}
 	{if $configuracoesTema.cor_secundaria}
 		<style TYPE="text/css">
 			.bar-top { background-color:{$configuracoesTema.cor_secundaria};}
-			.bar-search-cart { background-color:{$configuracoesTema.cor_secundaria};}
-			.caption { background-color:{$configuracoesTema.cor_secundaria};}
-			.footer-primary { background-color:{$configuracoesTema.cor_secundaria};}			
+			.bar-search-cart { background-color:{$configuracoesTema.cor_secundaria};}			
+			.footer-primary { background-color:{$configuracoesTema.cor_secundaria};}
 			/**/
 		</style>
 	{/if}
@@ -57,6 +58,7 @@
 			/**/
 		</style>
 	{/if}
+
 	<!-- FIMCTA -->
 	<!-- HOVER-CTA -->
 	{if $configuracoesTema.cor_hover_btn_compra}
@@ -66,6 +68,7 @@
 			 .btn-success:active,
 			 .btn-success.active,
 			 .open .dropdown-toggle.btn-success { background-color:{$configuracoesTema.cor_hover_btn_compra};}
+
 			/**/
 		</style>
 	{/if}
@@ -80,6 +83,19 @@
 	{/if}
 	<!-- FIM BORDA-CTA -->
 
+	<!-- BORDA-CTA -->
+	{if $configuracoesTema.cor_hover_btn_geral}
+		<style TYPE="text/css">
+			.btn-dark:hover,
+			.btn-dark:focus,
+			.btn-dark:active,
+			.btn-dark.active,
+			.open .dropdown-toggle.btn-dark { background-color:{$configuracoesTema.cor_hover_btn_geral};}
+			/**/
+		</style>
+	{/if}
+	<!-- FIM BORDA-CTA -->
+
 	<!-- HOVER-NAVBAR-MENU (HOVER NOS LINKS) -->
 	{if $configuracoesTema.cor_hover_linkmenu}
 		<style TYPE="text/css">
@@ -88,6 +104,48 @@
 		</style>
 	{/if}
 	<!-- FIM HOVER-NAVBAR-MENU (HOVER NOS LINKS) -->
+
+
+	<!-- FONTES -->
+	{if $configuracoesTema.cor_fonte_primaria}
+		<style TYPE="text/css">
+			.btn-dark { color:{$configuracoesTema.cor_fonte_primaria};}
+			.navbar-menu li a { color:{$configuracoesTema.cor_fonte_primaria};}
+			.footer-secundary { color:{$configuracoesTema.cor_fonte_primaria};}
+			.panel-default>.panel-heading, .page .panel-heading, .panel-dark > .panel-heading { color:{$configuracoesTema.cor_fonte_primaria};}
+			/**/
+		</style>
+	{/if}
+
+	{if $configuracoesTema.cor_fonte_secundaria}
+		<style TYPE="text/css">
+			.bar-top .registre { color:{$configuracoesTema.cor_fonte_secundaria};}
+			.bar-search-cart .pull-right { color:{$configuracoesTema.cor_fonte_secundaria};}
+			.footer-primary { color:{$configuracoesTema.cor_fonte_secundaria};}
+			.bar-top { color:{$configuracoesTema.cor_fonte_secundaria};}
+			.bar-top .user { color:{$configuracoesTema.cor_fonte_secundaria};}
+
+			/**/
+		</style>
+	{/if}
+
+	{if $configuracoesTema.cor_fonte_botao}
+		<style TYPE="text/css">
+			.btn-success{ color:{$configuracoesTema.cor_fonte_botao};}
+			.price{ color:{$configuracoesTema.cor_fonte_botao};}
+			/**/
+		</style>
+	{/if}
+
+	{if $configuracoesTema.fonte}
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family={$configuracoesTema.fonte}">
+		<style TYPE="text/css">
+			body { font-family: {$configuracoesTema.fonte};}
+			/**/
+		</style>
+	{/if}
+
+	<!--  -->
 
 	<!-- ========== jQuery ========== -->
 	<script src="{$url_site}market/common/portal/assets/js/jquery-1.11.1.min.js"></script>

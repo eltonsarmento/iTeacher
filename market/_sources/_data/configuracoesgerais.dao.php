@@ -233,8 +233,13 @@ class ConfiguracoesgeraisDAO {
 		if (isset($input['cor_btn_compra'])) $fields['cor_btn_compra'] = $input['cor_btn_compra'];	
 		if (isset($input['cor_hover_btn_compra'])) $fields['cor_hover_btn_compra'] = $input['cor_hover_btn_compra'];	
 		if (isset($input['cor_borda_btn_compra'])) $fields['cor_borda_btn_compra'] = $input['cor_borda_btn_compra'];	
+		if (isset($input['cor_hover_btn_geral'])) $fields['cor_hover_btn_geral'] = $input['cor_hover_btn_geral'];	
 		if (isset($input['cor_hover_linkmenu'])) $fields['cor_hover_linkmenu'] = $input['cor_hover_linkmenu'];	
-		if (isset($input['rascunho'])) $fields['rascunho'] = $input['rascunho'];	
+		if (isset($input['cor_fonte_primaria'])) $fields['cor_fonte_primaria'] = $input['cor_fonte_primaria'];	
+		if (isset($input['cor_fonte_secundaria'])) $fields['cor_fonte_secundaria'] = $input['cor_fonte_secundaria'];	
+		if (isset($input['cor_fonte_botao'])) $fields['cor_fonte_botao'] = $input['cor_fonte_botao'];	
+		if (isset($input['fonte'])) $fields['fonte'] = $input['fonte'];	
+		if (isset($input['rascunho'])) $fields['rascunho'] = $input['rascunho'];			
 	
 		if (isset($input['facebook'])) $fields['facebook'] = $input['facebook'];		
 		if (isset($input['twitter'])) $fields['twitter'] = $input['twitter'];		
